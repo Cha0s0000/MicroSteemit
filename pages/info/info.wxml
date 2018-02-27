@@ -1,0 +1,120 @@
+<!--pages/info/info.wxml-->
+<view class="info">
+  <view class="info-header">
+    <image class="info-header-bg" src="../../static/images/info_head.png" />
+    <view class="none-work">
+      <view class="info-avatar-bg"></view>
+      <image class="info-avatar" src="{{avatar}}" />
+    </view>
+  </view>
+  <view class="info-content">
+    <view class="person">
+      <text class="name">{{steemitname}}</text>
+    </view>
+    <view class="info-text">
+      <text>{{location}}</text>
+    </view>
+    <!-- basic-start -->
+    <view class="info-section">
+      <view class="section-title">
+        <view class="left-border"></view>
+        <text>Basic infomation</text>
+      </view>
+      <view class="info-detail">
+        <view>
+          <text class="detail-key c8">Reputation：</text>
+          <text class="detail-value">{{reputation}}</text>
+        </view>
+        <view>
+          <text class="detail-key c8">balance：</text>
+          <text class="detail-value">{{balance}}</text>
+        </view>
+        <view>
+          <text class="detail-key c8">sbd_balance：</text>
+          <text class="detail-value">{{sbd_balance}}</text>
+        </view>
+        <view>
+          <text class="detail-key c8">vesting_shares：</text>
+          <text class="detail-value">{{vesting_shares}} VESTS</text>
+        </view>
+        <view>
+          <text class="detail-key c8">voting_power：</text>
+          <text class="detail-value">{{voting_power}}</text>
+        </view>
+        <view>
+          <text class="detail-key c8">created：</text>
+          <text class="detail-value">{{created}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- basic-end -->
+    <!-- keys-start -->
+    <view class="info-section">
+      <view class="section-title">
+        <view class="left-border"></view>
+        <text>Keys</text>
+      </view>
+      <view class="info-list">
+        <view class="info-item info-item-last">
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Post key</text>
+          </view>
+          <view class="status-text">
+            <view class="c8">{{postkey}}</view>
+          </view>
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Active key</text>
+          </view>
+          <view class="status-text">
+            <view class="c8">{{activekey}}</view>
+          </view>
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Owner key</text>
+          </view>
+          <view class="status-text">
+            <view class="c8">{{ownerkey}}</view>
+          </view>
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Memo key</text>
+          </view>
+          <view class="status-text">
+            <view class="c8">{{memokey}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- keys-end -->
+    <!-- auth-start -->
+    <view class="info-section">
+      <view class="section-title">
+        <view class="left-border"></view>
+        <text>Posting auth</text>
+      </view>
+      <view class="info-list">
+        <view class="info-item">
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">{{postauth0}}</text>
+          </view>  
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">{{postauth1}}</text>
+          </view>    
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">{{postauth2}}</text>
+          </view> 
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">{{postauth3}}</text>
+          </view>     
+        </view>
+      </view>
+    </view>
+    <!-- auth-end -->
+  </view>
+</view>
