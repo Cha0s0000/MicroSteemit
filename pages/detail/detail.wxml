@@ -1,0 +1,24 @@
+<!--detail.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
+<view class="detail-main" hidden ="{{!hidden}}">
+  <view class="detail-post">
+    <view class="detail-post-header">
+      <view class="detail-post-title">{{ detail.title }}</view>
+    </view>
+    <view class="detail-post-meta">
+      <view class="detail-post-avatar">
+        <image class="detail-post-avatar-img" mode="scaleToFill" src="{{ detail.avatar }}"></image>
+      </view>
+      <view class="detail-post-info">
+        <view class="detail-post-author-name">{{ detail.author }}</view>
+        <view class="detail-post-time">在 {{detail.category}} •{{ detail.time }}</view>
+      </view>
+    </view>
+    <view class="detail-post-content">
+      <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+    </view>
+  </view>
+</view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
