@@ -21,7 +21,8 @@ Page({
     postauth0:"",
     postauth1:"",
     postauth2:"",
-    postauth3:""
+    postauth3:"",
+    hidden:false
 
 
   },
@@ -46,7 +47,7 @@ Page({
             sbd_balance: res.data.user.sbd_balance,
             vesting_shares: parseInt(res.data.user.vesting_shares),
             voting_power: String(res.data.user.voting_power).substr(0,2),
-            reputation: res.data.user.reputation.substr(0,2),
+            reputation: that.getReputation(res.data.user.reputation),
             steemitname:res.data.user.name,
             location: res.data.user.json_metadata.profile.location,
             postkey: res.data.user.posting.key_auths[0][0],
@@ -56,7 +57,8 @@ Page({
             postauth0: res.data.user.posting.account_auths[0][0],
             postauth1: res.data.user.posting.account_auths[1][0],
             postauth2: res.data.user.posting.account_auths[2][0],
-            postauth3: res.data.user.posting.account_auths[3][0]
+            postauth3: res.data.user.posting.account_auths[3][0],
+            hidden:true
 
 
 
@@ -114,5 +116,15 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+  getReputation(rep) {
+    if (rep == 0) {
+      return 25
+    }
+    var score = (Math.log10(Math.abs(rep)) - 9) * 9 + 25;
+    if (rep < 0) {
+      score = 50 - score;
+    }
+    return Math.round(score);
+  },
 })

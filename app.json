@@ -1,13 +1,33 @@
 {
   "pages":[
+    "pages/post/post",
+    "pages/info/info",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/info/info"
+    "pages/detail/detail"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Micro Steemit",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color":"#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "white",
+    "list": [{
+        "selectedIconPath": "images/icon/postsSelect.png",
+        "iconPath": "images/icon/posts.png",
+        "pagePath": "pages/post/post",
+        "text": "Posts"
+      },
+      {
+        "selectedIconPath": "images/icon/userSelect.png",
+        "iconPath": "images/icon/user.png",
+        "pagePath": "pages/info/info",
+        "text": "User"
+      }]
   }
+ 
 }

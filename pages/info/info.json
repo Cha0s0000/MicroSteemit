@@ -1,1 +1,5 @@
-{}
+{
+  "navigationBarTitleText": "User",
+  "navigationBarBackgroundColor": "#405f80",
+  "navigationBarTextStyle": "dark"
+}

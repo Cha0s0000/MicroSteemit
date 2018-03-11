@@ -1,5 +1,5 @@
 <!--pages/info/info.wxml-->
-<view class="info">
+<view class="info" hidden ="{{!hidden}}">
   <view class="info-header">
     <image class="info-header-bg" src="../../static/images/info_head.png" />
     <view class="none-work">
@@ -118,3 +118,6 @@
     <!-- auth-end -->
   </view>
 </view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
