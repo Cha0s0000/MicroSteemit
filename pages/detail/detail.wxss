@@ -85,3 +85,52 @@
   margin: 10px 0;
   font-size: 15px;
 }
+.foot-data{
+  display:flex;
+  margin-top: 50rpx;
+  margin-left: 0rpx;
+}
+.post-like{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+.post-like-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+.like-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.comment-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.like-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+
+.comment-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
