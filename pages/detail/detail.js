@@ -4,38 +4,17 @@ Page({
   data: {
     detail: {},
     hidden: false,
+    tags:{},
+    comments:{},
+    replyTemArray:{},
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var author = options.author;
     var permlink = options.permlink;
     console.log(permlink);
-    // this.setData({ id: options.id });
-    // this.getContent(author,permlink);
-    var that = this;
-    var obj = new Object();
-    wx.request({
-      url: 'https://api.steemjs.com/get_content?author='+ author+'&permlink='+permlink,
-      method:'GET',
-      success:function(res){
-        var data =res.data;
-        console.log(data)
-        obj.author = data.author;
-        obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
-        obj.category = data.category;
-        obj.title = data.title;
-        obj.body = data.body;
-        obj.time = that.getTime(data.created);
-        obj.like_num = data.net_votes;
-        obj.comment_num = data.children;
-        obj.pending_payout_value = "$" + data.pending_payout_value.replace("SBD", "");
-        obj.reputation = that.getReputation(data.author_reputation);
-        WxParse.wxParse('content', 'md', obj.body, that, 5);
-        that.setData({ detail: obj, hidden:true})
-        console.log("ok");
-      }
-    })
-    
+    this.getPostdDtail(author,permlink);
+    this.getPostComment(author,permlink);
     
   },
   onReady: function () { 
@@ -146,5 +125,73 @@ Page({
       var getTimeData = "1秒前";
       return getTimeData;
     }
+  },
+
+  getPostdDtail(author,permlink){
+    var that = this;
+    var obj = new Object();
+    wx.request({
+      url: 'https://api.steemjs.com/get_content?author=' + author + '&permlink=' + permlink,
+      method: 'GET',
+      success: function (res) {
+        var data = res.data;
+        // console.log(data)
+        obj.author = data.author;
+        obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+        obj.category = data.category;
+        obj.title = data.title;
+        obj.body = data.body;
+        obj.time = that.getTime(data.created);
+        obj.like_num = data.net_votes;
+        obj.comment_num = data.children;
+        obj.pending_payout_value = "$" + data.pending_payout_value.replace("SBD", "");
+        obj.reputation = that.getReputation(data.author_reputation);
+        obj.tags = JSON.parse(data.json_metadata).tags;
+        WxParse.wxParse('content', 'md', obj.body, that, 5);
+        that.setData({ detail: obj, hidden: true, tags: obj.tags })
+        // console.log(obj.tags);
+      }
+    })
+  },
+  getPostComment(author,permlink){
+    var that = this;
+    var commentData= [];
+    wx.request({
+      url: 'https://api.steemjs.com/get_content_replies?author=' + author + '&permlink=' + permlink,
+      method: 'GET',
+      success: function (res) {
+        var data = res.data;
+        // console.log(data);
+        for(var d in data){
+          var obj = new Object();
+          obj.author = data[d].author;
+          obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+          obj.body = data[d].body;
+          obj.time = that.getTime(data[d].created);
+          obj.like_num = data[d].net_votes;
+          obj.depth = data[d].depth;
+          obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
+          obj.reputation = that.getReputation(data[d].author_reputation);
+          commentData.push(obj);
+        }
+        console.log(commentData);       
+        // that.setData({ comments: commentData }); 
+      },
+      complete: function () {
+        
+        var replyTemArray = commentData;
+        console.log("Get comment body");
+        if (commentData.length > 0) {
+          for (let i = 0; i < commentData.length; i++) {
+            WxParse.wxParse('reply' + i, 'md', commentData[i].body, that, 5);
+            if (i === commentData.length - 1) {
+              WxParse.wxParseTemArray("replyTemArray", 'reply', commentData.length, that, 5)
+            }
+          }
+        }
+        that.setData({ comments: commentData }); 
+      }
+    })
+      
   }
 })
