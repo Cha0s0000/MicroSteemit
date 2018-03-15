@@ -16,6 +16,13 @@
     </view>
     <view class="detail-post-content">
       <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+      <view class="tags">
+        <view  wx:for="{{tags}}" wx:for-item="tag" wx:key="tag">
+          <view class="tag">
+            {{tag}}
+          </view>
+        </view>
+      </view>
       <view class= "foot-data">
         <view class="post-like">
           <!-- <icon type="success_circle" size="18"/> -->
