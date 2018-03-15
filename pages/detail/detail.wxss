@@ -134,3 +134,20 @@
   margin-right: 20px;
   margin-left:5px;
 }
+
+.tags{
+  display: flex;
+  flex-direction: row;
+}
+
+.tag{
+  margin-top: 10px;
+  margin-left: 5px;
+  border-width: medium;
+  border-style: solid;
+  border-color: gray;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+}
