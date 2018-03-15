@@ -42,14 +42,14 @@
     </view>
     <view class="detail-post-comment">
       <view class="detail-post-comment-title">评论</view>
-      <view class="detail-post-comment-list" wx:for="{{ detail.replies }}" wx:for-index="idx" wx:for-item="i">
+      <view class="detail-post-comment-list" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment">
         <view class="detail-post-comment-avatar">
-          <image class="detail-post-comment-avatar-img" mode="scaleToFill" src="{{ i.author.avatar_url }}"></image>
+          <image class="detail-post-comment-avatar-img" mode="scaleToFill" src="{{ comment.avatar }}"></image>
         </view>
         <view class="detail-post-comment-info">
-          <view class="detail-post-comment-author-name">{{ i.author.loginname }}</view>
+          <view class="detail-post-comment-author-name">{{ comment.author }}</view>
         </view>
-        <view class="detail-post-comment-time">{{idx + 1}}楼 发表于{{ i.create_at }}</view>
+        <view class="detail-post-comment-time">{{idx + 1}}楼 发表于{{comment.time }}</view>
         <block wx:for="{{ replyTemArray }}" wx:for-index="jdx" wx:for-item="j">
           <block wx:if="{{j.length>0}}">          
             <block wx:if="{{idx == jdx}}" class="detail-comment-content">
