@@ -16,6 +16,43 @@
     </view>
     <view class="detail-post-content">
       <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+      <view class= "foot-data">
+        <view class="post-like">
+          <!-- <icon type="success_circle" size="18"/> -->
+          <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+          <!-- <icon type="success" size="18"/> -->
+          <text class="post-like-font"> {{detail.pending_payout_value}}</text>
+        </view>
+        <view class="like-num">
+          <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
+          <text class="like-num-font">{{detail.like_num}}</text>
+        </view>
+        <view class="comment-num">
+            <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
+            <text class="comment-num-font">{{detail.comment_num}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="detail-post-comment">
+      <view class="detail-post-comment-title">评论</view>
+      <view class="detail-post-comment-list" wx:for="{{ detail.replies }}" wx:for-index="idx" wx:for-item="i">
+        <view class="detail-post-comment-avatar">
+          <image class="detail-post-comment-avatar-img" mode="scaleToFill" src="{{ i.author.avatar_url }}"></image>
+        </view>
+        <view class="detail-post-comment-info">
+          <view class="detail-post-comment-author-name">{{ i.author.loginname }}</view>
+        </view>
+        <view class="detail-post-comment-time">{{idx + 1}}楼 发表于{{ i.create_at }}</view>
+        <block wx:for="{{ replyTemArray }}" wx:for-index="jdx" wx:for-item="j">
+          <block wx:if="{{j.length>0}}">          
+            <block wx:if="{{idx == jdx}}" class="detail-comment-content">
+              <view class="detail-post-comment-item">
+                <template is="wxParse" data="{{wxParseData:j}}"/>
+              </view>  
+            </block>
+          </block>
+        </block>        
+      </view>
     </view>
   </view>
 </view>
