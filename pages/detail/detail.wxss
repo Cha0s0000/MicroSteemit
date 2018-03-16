@@ -134,7 +134,33 @@
   margin-right: 20px;
   margin-left:5px;
 }
-
+.share{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+.share-button{
+  font-size: 24rpx;
+   color: #EB602E; 
+   border: 2rpx solid #EB602E; 
+   background-color: #fff; 
+   border-radius: 20rpx; 
+  padding: 0px;
+  height:50rpx;
+  width: 50rpx;
+  line-height: 30rpx;
+  display: table;
+}
+.share-button text {
+  vertical-align:middle;
+  display: table-cell;
+}
+.share-icon{
+  height:50rpx;
+  width: 50rpx;
+}
 .tags{
   display: flex;
   flex-direction: row;
