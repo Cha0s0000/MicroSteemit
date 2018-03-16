@@ -38,6 +38,11 @@
             <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
             <text class="comment-num-font">{{detail.comment_num}}</text>
         </view>
+        <view class="share">
+          <button class="share-button" open-type='share'> 
+            <image  mode="aspectFill" class="share-icon" src="../../images/icon/share.png"></image>
+          </button>  
+        </view>
       </view>
     </view>
     <view class="detail-post-comment">
