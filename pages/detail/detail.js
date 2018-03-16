@@ -7,6 +7,9 @@ Page({
     tags:{},
     comments:{},
     replyTemArray:{},
+    tittle:"",
+    author:"",
+    permlink:""
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -16,6 +19,13 @@ Page({
     this.getPostdDtail(author,permlink);
     this.getPostComment(author,permlink);
     
+  },
+  onShareAppMessage: function () {
+    return {
+      title: this.data.title,
+      desc: "Steemit",
+      path: '/detail/detail?author=' + this.data.author + '&permlink=' + this.data.permlink
+    }
   },
   onReady: function () { 
     // 页面渲染完成
@@ -148,7 +158,7 @@ Page({
         obj.reputation = that.getReputation(data.author_reputation);
         obj.tags = JSON.parse(data.json_metadata).tags;
         WxParse.wxParse('content', 'md', obj.body, that, 5);
-        that.setData({ detail: obj, hidden: true, tags: obj.tags })
+        that.setData({ detail: obj, hidden: true, tags: obj.tags ,title:obj.title,author:author,permlink:permlink})
         // console.log(obj.tags);
       }
     })
