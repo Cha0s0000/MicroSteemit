@@ -95,7 +95,7 @@
   font-size: 13px;
   flex-direction: row;
   line-height: 16px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .icon{
@@ -104,7 +104,7 @@
 }
 .post-like-font{
   vertical-align: middle;
-  margin-right: 20px;
+  margin-right: 10px;
   margin-left:5px;
 }
 .like-num{
@@ -143,8 +143,8 @@
 }
 .share-button{
   font-size: 24rpx;
-   color: #EB602E; 
-   border: 2rpx solid #EB602E; 
+   color: #fff; 
+   /* border: 2rpx solid #EB602E;  */
    background-color: #fff; 
    border-radius: 20rpx; 
   padding: 0px;
@@ -176,4 +176,52 @@
   border-top-right-radius: 30rpx;
   border-bottom-left-radius: 30rpx;
   border-bottom-right-radius: 30rpx;
+}
+.comment-foot-data{
+  display:flex;
+  margin-top: 50rpx;
+  margin-left: 0rpx;
+}
+.comment-post-like{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 5px;
+}
+
+.icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+.comment-post-like-font{
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-left:5px;
+}
+.comment-like-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.comment-comment-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+.comment-like-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+
+.comment-comment-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
 }
