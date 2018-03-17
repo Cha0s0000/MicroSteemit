@@ -60,6 +60,22 @@
             <block wx:if="{{idx == jdx}}" class="detail-comment-content">
               <view class="detail-post-comment-item">
                 <template is="wxParse" data="{{wxParseData:j}}"/>
+                 <view class= "comment-foot-data">
+                  <view class="comment-post-like">
+                    <!-- <icon type="success_circle" size="18"/> -->
+                    <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+                    <!-- <icon type="success" size="18"/> -->
+                    <text class="comment-post-like-font"> {{detail.pending_payout_value}}</text>
+                  </view>
+                  <view class="comment-like-num">
+                    <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
+                    <text class="comment-like-num-font">{{detail.like_num}}</text>
+                  </view>
+                  <view class="comment-comment-num">
+                      <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
+                      <text class="comment-comment-num-font">{{detail.comment_num}}</text>
+                  </view>
+                </view>
               </view>  
             </block>
           </block>
