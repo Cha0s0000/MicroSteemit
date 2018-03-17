@@ -177,6 +177,7 @@ Page({
           obj.author = data[d].author;
           obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
           obj.body = data[d].body;
+          obj.comment_num = data[d].children;
           obj.time = that.getTime(data[d].created);
           obj.like_num = data[d].net_votes;
           obj.depth = data[d].depth;
