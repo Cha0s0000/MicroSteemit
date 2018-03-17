@@ -163,10 +163,13 @@
 }
 .tags{
   display: flex;
+  flex-wrap:wrap; 
   flex-direction: row;
+  word-break: break-all
 }
 
 .tag{
+  word-break: break-all;
   margin-top: 10px;
   margin-left: 5px;
   border-width: medium;
@@ -176,6 +179,10 @@
   border-top-right-radius: 30rpx;
   border-bottom-left-radius: 30rpx;
   border-bottom-right-radius: 30rpx;
+}
+.tag-text{
+  space:nbsp;
+
 }
 .comment-foot-data{
   display:flex;

@@ -18,8 +18,8 @@
       <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
       <view class="tags">
         <view  wx:for="{{tags}}" wx:for-item="tag" wx:key="tag">
-          <view class="tag">
-            {{tag}}
+          <view class="tag"> 
+            <text decode="true" class="tag-text">&nbsp;{{tag}}&nbsp;</text>
           </view>
         </view>
       </view>
