@@ -10,7 +10,9 @@
         <image class="detail-post-avatar-img" mode="scaleToFill" src="{{ detail.avatar }}"></image>
       </view>
       <view class="detail-post-info">
-        <view class="detail-post-author-name">{{ detail.author }}</view>
+        <view class="detail-post-author-name">
+          {{ detail.author }}<text class="detail-post-reputation">({{ detail.reputation }})</text>
+        </view>
         <view class="detail-post-time">在 {{detail.category}} •{{ detail.time }}</view>
       </view>
     </view>
@@ -52,9 +54,11 @@
           <image class="detail-post-comment-avatar-img" mode="scaleToFill" src="{{ comment.avatar }}"></image>
         </view>
         <view class="detail-post-comment-info">
-          <view class="detail-post-comment-author-name">{{ comment.author }}</view>
+          <view class="detail-post-comment-author-name">{{ comment.author }}<text class="detail-post-comment-reputation">({{ comment.reputation }})</text>
+          </view>
+          
         </view>
-        <view class="detail-post-comment-time">{{idx + 1}}楼 发表于{{comment.time }}</view>
+        <view class="detail-post-comment-time"> 发表于{{comment.time }}</view>
         <block wx:for="{{ replyTemArray }}" wx:for-index="jdx" wx:for-item="j">
           <block wx:if="{{j.length>0}}">          
             <block wx:if="{{idx == jdx}}" class="detail-comment-content">

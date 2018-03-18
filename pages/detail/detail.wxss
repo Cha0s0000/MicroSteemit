@@ -8,6 +8,7 @@
   padding: 15px 17px;
   position: relative;
   overflow: hidden;
+  text-overflow:clip;
   border-bottom: 1px #ccc solid;
 }
 .detail-post-title {
@@ -40,6 +41,10 @@
   position: relative;
   line-height: 20px;
   overflow: hidden;
+}
+.detail-post-info, .detail-post-comment-info,{
+  display: flex;
+  flex-direction: row;
 }
 .detail-post-author-name, .detail-post-comment-author-name {
   color: #6c6c6c;
@@ -85,6 +90,14 @@
   margin: 10px 0;
   font-size: 15px;
 }
+
+.detail-post-reputation {
+  color: #6c6c6c;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 3px;
+}
+
 .foot-data{
   display:flex;
   margin-top: 50rpx;
@@ -231,4 +244,11 @@
   vertical-align: middle;
   margin-right: 20px;
   margin-left:5px;
+}
+
+.detail-post-comment-reputation {
+  color: #6c6c6c;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 3px;
 }
