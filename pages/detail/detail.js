@@ -9,7 +9,8 @@ Page({
     replyTemArray:{},
     tittle:"",
     author:"",
-    permlink:""
+    permlink:"",
+    childComments:[]
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -175,12 +176,17 @@ Page({
         for(var d in data){
           var obj = new Object();
           obj.author = data[d].author;
+          obj.permlink = data[d].permlink;
           obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
           obj.body = data[d].body;
           obj.comment_num = data[d].children;
           obj.time = that.getTime(data[d].created);
           obj.like_num = data[d].net_votes;
           obj.depth = data[d].depth;
+          if (obj.comment_num){
+            that.getChildComment(obj.author,obj.permlink);
+            
+          }
           obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
           obj.reputation = that.getReputation(data[d].author_reputation);
           commentData.push(obj);
@@ -191,7 +197,7 @@ Page({
       complete: function () {
         
         var replyTemArray = commentData;
-        console.log("Get comment body");
+        // console.log("Get comment body");
         if (commentData.length > 0) {
           for (let i = 0; i < commentData.length; i++) {
             WxParse.wxParse('reply' + i, 'md', commentData[i].body, that, 5);
@@ -204,5 +210,49 @@ Page({
       }
     })
       
+  },
+  getChildComment(author, permlink) {
+    var that = this;
+    var ChildCommentData = this.data.childComments;
+    wx.request({
+      url: 'https://api.steemjs.com/get_content_replies?author=' + author + '&permlink=' + permlink,
+      method: 'GET',
+      success: function (res) {
+        var data = res.data;
+        // console.log(data);
+        for (var d in data) {
+          var obj = new Object();
+          obj.author = data[d].author;
+          obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+          obj.body = data[d].body;
+          obj.comment_num = data[d].children;
+          obj.time = that.getTime(data[d].created);
+          obj.like_num = data[d].net_votes;
+          obj.depth = data[d].depth;
+          obj.parent_author = data[d].parent_author;
+          obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
+          obj.reputation = that.getReputation(data[d].author_reputation);
+          ChildCommentData.push(obj);
+        }
+        console.log(ChildCommentData);
+      },
+      complete: function () {
+        console.log("tran the chils comments");
+        that.setData({ childComments: ChildCommentData });
+
+        // console.log(that.data.childComments);
+        // var ChildReplyArray = ChildCommentData;
+        // console.log("Get comment body");
+        // if (ChildCommentData.length > 0) {
+        //   for (let i = 0; i < ChildCommentData.length; i++) {
+        //     WxParse.wxParse('childReply' + i, 'md', ChildCommentData[i].body, that, 5);
+        //     if (i === ChildCommentData.length - 1) {
+        //       WxParse.wxParseTemArray("ChildReplyArray", 'childReply', ChildCommentData.length, that, 5)
+        //     }
+        //   }
+        // }
+      }
+    })
+
   }
 })
