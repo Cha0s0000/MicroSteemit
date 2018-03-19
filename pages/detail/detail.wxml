@@ -64,7 +64,7 @@
             <block wx:if="{{idx == jdx}}" class="detail-comment-content">
               <view class="detail-post-comment-item">
                 <template is="wxParse" data="{{wxParseData:j}}"/>
-                 <view class= "comment-foot-data">
+                <view class= "comment-foot-data">
                   <view class="comment-post-like">
                     <!-- <icon type="success_circle" size="18"/> -->
                     <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
@@ -80,10 +80,35 @@
                       <text class="comment-comment-num-font">{{comment.comment_num}}</text>
                   </view>
                 </view>
+                <view class="childComments">
+                  <!-- <view class="child-comments-title">Comments</view> -->
+                  <block wx:for="{{childComments}}" wx:for-index="child" wx:for-item="childComment">
+                    <!-- <block wx:if="{{childComment.length>0}}">  -->
+                      <block wx:if="{{childComment.parent_author == comment.author}}">
+                        <view class ="dot"></view>
+                        <view class="detail-child-comment-avatar">
+                          <image class="detail-child-comment-avatar-img" mode="scaleToFill" src="{{ childComment.avatar }}"></image>
+                        </view>
+                        <view class="detail-child-comment-info">
+                          <view class="detail-child-comment-author-name">{{ childComment.author }}<text class="detail-child-comment-reputation">({{ childComment.reputation }})</text>
+                          </view>
+                        </view>
+                        <view class="detail-child-comment-time"> 发表于{{childComment.time }}</view>
+                        <!-- <view class="child-cmoment-body">{{childComment.body}}</view> -->
+                        <view class="detail-child-comment-item">
+                          <!-- <template is="wxParse" data="{{ChildReplyArray:child}}"/> -->
+                          <text> {{childComment.body}}</text>
+                        </view>
+                      </block>
+                    <!-- </block>   -->
+                  </block>
+                </view>
               </view>  
+              
             </block>
           </block>
-        </block>        
+        </block>    
+            
       </view>
     </view>
   </view>
