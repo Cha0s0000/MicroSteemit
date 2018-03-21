@@ -22,15 +22,14 @@ Page({
     postauth1:"",
     postauth2:"",
     postauth3:"",
-    hidden:false
-
-
+    hidden:false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // this.steem_per_mvests();
     var that = this;
     wx.request({
       // 由于没有域名，这行先注释，测试域名
@@ -40,12 +39,12 @@ Page({
         console.log(res);
         if(res.data.status == '200')
         {
+          that.vests_to_sp(parseFloat(res.data.user.vesting_shares));
           that.setData({
             avatar: res.data.user.json_metadata.profile.profile_image,
             balance: res.data.user.balance,
             created: res.data.user.created,
             sbd_balance: res.data.user.sbd_balance,
-            vesting_shares: parseInt(res.data.user.vesting_shares),
             voting_power: String(res.data.user.voting_power).substr(0,2),
             reputation: that.getReputation(res.data.user.reputation),
             steemitname:res.data.user.name,
@@ -127,4 +126,46 @@ Page({
     }
     return Math.round(score);
   },
+
+  steem_per_mvests(){
+    var that = this;
+    wx.request({
+      url: 'https://api.steemjs.com/get_state?path=/@cha0s0000',
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        if (res.data.statusCode == '200') {
+          that.setData({
+            total_vesting_fund_steem: parseFloat(res.data.props.total_vesting_fund_steem),
+            total_vesting_shares: parseFloat(res.data.props.total_vesting_shares),
+          })
+        }
+        console.log(parseFloat(res.data.props.total_vesting_shares))
+      }
+    })
+  },
+
+  vests_to_sp(vests){
+    var that =this;
+    var total_vesting_fund_steem=0;
+    var total_vesting_shares=0;
+    var sp=0;
+    console.log(vests);
+    wx.request({
+      url: 'https://api.steemjs.com/get_state?path=/@cha0s0000',
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        if (res.statusCode == '200') {
+             total_vesting_fund_steem= parseFloat(res.data.props.total_vesting_fund_steem);
+             total_vesting_shares=  parseFloat(res.data.props.total_vesting_shares);
+             sp= vests / 1000000 * total_vesting_fund_steem / (total_vesting_shares / 1000000);
+            
+        }      
+        console.log(total_vesting_shares);
+        that.setData({ vesting_shares: sp.toFixed(2) })
+      }
+    })
+    
+  }
 })
