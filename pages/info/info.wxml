@@ -38,8 +38,16 @@
           <text class="detail-value">{{vesting_shares}} VESTS</text>
         </view>
         <view>
+          <text class="detail-key c8">Steem Power：</text>
+          <text class="detail-value">{{steem_power}} STEEM</text>
+        </view>
+        <view>
+          <text class="detail-key c8">Delegated SP：</text>
+          <text class="detail-value">{{delegated_steem_power}} STEEM</text>
+        </view>
+        <view>
           <text class="detail-key c8">voting_power：</text>
-          <text class="detail-value">{{voting_power}}</text>
+          <text class="detail-value">{{voting_power}}%</text>
         </view>
         <view>
           <text class="detail-key c8">created：</text>
