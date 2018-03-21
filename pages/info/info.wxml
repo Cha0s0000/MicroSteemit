@@ -67,29 +67,33 @@
           <view class="status-time">
             <view class="dot"></view>
             <text class="c8">Post key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="post"> {{post_button}} </button>  
           </view>
-          <view class="status-text">
+          <view class="status-text" hidden="{{post_key_hid}}">
             <view class="c8">{{postkey}}</view>
           </view>
           <view class="status-time">
             <view class="dot"></view>
             <text class="c8">Active key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="active"> {{active_button}} </button>  
           </view>
-          <view class="status-text">
+          <view class="status-text" hidden="{{active_key_hid}}">
             <view class="c8">{{activekey}}</view>
           </view>
           <view class="status-time">
             <view class="dot"></view>
             <text class="c8">Owner key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="owner"> {{owner_button}} </button>  
           </view>
-          <view class="status-text">
+          <view class="status-text" hidden="{{owner_key_hid}}">
             <view class="c8">{{ownerkey}}</view>
           </view>
           <view class="status-time">
             <view class="dot"></view>
             <text class="c8">Memo key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="memo"> {{memo_button}} </button>  
           </view>
-          <view class="status-text">
+          <view class="status-text" hidden="{{memo_key_hid}}">
             <view class="c8">{{memokey}}</view>
           </view>
         </view>

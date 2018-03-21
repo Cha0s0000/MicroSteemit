@@ -24,7 +24,15 @@ Page({
     postauth3:"",
     hidden:false,
     steem_power:"",
-    delegated_steem_power:""
+    delegated_steem_power:"",
+    post_button:"show",
+    active_button: "show",
+    memo_button: "show",
+    owner_button: "show",
+    post_key_hid:true,
+    active_key_hid: true,
+    owner_key_hid: true,
+    memo_key_hid: true,
   },
 
   /**
@@ -153,5 +161,32 @@ Page({
       }
     })
     
+  },
+  
+  show_hid:function(e){
+    var type_key = e.currentTarget.dataset.type;
+    console.log(type_key);
+    switch(type_key){
+      case "post":
+        var button_state = this.data.post_button;
+        var key_state = this.data.post_key_hid;
+        this.setData({ post_button: button_state =='show' ? 'hidden' : 'show' , post_key_hid: !key_state});
+        break;
+      case "active":
+        var button_state = this.data.active_button;
+        var key_state = this.data.active_key_hid;
+        this.setData({ active_button: button_state == 'show' ? 'hidden' : 'show', active_key_hid: !key_state });
+        break;
+      case "owner":
+        var button_state = this.data.owner_button;
+        var key_state = this.data.owner_key_hid;
+        this.setData({ owner_button: button_state == 'show' ? 'hidden' : 'show', owner_key_hid: !key_state });
+        break;
+      case "memo":
+        var button_state = this.data.memo_button;
+        var key_state = this.data.memo_key_hid;
+        this.setData({ memo_button: button_state == 'show' ? 'hidden' : 'show', memo_key_hid: !key_state });
+        break;
+    }
   }
 })

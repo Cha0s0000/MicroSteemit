@@ -202,3 +202,11 @@
   text-align: center;
 }
 /* content-end */
+.status-time{
+  display:flex;
+  flex-direction: row;
+}
+.show_button{
+  margin-left: 10rpx;
+  margin-bottom:50rpx;
+}
