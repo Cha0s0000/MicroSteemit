@@ -18,10 +18,7 @@ Page({
     activekey:"",
     ownerkey:"",
     memokey:"",
-    postauth0:"",
-    postauth1:"",
-    postauth2:"",
-    postauth3:"",
+    account_auths:[],
     hidden:false,
     steem_power:"",
     delegated_steem_power:"",
@@ -64,10 +61,7 @@ Page({
             activekey: res.data.user.active.key_auths[0][0],
             ownerkey: res.data.user.owner.key_auths[0][0],
             memokey: res.data.user.memo_key,
-            postauth0: res.data.user.posting.account_auths[0][0],
-            postauth1: res.data.user.posting.account_auths[1][0],
-            postauth2: res.data.user.posting.account_auths[2][0],
-            postauth3: res.data.user.posting.account_auths[3][0],
+            account_auths: res.data.user.posting.account_auths,
             hidden:true
 
 

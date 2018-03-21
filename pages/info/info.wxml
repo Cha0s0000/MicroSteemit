@@ -102,29 +102,20 @@
     <!-- keys-end -->
     <!-- auth-start -->
     <view class="info-section">
+      
       <view class="section-title">
         <view class="left-border"></view>
         <text>Posting auth</text>
       </view>
       <view class="info-list">
-        <view class="info-item">
-          <view class="status-time">
-            <view class="dot"></view>
-            <text class="c8">{{postauth0}}</text>
-          </view>  
-          <view class="status-time">
-            <view class="dot"></view>
-            <text class="c8">{{postauth1}}</text>
-          </view>    
-          <view class="status-time">
-            <view class="dot"></view>
-            <text class="c8">{{postauth2}}</text>
-          </view> 
-          <view class="status-time">
-            <view class="dot"></view>
-            <text class="c8">{{postauth3}}</text>
-          </view>     
-        </view>
+        <block wx:for="{{account_auths}}" wx:for-item="account_auth">
+          <view class="info-item">
+            <view class="status-time">
+              <view class="dot"></view>
+              <text class="c8">{{account_auth[0]}}</text>
+            </view>  
+          </view>
+        </block>
       </view>
     </view>
     <!-- auth-end -->
