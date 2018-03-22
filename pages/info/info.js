@@ -6,6 +6,7 @@ Page({
    */
   data: {
     steemitname:"",
+    about:"'",
     location:"",
     avatar: "",
     reputation:"",
@@ -55,7 +56,8 @@ Page({
             vesting_shares: parseInt(res.data.user.vesting_shares),
             voting_power: String(res.data.user.voting_power).substr(0,2),
             reputation: that.getReputation(res.data.user.reputation),
-            steemitname:res.data.user.name,
+            steemitname: res.data.user.json_metadata.profile.name,
+            about: res.data.user.json_metadata.profile.about,
             location: res.data.user.json_metadata.profile.location,
             postkey: res.data.user.posting.key_auths[0][0],
             activekey: res.data.user.active.key_auths[0][0],

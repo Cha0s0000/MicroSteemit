@@ -9,9 +9,24 @@
   </view>
   <view class="info-content">
     <view class="person">
-      <text class="name">{{steemitname}}</text>
+      <text class="name">{{steemitname}} ({{reputation}})</text>
     </view>
-    <view class="info-text">
+    <view class="about">
+      <text class="intro">{{about}}</text>
+    </view>
+    <view class= "account-info">
+      <view class="follower-view">
+        <text class="follower-text"> 100 Follows</text>
+      </view>
+      <view class="post-view">
+        <text class="post-text">500 Posts</text>
+      </view>
+      <view class="following-view">
+          <text class="following-text">20 Following</text>
+      </view>
+    </view>
+     <view class="info-text">
+       <image mode="aspectFill" class="location" src="../../images/icon/location.png"></image>
       <text>{{location}}</text>
     </view>
     <!-- basic-start -->

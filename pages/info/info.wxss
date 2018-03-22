@@ -71,7 +71,19 @@
   font-size: 18px;
   color: #333333;
 }
-
+.about{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+   width: 100%; 
+}
+.intro{
+  font-size: 15px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align:center;
+  margin:auto;
+}
 .sex {
   margin-left: 10px;
   width: 16px;
@@ -84,6 +96,9 @@
   padding: 0px;
   text-align: center;
 }
+.info-text text {
+  margin-left: 10rpx;
+  }
 
 /* type */
 .section-title {
@@ -233,4 +248,57 @@
 }
 .witness_name {
   color: #888;
+}
+.location{
+  width: 40rpx;
+  height: 40rpx;
+  margin-top:5rpx;
+}
+.account-info{
+  display:flex;
+  flex-direction: row;  
+  justify-content: center;  
+  margin-top: 50rpx;
+  margin-left: 0rpx;
+  margin-bottom: 20rpx; 
+
+}
+.follower-view{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 5px;
+}
+
+.follower-text{
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-left:5px;
+}
+.post-view{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.following-view{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+.post-text{
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-left:5px;
+}
+
+.following-text{
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-left:5px;
 }
