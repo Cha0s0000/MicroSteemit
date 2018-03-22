@@ -16,13 +16,13 @@
     </view>
     <view class= "account-info">
       <view class="follower-view">
-        <text class="follower-text"> 100 Follows</text>
+        <text class="follower-text"> {{follower}} Followers</text>
       </view>
       <view class="post-view">
-        <text class="post-text">500 Posts</text>
+        <text class="post-text">{{post_count}} Posts</text>
       </view>
       <view class="following-view">
-          <text class="following-text">20 Following</text>
+          <text class="following-text">{{following}} Following</text>
       </view>
     </view>
      <view class="info-text">

@@ -48,10 +48,12 @@ Page({
         if(res.data.status == '200')
         {
           that.vests_to_sp(parseFloat(res.data.user.vesting_shares), parseFloat(res.data.user.delegated_vesting_shares));
+          that.get_follower_following();
           that.setData({
             avatar: res.data.user.json_metadata.profile.profile_image,
             balance: res.data.user.balance,
             created: res.data.user.created,
+            post_count : res.data.user.post_count,
             sbd_balance: res.data.user.sbd_balance,
             vesting_shares: parseInt(res.data.user.vesting_shares),
             voting_power: String(res.data.user.voting_power).substr(0,2),
@@ -185,5 +187,19 @@ Page({
         this.setData({ memo_button: button_state == 'show' ? 'hidden' : 'show', memo_key_hid: !key_state });
         break;
     }
-  }
+  },
+  get_follower_following() {
+    var that = this;
+    wx.request({
+      url: 'https://api.steemjs.com/get_follow_count?account=cha0s0000',
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        if (res.statusCode == '200') {
+          that.setData({ follower: res.data.follower_count, following: res.data.following_count })
+        }        
+      }
+    })
+
+  },
 })
