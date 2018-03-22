@@ -8,6 +8,7 @@ Micro Steemit on the Wechat application.
 
 In a word , MicroSteemit is an application which can be used without downloading while chatting with friends in wechat easily. Just by scanning the MicroSteemit QR code  can we commodiously surf on  the steemit community.
 
+But now , the MicroSteemit is still in developed phase .Of course you also can test the project in the wechat application tool .See the step ### How to develop it 
 ---
 
 ## Some screen shot
