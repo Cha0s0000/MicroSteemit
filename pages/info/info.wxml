@@ -117,6 +117,20 @@
           </view>
         </block>
       </view>
+      <view class="witness-section-title">
+        <view class="witness-left-border"></view>
+        <text>Witness_votes</text>
+      </view>
+      <view class="witness-list">
+        <block wx:for="{{witness_votes}}" wx:for-item="witness">
+          <view class="witness-item">
+            <view class="witness">
+              <view class="dot"></view>
+              <text class="witness_name">{{witness}}</text>
+            </view>  
+          </view>
+        </block>
+      </view>
     </view>
     <!-- auth-end -->
   </view>

@@ -210,3 +210,27 @@
   margin-left: 10rpx;
   margin-bottom:50rpx;
 }
+.witness-section-title {
+  display: flex;
+  padding: 8px 15px;
+  margin: 0;
+  font-size: 18px;
+  border-top: 1px solid #dbdbdb;
+  background-color: #eeeeee;
+}
+.witness-left-border {
+  margin: 3px 7px 0 0px;
+  width: 7px;
+  height: 16px;
+  background: #019875;
+}
+.witness-list
+{
+  width: 87%;
+  padding: 15px 20px;
+  font-size: 16px;
+  line-height: 24px;
+}
+.witness_name {
+  color: #888;
+}
