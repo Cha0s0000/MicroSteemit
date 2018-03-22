@@ -62,6 +62,7 @@ Page({
             ownerkey: res.data.user.owner.key_auths[0][0],
             memokey: res.data.user.memo_key,
             account_auths: res.data.user.posting.account_auths,
+            witness_votes: res.data.user.witness_votes,
             hidden:true
 
 
