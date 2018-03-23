@@ -302,3 +302,19 @@
   margin-right: 5px;
   margin-left:5px;
 }
+.split{
+  margin-bottom: 30rpx;
+  margin-left: 10rpx;
+}
+.split-text{
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight:1000
+}
+.bandwidth{
+  margin:20rpx;
+  margin-top:30rpx;
+}
+.voting-power{
+  margin:20rpx;
+  margin-top:30rpx;
+}

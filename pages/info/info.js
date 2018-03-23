@@ -31,6 +31,8 @@ Page({
     active_key_hid: true,
     owner_key_hid: true,
     memo_key_hid: true,
+    average_market_bandwidth:0,
+    available_bandwidth:0,
   },
 
   /**
@@ -58,6 +60,7 @@ Page({
             vesting_shares: parseInt(res.data.user.vesting_shares),
             voting_power: String(res.data.user.voting_power).substr(0,2),
             reputation: that.getReputation(res.data.user.reputation),
+            average_market_bandwidth: res.data.user.average_market_bandwidth,
             steemitname: res.data.user.json_metadata.profile.name,
             about: res.data.user.json_metadata.profile.about,
             location: res.data.user.json_metadata.profile.location,
@@ -73,6 +76,7 @@ Page({
 
           })
         }
+        that.calc_bandwidth();
       } 
     })
   
@@ -202,4 +206,22 @@ Page({
     })
 
   },
+  calc_bandwidth(){
+    var that = this;
+    var max_virtual_bandwidth = 0;
+    var available_bandwidth= 0;
+    wx.request({
+      url: 'https://api.steemjs.com/get_dynamic_global_properties',
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        console.log(that.data.average_market_bandwidth);
+        if (res.statusCode == '200') {
+          max_virtual_bandwidth = res.data.max_virtual_bandwidth;
+          available_bandwidth = parseInt((max_virtual_bandwidth - that.data.average_market_bandwidth) / max_virtual_bandwidth *100) ;
+          that.setData({ available_bandwidth: available_bandwidth})
+        }
+      }
+    })
+  }
 })

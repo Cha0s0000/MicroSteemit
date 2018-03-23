@@ -17,9 +17,11 @@
     <view class= "account-info">
       <view class="follower-view">
         <text class="follower-text"> {{follower}} Followers</text>
+        <view class="split"><text class="split-text">|</text></view>
       </view>
       <view class="post-view">
-        <text class="post-text">{{post_count}} Posts</text>
+        <text class="post-text">{{available_bandwidth}} Posts</text>
+        <view class="split"><text class="split-text">|</text></view>
       </view>
       <view class="following-view">
           <text class="following-text">{{following}} Following</text>
@@ -28,6 +30,14 @@
      <view class="info-text">
        <image mode="aspectFill" class="location" src="../../images/icon/location.png"></image>
       <text>{{location}}</text>
+    </view>
+    <view class="bandwidth">
+      <text>Available bandwidth</text>
+      <progress percent="{{available_bandwidth}}" show-info active stroke-width="16" activeColor='greenyellow'/>
+    </view>
+    <view class="voting-power">
+      <text>Voting power</text>
+      <progress percent="{{voting_power}}" show-info active stroke-width="16" activeColor="cadetblue" />
     </view>
     <!-- basic-start -->
     <view class="info-section">
