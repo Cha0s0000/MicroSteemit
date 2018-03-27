@@ -1,5 +1,8 @@
 var postsData=require('../../data/posts-data.js')
 Page({
+    /**
+   * initial page
+   */
   data:{
     loading:false ,
     trendingPosts:[],
@@ -7,15 +10,21 @@ Page({
     promotedPosts:[],
     hotPosts:[],
     postsData:[],
+    // ther are several types of post including trending , new created ,promoted ,hot 
     categoryTabs: ['流行','最新','热门','推广'],
     scrollTop:0,
     postsSelect :'流行',
     scrollTop:0
   },
+
+   /**
+   * Life cycle function - listen to page load.
+   */
   onLoad:function(options){
     this.getTrendingPosts();
   },
 
+  // monitoring the change of different types of showing posts
   changeCategory:function(event){
     var chid = event.target.dataset.id;
     console.log(chid);
@@ -65,6 +74,7 @@ Page({
     }
   },
 
+// mornitoring the scroll action
   scroll: function (event) {
     this.setData({
       scrollTop: event.detail.scrollTop
@@ -72,6 +82,7 @@ Page({
     // console.log(event.detail.scrollTop);
   },
 
+// whle pull down the app , the page will refresh
   onPullDownRefresh: function () {
     var category = this.data.postsSelect;
     wx.showNavigationBarLoading();
@@ -85,6 +96,19 @@ Page({
     wx.stopPullDownRefresh() ;
     
   },
+
+  // monitoring the click function of the view item
+  click:function(e){
+    var author = e.currentTarget.dataset.block.author;
+    var permlink = e.currentTarget.dataset.block.permlink;
+    console.log("click");
+    console.log(author);
+    wx.navigateTo({
+      url: '../detail/detail?author=' + author +'&permlink=' + permlink,
+    })
+
+  },
+// when the page reach the bottom of the page , js  will go on to request for more data 
   onReachBottom:function(e){
     console.log("refresh");
     this.setData({ loading:false});
@@ -97,14 +121,17 @@ Page({
     }
   },
   
+  // when clicking the share button
   onShareAppMessage: function() {
-    // 用户点击右上角分享
+    // Users click the top right corner to share.
     return {
-      title: 'title', // 分享标题
-      desc: 'desc', // 分享描述
-      path: 'path' // 分享路径
+      title: 'title', // sharing title
+      desc: 'desc', // sharing description
+      path: 'path' // sharing page
     }
   },
+
+  // convert the created time to the time from now
   getTime(time){
     var postTime = new Date(time);
     // console.log(Date.parse(postTime));
@@ -144,6 +171,7 @@ Page({
       return getTimeData;
     }
   },
+  // convert the vesting to the reputation 
   getReputation(rep){
     if(rep == 0){
       return 25
@@ -155,6 +183,7 @@ Page({
     return Math.round(score);
   },
 
+// filter the content body to just get some of the text to show in the right short description
   filterBody(body){
     var str = body;
     var filter1 = str.replace(/\([^\)]*\)/g, ""); 
@@ -165,11 +194,13 @@ Page({
     return filter4;
   },
 
+  // get the  thumbnail showing in the left 
   getImage(images){
     var imgurl = 'https://steemitimages.com/640x480/' + images[0];
     return imgurl;
   },
 
+  // get the trending post 
   getTrendingPosts(){
     this.setData({
       loading: false
@@ -191,6 +222,7 @@ Page({
           obj.category = data[post].category;
           obj.title = that.filterBody(data[post].title);
           obj.body = that.filterBody(data[post].body);
+          obj.bodyMD = data[post].body;
           obj.json_metadata = data[post].json_metadata;
           images = JSON.parse(obj.json_metadata).image;
           obj.image = that.getImage(images);
@@ -214,6 +246,7 @@ Page({
       }
     })
   },
+  // when scroll down , load more data of the trending posts
   loadMoreTrending(){
     var lastAuthor = this.data.trendingPosts[this.data.trendingPosts.length-1].author;
     var lastPermlink = this.data.trendingPosts[this.data.trendingPosts.length - 1].permlink;
@@ -266,6 +299,7 @@ Page({
     })
 
   },
+  // get new created posts
   getCreatedPosts() {
     this.setData({
       loading: false
@@ -310,6 +344,7 @@ Page({
       }
     })
   },
+  // load more data from new created posts
   loadMoreCreated() {
     var lastAuthor = this.data.createdPosts[this.data.createdPosts.length - 1].author;
     var lastPermlink = this.data.createdPosts[this.data.createdPosts.length - 1].permlink;
@@ -362,7 +397,7 @@ Page({
     })
 
   },
-
+// get the hot posts
   getHotPosts(){
     this.setData({
       loading: false
@@ -408,6 +443,7 @@ Page({
     })
 
   },
+  // load more data from the hot posts
   loadMoreHot() {
     var lastAuthor = this.data.hotPosts[this.data.hotPosts.length - 1].author;
     var lastPermlink = this.data.hotPosts[this.data.hotPosts.length - 1].permlink;
@@ -460,7 +496,7 @@ Page({
     })
 
   },
-
+// get promoted posts
   getPromotedPosts() {
     this.setData({
       loading: false
@@ -506,7 +542,7 @@ Page({
     })
 
   },
-
+// load more promoted posts
   loadMorePromoted() {
     var lastAuthor = this.data.promotedPosts[this.data.promotedPosts.length - 1].author;
     var lastPermlink = this.data.promotedPosts[this.data.promotedPosts.length - 1].permlink;

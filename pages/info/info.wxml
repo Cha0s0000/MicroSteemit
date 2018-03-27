@@ -15,15 +15,15 @@
       <text class="intro">{{about}}</text>
     </view>
     <view class= "account-info">
-      <view class="follower-view">
+      <view class="follower-view" bindtap='show_follow' data-type="Follower list">
         <text class="follower-text"> {{follower}} Followers</text>
         <view class="split"><text class="split-text">|</text></view>
       </view>
       <view class="post-view">
-        <text class="post-text">{{available_bandwidth}} Posts</text>
+        <text class="post-text">{{post_count}} Posts</text>
         <view class="split"><text class="split-text">|</text></view>
       </view>
-      <view class="following-view">
+      <view class="following-view" bindtap='show_follow' data-type="Following list">
           <text class="following-text">{{following}} Following</text>
       </view>
     </view>

@@ -13,7 +13,7 @@ Page({
     childComments:[]
   },
   onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
+    // The page initializes options for the parameters of the page jump.
     var author = options.author;
     var permlink = options.permlink;
     console.log(permlink);
@@ -29,16 +29,16 @@ Page({
     }
   },
   onReady: function () { 
-    // 页面渲染完成
+    //Page rendering complete
   },
   onShow: function () {
-    // 页面显示
+    //Page shows
   },
   onHide: function () {
-    // 页面隐藏
+    // Page hide
   },
   onUnload: function () {
-    // 页面关闭
+    // Page close
   },
   getContent: function (author,permlink) {
     var p = this;
@@ -72,9 +72,9 @@ Page({
         }
         /**
         * WxParse.wxParseTemArray(temArrayName,bindNameReg,total,that)
-        * 1.temArrayName: 为你调用时的数组名称
-        * 3.bindNameReg为循环的共同体 如绑定为reply1，reply2...则bindNameReg = 'reply'
-        * 3.total为reply的个数
+        * 1.temArrayName: The name of the array for your call.
+        * 3.bindNameReg is A community of cycles.
+        * 3.total:the repl number
         */
         console.log('replies:' + replyArr.length);
         if (replyArr.length > 0) {

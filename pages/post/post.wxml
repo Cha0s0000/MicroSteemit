@@ -19,7 +19,7 @@
     </view>
     <view class="content">
       <block wx:for="{{postsData}}" wx:for-item="item">
-        <view class="post-container">
+        <view class="post-container" bindtap='click' data-block='{{item}}'>
           <view class="post-author-data">     
             <image class="post-avatar" src="{{item.avatar}}"></image>
             <text class="post-author">{{item.author}}</text>

@@ -2,7 +2,7 @@
 Page({
 
   /**
-   * 页面的初始数据
+   * The initial data of the page.
    */
   data: {
     follow_list:[],
@@ -11,7 +11,7 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * Life cycle function - listen to page load.
    */
   onLoad: function (options) {
     var that = this ;
@@ -21,7 +21,6 @@ Page({
     var following = options.following;
     console.log(author);
     wx.request({
-      // 由于没有域名，这行先注释，测试域名
       url: 'https://steemit.com/@' + author + '.json',
       method: 'GET',
       success: function (res) {
@@ -84,49 +83,49 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * Life cycle function - the first rendering of the listening page.
    */
   onReady: function () {
   
   },
 
   /**
-   * 生命周期函数--监听页面显示
+   *Life cycle function - monitor page display.
    */
   onShow: function () {
   
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   *Life cycle function - the listening page is hidden.
    */
   onHide: function () {
   
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   * Life cycle function - monitor page uninstall.
    */
   onUnload: function () {
   
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   *Page correlation event handler - listen to the user to pull.
    */
   onPullDownRefresh: function () {
   
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   *The handle function of the bottom event on the page.
    */
   onReachBottom: function () {
   
   },
 
   /**
-   * 用户点击右上角分享
+   *Users click the top right corner to share.
    */
   onShareAppMessage: function () {
   

@@ -2,9 +2,10 @@
 Page({
 
   /**
-   * 页面的初始数据
+   * initial page
    */
   data: {
+    author:"",
     steemitname:"",
     about:"'",
     location:"",
@@ -36,13 +37,13 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * Life cycle function - listen to page load.
    */
   onLoad: function (options) {
     // this.steem_per_mvests();
     var that = this;
     wx.request({
-      // 由于没有域名，这行先注释，测试域名
+      // testing the hostname
       url: 'https://steemit.com/@cha0s0000.json',
       method: 'GET',
       success: function (res) {
@@ -61,6 +62,7 @@ Page({
             voting_power: String(res.data.user.voting_power).substr(0,2),
             reputation: that.getReputation(res.data.user.reputation),
             average_market_bandwidth: res.data.user.average_market_bandwidth,
+            author:res.data.user.name,
             steemitname: res.data.user.json_metadata.profile.name,
             about: res.data.user.json_metadata.profile.about,
             location: res.data.user.json_metadata.profile.location,
@@ -83,53 +85,55 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * Life cycle function - the first rendering of the listening page.
    */
   onReady: function () {
   
   },
 
   /**
-   * 生命周期函数--监听页面显示
+   * Life cycle function - monitor page display.
    */
   onShow: function () {
   
   },
 
   /**
-   * 生命周期函数--监听页面隐藏
+   *Life cycle function - the listening page is hidden.
    */
   onHide: function () {
   
   },
 
   /**
-   * 生命周期函数--监听页面卸载
+   *Life cycle function - monitor page uninstall.
    */
   onUnload: function () {
   
   },
 
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * Page correlation event handler - listen to the user to pull.
    */
   onPullDownRefresh: function () {
   
   },
 
   /**
-   * 页面上拉触底事件的处理函数
+   * The handle function of the bottom event on the page.
    */
   onReachBottom: function () {
   
   },
 
   /**
-   * 用户点击右上角分享
+   * Users click the top right corner to share.
    */
   onShareAppMessage: function () {
   
   },
+
+  // convert into reputation
   getReputation(rep) {
     if (rep == 0) {
       return 25
@@ -166,6 +170,7 @@ Page({
     
   },
   
+  // deal with the click button action to show or hide the keys 
   show_hid:function(e){
     var type_key = e.currentTarget.dataset.type;
     console.log(type_key);
@@ -192,6 +197,7 @@ Page({
         break;
     }
   },
+  // get the steemit account followers and followings number
   get_follower_following() {
     var that = this;
     wx.request({
@@ -206,6 +212,7 @@ Page({
     })
 
   },
+  // calculate the available bandwidth
   calc_bandwidth(){
     var that = this;
     var max_virtual_bandwidth = 0;
@@ -223,5 +230,17 @@ Page({
         }
       }
     })
+  },
+  // deal with the click on the follwers or followings number
+  show_follow: function (e) {
+    var follow_type = e.currentTarget.dataset.type;
+    var author = this.data.author;
+    var follower = this.data.follower;
+    var following = this.data.following;
+    console.log(follow_type);
+    wx.navigateTo({
+      url: '../follow/follow?author=' + author + '&type=' + follow_type + '&follower='+ follower + '&following='+following,
+    })
   }
+
 })
