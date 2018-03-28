@@ -3,7 +3,9 @@
     "pages/post/post",
     "pages/info/info",
     "pages/index/index",
-    "pages/detail/detail"
+    "pages/detail/detail",
+    "pages/follow/follow",
+    "pages/authorPost/authorPost"
   ],
   "window":{
     "backgroundTextStyle":"light",
