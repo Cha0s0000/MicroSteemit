@@ -1,0 +1,35 @@
+<!--pages/authorPost/authorPost.wxml-->
+<view class="info" hidden ="{{!hidden}}">
+  <view class="info-header">
+    <image class="info-header-bg" src="../../static/images/info_head.png" />
+    <view class="none-work">
+      <view class="info-avatar-bg"></view>
+      <image class="info-avatar" src="{{avatar}}" />
+    </view>
+  </view>
+  <view class="info-content">
+    <view class="person">
+      <text class="name">{{steemitname}} ({{reputation}})</text>
+    </view>
+    <view class="about">
+      <text class="intro">{{about}}</text>
+    </view>
+    <view class="section-title">
+      <view class="left-border"></view>
+      <text>{{info_title}} ({{num}})</text>
+    </view>
+    <view class="info-list">
+      <block wx:for="{{follow_list}}" wx:for-item="item">
+        <view class="info-item">
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">{{item}}</text>
+          </view>  
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
