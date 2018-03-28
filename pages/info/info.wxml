@@ -20,7 +20,7 @@
         <view class="split"><text class="split-text">|</text></view>
       </view>
       <view class="post-view">
-        <text class="post-text">{{post_count}} Posts</text>
+        <text class="post-text" bindtap='show_authorPost'>{{post_count}} Posts</text>
         <view class="split"><text class="split-text">|</text></view>
       </view>
       <view class="following-view" bindtap='show_follow' data-type="Following list">
