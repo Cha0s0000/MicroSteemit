@@ -231,7 +231,7 @@ Page({
       }
     })
   },
-  // deal with the click on the follwers or followings number
+  // deal with the click on the follwers number
   show_follow: function (e) {
     var follow_type = e.currentTarget.dataset.type;
     var author = this.data.author;
@@ -240,6 +240,13 @@ Page({
     console.log(follow_type);
     wx.navigateTo({
       url: '../follow/follow?author=' + author + '&type=' + follow_type + '&follower='+ follower + '&following='+following,
+    })
+  },
+  show_authorPost:function(e){
+    var author = this.data.author;
+    console.log("navigate to authore posts showing list");
+    wx.navigateTo({
+      url: '../authorPost/authorPost?author=' + author ,
     })
   }
 
