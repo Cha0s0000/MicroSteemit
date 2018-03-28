@@ -16,15 +16,42 @@
     </view>
     <view class="section-title">
       <view class="left-border"></view>
-      <text>{{info_title}} ({{num}})</text>
+      <text>{{info_title}}</text>
     </view>
-    <view class="info-list">
-      <block wx:for="{{follow_list}}" wx:for-item="item">
-        <view class="info-item">
-          <view class="status-time">
-            <view class="dot"></view>
-            <text class="c8">{{item}}</text>
-          </view>  
+    <view class="content">
+      <block wx:for="{{postsData}}" wx:for-item="item">
+        <view class="post-container" bindtap='click' data-block='{{item}}'>
+          <view class="post-author-data">     
+            <image class="post-avatar" src="{{item.avatar}}"></image>
+            <text class="post-author">{{item.author}}</text>
+            <text class= "reputation">({{item.reputation}})</text>
+            <text class= "category">在 {{item.category}}</text>
+            <view class ="dot"></view>
+            <text class="time">{{item.time}}</text>
+          </view>
+          <text class="post-title">{{item.title}}</text>
+          <view class="img-content">
+            <view class = "img">
+              <image mode="aspectFill" class="post-image" src="{{item.image}}"></image>
+            </view>
+            <text class="post-content">{{item.body}}</text>
+          </view>
+          <view class= "foot-data">
+            <view class="post-like">
+              <!-- <icon type="success_circle" size="18"/> -->
+              <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+              <!-- <icon type="success" size="18"/> -->
+              <text class="post-like-font"> {{item.pending_payout_value}}</text>
+            </view>
+            <view class="like-num">
+              <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
+              <text class="like-num-font">{{item.like_num}}</text>
+            </view>
+            <view class="comment-num">
+                <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
+                <text class="comment-num-font">{{item.comment_num}}</text>
+            </view>
+          </view>
         </view>
       </block>
     </view>
