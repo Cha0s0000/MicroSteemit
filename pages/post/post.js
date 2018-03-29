@@ -232,7 +232,8 @@ Page({
           obj.time = that.getTime(data[post].created);
           obj.like_num = data[post].net_votes;
           obj.comment_num = data[post].children;
-          obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
+          var payout = parseFloat(data[post].pending_payout_value) + parseFloat(data[post].total_payout_value) + parseFloat(data[post].curator_payout_value);
+          obj.pending_payout_value = "$" + payout.toFixed(2);
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
