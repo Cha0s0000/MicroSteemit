@@ -188,6 +188,16 @@ Page({
     })
 
   },
+  click: function (e) {
+    var author = e.currentTarget.dataset.block.author;
+    var permlink = e.currentTarget.dataset.block.permlink;
+    console.log("click");
+    console.log(author);
+    wx.navigateTo({
+      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+    })
+
+  },
   getReputation(rep) {
     if (rep == 0) {
       return 25
