@@ -36,6 +36,7 @@ Page({
             info_title: follow_type,
             follower: follower,
             following: following,
+            author: author,
             hidden: true
           })
         }
@@ -44,7 +45,7 @@ Page({
         var list = [];
         if (follow_type == "Follower list"){
             wx.request({
-              url: 'https://api.steemjs.com/get_followers?following=' + author + '&startFollower=START&followType=blog&limit=' + follower,
+              url: 'https://api.steemjs.com/get_followers?following=' + author + '&startFollower=START&followType=blog&limit=50',
               method: "GET",
               success: function (res) {
                 console.log(res.data);
@@ -61,7 +62,7 @@ Page({
           }
          else{
             wx.request({
-              url: 'https://api.steemjs.com/get_following?follower=' + author + '&startFollowing=START&followType=blog&limit=' + following,
+              url: 'https://api.steemjs.com/get_following?follower=' + author + '&startFollowing=START&followType=blog&limit=50',
               method: "GET",
               success: function (res) {
                 console.log(res.data);
@@ -120,8 +121,62 @@ Page({
   /**
    *The handle function of the bottom event on the page.
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function (e) {
+    wx.showNavigationBarLoading();
+    console.log("refresh");
+    var info_title = this.data.info_title;
+    var follower = this.data.follower;
+    var following = this.data.following;
+    var last = this.data.follow_list[this.data.follow_list.length-1];
+    var author = this.data.author;
+    var list = [];
+    var i = 0;
+    console.log(last);
+    var that = this;
+    if (info_title == 'Follower list'){
+      wx.request({
+        url: 'https://api.steemjs.com/get_followers?following=' + author + '&startFollower=' + last+'&followType=blog&limit=50',
+        method: "GET",
+        success: function (res) {
+          console.log(res.data);
+          if (res.statusCode == '200') {
+            var datas = res.data;
+            for (var data in datas) {
+              if (i == 0) {
+                i++;
+                continue;
+              }
+              list.push(datas[data].follower);
+            }
+            console.log(list)
+            that.setData({ follow_list: that.data.follow_list.concat(list)});
+          }
+          wx.hideNavigationBarLoading();
+        }
+      })
+    }
+    else{
+      wx.request({
+        url: 'https://api.steemjs.com/get_following?follower=' + author + '&startFollowing='+last+'&followType=blog&limit=50',
+        method: "GET",
+        success: function (res) {
+          console.log(res.data);
+          if (res.statusCode == '200') {
+            var datas = res.data;
+            for (var data in datas) {
+              if (i == 0) {
+                i++;
+                continue;
+              }
+              list.push(datas[data].following);
+            }
+            console.log(list)
+            that.setData({ follow_list: that.data.follow_list.concat(list) });
+          }
+          wx.hideNavigationBarLoading();
+        }
+      })
+    }
   },
 
   /**
