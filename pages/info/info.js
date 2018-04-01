@@ -248,6 +248,13 @@ Page({
     wx.navigateTo({
       url: '../authorPost/authorPost?author=' + author ,
     })
+  },
+  voteHistory:function(e){
+    var author = this.data.author;
+    console.log("navigate to voting history");
+    wx.navigateTo({
+      url: '../voteHistory/voteHistory?author=' + author,
+    })
   }
 
 })
