@@ -4,12 +4,13 @@
     <image class="info-header-bg" src="../../static/images/info_head.png" />
     <view class="none-work">
       <view class="info-avatar-bg"></view>
-      <image class="info-avatar" src="{{avatar}}" />
+      <image class="info-avatar" src="{{avatar}}" /> 
     </view>
   </view>
   <view class="info-content">
     <view class="person">
-      <text class="name">{{steemitname}} ({{reputation}})</text>
+      <view class="name">{{steemitname}} ({{reputation}})</view>
+      <image mode="aspectFill" bindtap = "voteHistory" class="voting" src="../../images/icon/good-filling.png"></image>
     </view>
     <view class="about">
       <text class="intro">{{about}}</text>

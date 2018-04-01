@@ -64,8 +64,8 @@
 
 .person {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center; 
+  justify-content: center; 
   margin: 0 auto;
   width: 90%;
   font-size: 18px;
@@ -317,4 +317,31 @@
 .voting-power{
   margin:20rpx;
   margin-top:30rpx;
+}
+.voting{
+  position: absolute;
+  right:50rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-top:5rpx;
+  align-items: right; 
+  justify-content: right;
+  padding-right: 5rpx;
+  margin-right: 5rpx;
+}
+.voteHistory {
+  display: flex;
+  align-items: right; 
+  width: 95%;
+   margin-left:50rpx; 
+   padding: 0px; 
+   text-align: center;  
+  justify-content: right; 
+   padding-right: 60rpx; 
+}
+.name{
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: center; 
 }
