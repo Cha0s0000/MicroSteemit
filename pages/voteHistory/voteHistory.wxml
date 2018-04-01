@@ -16,7 +16,37 @@
     </view>
     <view class="section-title">
       <view class="left-border"></view>
-      <text>Voting history</text>
+      <text>{{info_title}}</text>
+    </view>
+    <view class="content">
+      <block wx:for="{{votingList}}" wx:for-item="item">
+        <view class="post-container" bindtap='click' data-block='{{item}}'>
+          <view class="post-author-data">     
+            <image class="post-avatar" src="{{item.avatar}}"></image>
+            <text class="post-author">{{item.author}}</text>
+            <view class ="dot"></view>
+            <text class="time">{{item.time}}</text>
+          </view>
+          <text class="post-title">{{item.authorperm}}</text>
+          <view class= "foot-data">
+            <view class="post-like">
+              <!-- <icon type="success_circle" size="18"/> -->
+              <image mode="aspectFill" class="icon" src="../../images/icon/favorites-filling.png"></image>
+              <!-- <icon type="success" size="18"/> -->
+              <text class="post-like-font"> {{item.percent}}%</text>
+            </view>
+            <view class="like-num">
+              <image mode="aspectFill" class="icon" src="../../images/icon/good-filling.png"></image>
+              <text class="like-num-font">{{item.weight}}%</text>
+            </view>
+            <view class="comment-num">
+                <image mode="aspectFill" class="icon" src="../../images/icon/rshares.png"></image>
+                <text class="comment-num-font">{{item.rshares}}M</text>
+                <text class="rshares">rshares</text>
+            </view>
+          </view>
+        </view>
+      </block>
     </view>
   </view>
 </view>
