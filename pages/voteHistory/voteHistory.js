@@ -27,10 +27,45 @@ Page({
             reputation: that.getReputation(res.data.user.reputation),
             steemitname: res.data.user.json_metadata.profile.name,
             about: res.data.user.json_metadata.profile.about,
-            info_title: "Author posts",
+            info_title: "Voting history",
             hidden: true
           })
         }
+      },
+      complete: function(res) {
+        var votingHistory = [];
+        wx:wx.request({
+          url: 'https://api.steemjs.com/get_account_votes?voter='+ author,
+          method: 'GET',
+          success: function(res) {
+            console.log(res);
+            if (res.statusCode == '200') {
+              var data = res.data;
+              for (var voting in data) {
+                var obj = new Object();
+                obj.authorperm = data[voting].authorperm;
+                obj.author = obj.authorperm.split("/")[0];
+                obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+                obj.weight = data[voting].weight/100;
+                obj.rshares = data[voting].rshares/1000000;
+                obj.rshares = obj.rshares.toFixed(0);
+                obj.percent = data[voting].percent/100;
+                obj.time = that.getTime(data[voting].time);
+                votingHistory.push(obj);
+              }
+              console.log(votingHistory);
+              var showList = [];
+              for( var i=0;i<30;i++){
+                showList.push(votingHistory[votingHistory.length-i-1])
+              }
+              that.setData({
+                votingList: showList,
+              })
+
+            }
+          },
+        })
+        
       },
     })
 
