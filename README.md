@@ -43,6 +43,30 @@ Show info of the steemit account :
 
 ---
 
+Following and followers list:
+
+![图片.png](https://cdn.utopian.io/posts/ee13bf792881112d6e2c2212a4ac85f5ae9d图片.png)
+
+------
+
+Dynamic info showing :
+
+![GIF.gif](https://cdn.utopian.io/posts/28f2ebda4463ca52891c48094c8174ad1855GIF.gif)
+
+------
+
+Post history showing :
+
+![图片.png](https://cdn.utopian.io/posts/b90e2a6b46072680c917d29964fd7831ab5f图片.png)
+
+------
+
+voting history showing :
+
+![图片.png](https://cdn.utopian.io/posts/3b0cb5834e8e0d479b3defe151ba76e03f2a图片.png)
+
+---
+
 ### Existing features  
 
 - Show informations of the steemit account in the info page , including steemit account name ,reputation ,balance,sbd_balance, vesting_shares, steem power ,delegated SP ,voting _power , created time ,keys and posting auth.
