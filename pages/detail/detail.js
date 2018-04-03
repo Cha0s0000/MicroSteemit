@@ -217,54 +217,63 @@ Page({
   loadChildComment:function(e){
     var that = this;
     var idx = e.currentTarget.dataset.idx;
+    var originidx = e.currentTarget.dataset.originidx;
     var comment_item = e.currentTarget.dataset.item;
     var author = e.currentTarget.dataset.item.author;
     var permlink = e.currentTarget.dataset.item.permlink;
     var children = comment_item.children;
+    var origin_children = this.data.comments[originidx].children;
     var child = comment_item.child;
-    var update_item_child = "comments[" + idx + "].child";
-    var update_item_children = "comments[" + idx + "].children";
+    var origin_depth = comment_item.depth;
+    if (origin_depth == 1){
+      idx= 1;
+    }
+    var update_item_child = "comments[" + originidx + "].child";
+    var update_item_children = "comments[" + originidx + "].children";
     console.log(idx);
     console.log(comment_item);
-    if (!child){
-      var ChildCommentData = [];
-      wx.request({
-        url: 'https://api.steemjs.com/get_content_replies?author=' + author + '&permlink=' + permlink,
-        method: 'GET',
-        success: function (res) {
-          var data = res.data;
-          var data_length = data.length;
-          console.log("data_length");
-          console.log(data_length);
-          for (var d in data) {
-            var obj = new Object();
-            obj.author = data[d].author;
-            obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
-            obj.permlink = data[d].permlink;
-            obj.body = data[d].body;
-            obj.comment_num = data[d].children;
-            obj.time = that.getTime(data[d].created);
-            obj.like_num = data[d].net_votes;
-            obj.depth = data[d].depth;
-            obj.parent_author = data[d].parent_author;
-            obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
-            obj.reputation = that.getReputation(data[d].author_reputation);
-            ChildCommentData.push(obj);
-          }
-        },
-        complete: function () {
-          that.setData({ [update_item_child]: 1, [update_item_children]: ChildCommentData });
-          console.log("childComments");
-          console.log(ChildCommentData);
-          console.log(that.data.comments[idx])
+    var ChildCommentData =[];
+    if (origin_children){
+      ChildCommentData = origin_children;
+    }
+    
+    console.log("ChildCommentData");
+    console.log(ChildCommentData);
+    wx.request({
+      url: 'https://api.steemjs.com/get_content_replies?author=' + author + '&permlink=' + permlink,
+      method: 'GET',
+      success: function (res) {
+        var data = res.data;
+        var i =0;
+        var data_length = data.length;
+        console.log("data_length");
+        console.log(data_length);
+        for (var d in data) {
+          var obj = new Object();
+          i = i + 1;
+          obj.author = data[d].author;
+          obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+          obj.permlink = data[d].permlink;
+          obj.body = data[d].body;
+          obj.comment_num = data[d].children;
+          obj.time = that.getTime(data[d].created);
+          obj.like_num = data[d].net_votes;
+          obj.depth = data[d].depth;
+          obj.parent_author = data[d].parent_author;
+          obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
+          obj.reputation = that.getReputation(data[d].author_reputation);
+          // ChildCommentData.push(obj);
+          ChildCommentData.splice(idx+i,0,obj);
         }
-      })
+      },
+      complete: function () {
+        that.setData({ [update_item_child]: 1, [update_item_children]: ChildCommentData });
+        console.log("childComments");
+        console.log(ChildCommentData);
+        console.log(that.data.comments[originidx])
+      }
+    })
       
-    }
-    else{
-      this.setData({ [update_item_child]: 0});
-    }
-
   },
   getChildComment(author, permlink){
     var that = this;
@@ -293,6 +302,6 @@ Page({
       complete: function () {
       }
     })
-
   },
+  
 })

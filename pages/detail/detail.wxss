@@ -300,11 +300,28 @@
   flex-direction: row;
   border-radius: 50%;
   background-color: black;
-  margin-left: 15rpx;
   margin-top: 60rpx;
-  margin-right: 10rpx;
+  margin-right: 2rpx;
   height:10rpx;
   width:10rpx;
+}
+.depth-2{
+  margin-left: 15rpx;
+}
+.depth-3{
+  margin-left: 30rpx;
+}
+.depth-4{
+  margin-left: 45rpx;
+}
+.depth-5{
+  margin-left: 60rpx;
+}
+.depth-5{
+  margin-left: 75rpx;
+}
+.depth-5{
+  margin-left: 90rpx;
 }
 .detail-child-comment-avatar {
   position:relative;
@@ -314,6 +331,7 @@
   /* display: block; */
   float: left;
   margin-top: 3px;
+  margin-left:2rpx;
 }
 .detail-child-avatar {
   width: 46px;
