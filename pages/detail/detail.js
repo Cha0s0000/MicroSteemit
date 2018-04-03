@@ -13,6 +13,7 @@ Page({
     childComments:[]
   },
   onLoad: function (options) {
+    
     // The page initializes options for the parameters of the page jump.
     var author = options.author;
     var permlink = options.permlink;
@@ -183,8 +184,10 @@ Page({
           obj.time = that.getTime(data[d].created);
           obj.like_num = data[d].net_votes;
           obj.depth = data[d].depth;
+          obj.child = 0;
           if (obj.comment_num){
-            that.getChildComment(obj.author,obj.permlink);
+            // that.getChildComment(obj.author,obj.permlink);
+            // obj.children= that.data.childComments;
             
           }
           obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
@@ -192,10 +195,9 @@ Page({
           commentData.push(obj);
         }
         console.log(commentData);       
-        // that.setData({ comments: commentData }); 
       },
       complete: function () {
-        
+        console.log("commentData");
         var replyTemArray = commentData;
         // console.log("Get comment body");
         if (commentData.length > 0) {
@@ -206,14 +208,67 @@ Page({
             }
           }
         }
+        
         that.setData({ comments: commentData }); 
       }
     })
       
   },
-  getChildComment(author, permlink) {
+  loadChildComment:function(e){
     var that = this;
-    var ChildCommentData = this.data.childComments;
+    var idx = e.currentTarget.dataset.idx;
+    var comment_item = e.currentTarget.dataset.item;
+    var author = e.currentTarget.dataset.item.author;
+    var permlink = e.currentTarget.dataset.item.permlink;
+    var children = comment_item.children;
+    var child = comment_item.child;
+    var update_item_child = "comments[" + idx + "].child";
+    var update_item_children = "comments[" + idx + "].children";
+    console.log(idx);
+    console.log(comment_item);
+    if (!child){
+      var ChildCommentData = [];
+      wx.request({
+        url: 'https://api.steemjs.com/get_content_replies?author=' + author + '&permlink=' + permlink,
+        method: 'GET',
+        success: function (res) {
+          var data = res.data;
+          var data_length = data.length;
+          console.log("data_length");
+          console.log(data_length);
+          for (var d in data) {
+            var obj = new Object();
+            obj.author = data[d].author;
+            obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+            obj.permlink = data[d].permlink;
+            obj.body = data[d].body;
+            obj.comment_num = data[d].children;
+            obj.time = that.getTime(data[d].created);
+            obj.like_num = data[d].net_votes;
+            obj.depth = data[d].depth;
+            obj.parent_author = data[d].parent_author;
+            obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
+            obj.reputation = that.getReputation(data[d].author_reputation);
+            ChildCommentData.push(obj);
+          }
+        },
+        complete: function () {
+          that.setData({ [update_item_child]: 1, [update_item_children]: ChildCommentData });
+          console.log("childComments");
+          console.log(ChildCommentData);
+          console.log(that.data.comments[idx])
+        }
+      })
+      
+    }
+    else{
+      this.setData({ [update_item_child]: 0});
+    }
+
+  },
+  getChildComment(author, permlink){
+    var that = this;
+    var ChildCommentData = [];
     wx.request({
       url: 'https://api.steemjs.com/get_content_replies?author=' + author + '&permlink=' + permlink,
       method: 'GET',
@@ -234,25 +289,10 @@ Page({
           obj.reputation = that.getReputation(data[d].author_reputation);
           ChildCommentData.push(obj);
         }
-        console.log(ChildCommentData);
       },
       complete: function () {
-        console.log("tran the chils comments");
-        that.setData({ childComments: ChildCommentData });
-
-        // console.log(that.data.childComments);
-        // var ChildReplyArray = ChildCommentData;
-        // console.log("Get comment body");
-        // if (ChildCommentData.length > 0) {
-        //   for (let i = 0; i < ChildCommentData.length; i++) {
-        //     WxParse.wxParse('childReply' + i, 'md', ChildCommentData[i].body, that, 5);
-        //     if (i === ChildCommentData.length - 1) {
-        //       WxParse.wxParseTemArray("ChildReplyArray", 'childReply', ChildCommentData.length, that, 5)
-        //     }
-        //   }
-        // }
       }
     })
 
-  }
+  },
 })
