@@ -48,8 +48,20 @@
         </view>
       </block>
     </view>
+    <view class="pageUpDown" hidden="{{!loadMore}}">
+      <view class="pageDown">
+        <button class= "page-button" type="default" size="mini" bindtap='pageChange' data-type="down" disabled="{{pageDownDis}}">PageDown</button> 
+      </view>
+      <text class="pageNum">Page{{page}}</text>
+      <view class="pageUp">
+         <button class= "page-button" type="default" size="mini" bindtap='pageChange' data-type="up" disabled="{{pageUpDis}}">PageUp</button> 
+      </view>
+    </view>
   </view>
 </view>
+<loading hidden="{{loadMore}}">
+  Loading...
+</loading>
 <loading hidden="{{hidden}}">
   Loading...
 </loading>
