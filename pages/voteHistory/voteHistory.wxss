@@ -477,3 +477,31 @@ swiper,swiper image {
 .rshares{
   font-size: 100;
 }
+.pageUpDown{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;  
+    
+}
+.pageUpDown-icon{
+  width: 40rpx;
+  height: 40rpx;
+}
+.pageDown{
+  position: absolute;
+  left:10rpx;
+}
+.pageUp{
+  position: absolute;
+  right:10rpx;
+}
+.pageNum{
+  display: table-cell;
+  vertical-align:middle;
+  margin-top:20rpx;
+  font-size:1.4ch;
+}
+.page-button{
+  width: 220rpx;
+  height: 80rpx;
+}
