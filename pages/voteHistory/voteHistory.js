@@ -28,7 +28,8 @@ Page({
             steemitname: res.data.user.json_metadata.profile.name,
             about: res.data.user.json_metadata.profile.about,
             info_title: "Voting history",
-            hidden: true
+            hidden: true,
+            loadMore:false
           })
         }
       },
@@ -60,6 +61,12 @@ Page({
               }
               that.setData({
                 votingList: showList,
+                page:1,
+                pageDownDis:true,
+                loadMore:true
+              })
+              that.setData({
+                votingHistory: votingHistory
               })
 
             }
@@ -71,7 +78,6 @@ Page({
 
 
   },
-
   /**
    * Life cycle function - the first rendering of the listening page.
    */
@@ -168,4 +174,49 @@ Page({
     }
     return Math.round(score);
   },
+  pageChange: function (e) {
+    this.setData({
+      loadMore: false
+    })
+    var pageType = e.currentTarget.dataset.type;
+    var page = this.data.page;
+    var votingHistory = this.data.votingHistory;
+    
+    if (pageType == "up"){
+      var showList = [];
+      for (var i = page * 30; i < (page +1)* 30; i++) {
+        showList.push(votingHistory[votingHistory.length - i - 1])
+      };
+      this.setData({
+        votingList: showList,
+        page: page + 1,
+        loadMore: true,
+        pageDownDis:false
+
+      })
+      var votingLength = votingHistory.length;
+      if (votingLength % 30 != 0){
+        votingLength = parseInt(votingHistory.length / 30) + 1;
+      }
+      if (page + 1 == votingLength){
+        this.setData({ pageUpDis: true })
+      }
+    }
+    else if (pageType == "down"){
+      var showList = [];
+      for (var i = (page-2) * 30; i < (page-1) * 30; i++) {
+        showList.push(votingHistory[votingHistory.length - i - 1])
+      };
+      this.setData({
+        votingList: showList,
+        page: page -1,
+        loadMore: true,
+        pageUpDis:false
+      })
+      if(page-1==1){
+        this.setData({ pageDownDis:true})
+      }
+    }
+    
+  }
 })
