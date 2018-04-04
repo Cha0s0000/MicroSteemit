@@ -218,5 +218,15 @@ Page({
       }
     }
     
-  }
+  },
+  click: function (e) {
+    var author = e.currentTarget.dataset.block.author;
+    var permlink = e.currentTarget.dataset.block.authorperm.split(author+'/')[1];
+    console.log("click");
+    console.log(permlink);
+    wx.navigateTo({
+      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+    })
+
+  },
 })
