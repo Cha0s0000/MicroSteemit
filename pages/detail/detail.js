@@ -10,7 +10,9 @@ Page({
     tittle:"",
     author:"",
     permlink:"",
-    childComments:[]
+    childComments:[],
+    showState:"Show",
+    commentShowState:false
   },
   onLoad: function (options) {
     
@@ -18,8 +20,9 @@ Page({
     var author = options.author;
     var permlink = options.permlink;
     console.log(permlink);
+    this.setData({author:author,permlink:permlink})
     this.getPostdDtail(author,permlink);
-    this.getPostComment(author,permlink);
+    // this.getPostComment(author,permlink);
     
   },
   onShareAppMessage: function () {
@@ -165,6 +168,13 @@ Page({
       }
     })
   },
+  showComment:function(e){
+    var author = this.data.author;
+    var permlink = this. data.permlink;
+    this.getPostComment(author, permlink);
+    this.setData({ showState:"loading.."})
+    wx.showNavigationBarLoading();
+  },
   // get the first depth conment of the post
   getPostComment(author,permlink){
     var that = this;
@@ -205,7 +215,8 @@ Page({
           }
         }
         
-        that.setData({ comments: commentData }); 
+        that.setData({ comments: commentData, showState: "Show", commentShowState:true}); 
+        wx.hideNavigationBarLoading();
       }
     })
       

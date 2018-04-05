@@ -73,6 +73,21 @@
 .detail-post-comment {
   background-color: #fff;
 }
+.comment_title{
+  display: flex;
+  flex-direction: row;
+}
+.comment-button{
+  position: relative;
+  left:3;
+  width: 220rpx;
+  height: 80rpx;
+  background-color:greenyellow;
+  display: table-cell;
+  vertical-align:middle;
+  justify-content: center;  
+  margin-top:20rpx;
+}
 .detail-post-comment-title {
   font-size: 20px;
   line-height: 50px;
