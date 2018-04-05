@@ -169,6 +169,7 @@ Page({
     return Math.round(score);
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
   pageChange: function (e) {
     this.setData({
       loadMore: false
@@ -224,6 +225,8 @@ Page({
     })
 
   },
+=======
+>>>>>>> parent of 19ce2ce... create the function to deal with the function of loading more voting data
 =======
 >>>>>>> parent of 19ce2ce... create the function to deal with the function of loading more voting data
 })
