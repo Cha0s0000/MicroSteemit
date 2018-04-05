@@ -28,8 +28,7 @@ Page({
             steemitname: res.data.user.json_metadata.profile.name,
             about: res.data.user.json_metadata.profile.about,
             info_title: "Voting history",
-            hidden: true,
-            loadMore:false
+            hidden: true
           })
         }
       },
@@ -61,12 +60,6 @@ Page({
               }
               that.setData({
                 votingList: showList,
-                page:1,
-                pageDownDis:true,
-                loadMore:true
-              })
-              that.setData({
-                votingHistory: votingHistory
               })
 
             }
@@ -78,6 +71,7 @@ Page({
 
 
   },
+
   /**
    * Life cycle function - the first rendering of the listening page.
    */
@@ -174,6 +168,7 @@ Page({
     }
     return Math.round(score);
   },
+<<<<<<< HEAD
   pageChange: function (e) {
     this.setData({
       loadMore: false
@@ -229,4 +224,6 @@ Page({
     })
 
   },
+=======
+>>>>>>> parent of 19ce2ce... create the function to deal with the function of loading more voting data
 })
