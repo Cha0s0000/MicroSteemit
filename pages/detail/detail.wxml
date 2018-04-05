@@ -48,7 +48,10 @@
       </view>
     </view>
     <view class="detail-post-comment">
-      <view class="detail-post-comment-title">评论</view>
+      <view class="comment_title">
+        <view class="detail-post-comment-title">评论</view>
+        <button class= "comment-button" type="default" size="mini" bindtap='showComment' data-type="up" disabled="{{commentShowState}}">{{showState}}</button> 
+      </view>
       <view class="detail-post-comment-list" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment">
         <view class="detail-post-comment-avatar">
           <image class="detail-post-comment-avatar-img" mode="scaleToFill" src="{{ comment.avatar }}"></image>
