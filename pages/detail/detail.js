@@ -185,6 +185,11 @@ Page({
           obj.like_num = data[d].net_votes;
           obj.depth = data[d].depth;
           obj.child = 0;
+          if (obj.comment_num){
+            // that.getChildComment(obj.author,obj.permlink);
+            // obj.children= that.data.childComments;
+            
+          }
           obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
           obj.reputation = that.getReputation(data[d].author_reputation);
           commentData.push(obj);
@@ -217,7 +222,7 @@ Page({
     var author = e.currentTarget.dataset.item.author;
     var permlink = e.currentTarget.dataset.item.permlink;
     var children = comment_item.children;
-    var origin_children = [];
+    var origin_children = this.data.comments[originidx].children;
     var child = comment_item.child;
     var origin_depth = comment_item.depth;
     if (origin_depth == 1){
@@ -227,27 +232,22 @@ Page({
     var update_item_children = "comments[" + originidx + "].children";
     console.log(idx);
     console.log(comment_item);
-    origin_children = this.data.comments[originidx].children;
     var ChildCommentData =[];
-    
     if (origin_children){
       ChildCommentData = origin_children;
     }
     
     console.log("ChildCommentData");
     console.log(ChildCommentData);
-    var data_length = 0; 
-    var singleChildCommentData=[];
     wx.request({
       url: 'https://api.steemjs.com/get_content_replies?author=' + author + '&permlink=' + permlink,
       method: 'GET',
       success: function (res) {
         var data = res.data;
         var i =0;
-        data_length = data.length;
+        var data_length = data.length;
         console.log("data_length");
         console.log(data_length);
-        var check_exist = false;
         for (var d in data) {
           var obj = new Object();
           i = i + 1;
@@ -262,53 +262,11 @@ Page({
           obj.parent_author = data[d].parent_author;
           obj.pending_payout_value = "$" + data[d].pending_payout_value.replace("SBD", "");
           obj.reputation = that.getReputation(data[d].author_reputation);
-          obj.showState = true;
-          singleChildCommentData.push(obj);
-          if (ChildCommentData.length == 0){
-            ChildCommentData.splice(idx + i, 0, obj);
-          }
-          else{
-            for (var existChildComment in origin_children){
-              if (origin_children[existChildComment].permlink == obj.permlink){
-                check_exist=true;
-                console.log("existChildComment");
-                console.log(existChildComment);
-                console.log(origin_children[existChildComment].permlink);
-                ChildCommentData.splice(existChildComment,1);
-                console.log(ChildCommentData);
-                console.log(ChildCommentData.length);
-                for (var j = existChildComment; j < ChildCommentData.length;j=j){
-                  console.log('j');
-                  console.log(j);
-                  console.log("ChildCommentData_length");
-                  console.log(ChildCommentData.length);
-                  if (origin_children[j].depth == obj.depth) {
-                    break;
-                  }
-                  if (origin_children[j].depth > obj.depth){
-                    ChildCommentData.splice(j, 1);
-                  }
-                  
-                }
-                break;
-
-              }
-            }
-            if ((origin_depth!=1)&& (!check_exist)){
-              ChildCommentData.splice(idx + i, 0, obj);
-              console.log("add new child");
-            }
-            else{
-              console.log("existing ");
-            } 
-          }
-          
+          // ChildCommentData.push(obj);
+          ChildCommentData.splice(idx+i,0,obj);
         }
       },
       complete: function () {
-        // if (origin_depth!=1 && (origin_children[idx+1] == singleChildCommentData[0])) {
-        //   ChildCommentData.splice(idx, data_length);
-        // }
         that.setData({ [update_item_child]: 1, [update_item_children]: ChildCommentData });
         console.log("childComments");
         console.log(ChildCommentData);
