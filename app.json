@@ -5,7 +5,9 @@
     "pages/index/index",
     "pages/detail/detail",
     "pages/follow/follow",
-    "pages/authorPost/authorPost"
+    "pages/authorPost/authorPost",
+    "pages/voteHistory/voteHistory",
+    "pages/feed/feed"
   ],
   "window":{
     "backgroundTextStyle":"light",
