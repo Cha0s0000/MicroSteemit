@@ -255,6 +255,13 @@ Page({
     wx.navigateTo({
       url: '../voteHistory/voteHistory?author=' + author,
     })
+  },
+  feed: function (e) {
+    var author = this.data.author;
+    console.log("navigate to feed showing");
+    wx.navigateTo({
+      url: '../feed/feed?author=' + author,
+    })
   }
 
 })

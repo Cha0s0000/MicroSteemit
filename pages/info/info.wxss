@@ -71,6 +71,17 @@
   font-size: 18px;
   color: #333333;
 }
+.feed{
+  position: absolute;
+  left:50rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-top:5rpx;
+  align-items: right; 
+  justify-content: right;
+  padding-right: 5rpx;
+  margin-right: 5rpx;
+}
 .about{
   display: flex;
   align-items: center;

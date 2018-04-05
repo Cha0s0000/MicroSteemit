@@ -9,6 +9,7 @@
   </view>
   <view class="info-content">
     <view class="person">
+      <image mode="aspectFill" bindtap = "feed" class="feed" src="../../images/icon/feed.png"></image>
       <view class="name">{{steemitname}} ({{reputation}})</view>
       <image mode="aspectFill" bindtap = "voteHistory" class="voting" src="../../images/icon/good-filling.png"></image>
     </view>
