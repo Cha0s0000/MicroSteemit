@@ -35,6 +35,9 @@ Page({
       },
       complete: function(res) {
         var votingHistory = [];
+        // because of the limitation of the requesting for the api, we only can get all the voting history data at a time. 
+        // But wechat parse engine is not able to deal with the large data at a time 
+        // So only can we show the part of the voting history at a time .
         wx:wx.request({
           url: 'https://api.steemjs.com/get_account_votes?voter='+ author,
           method: 'GET',
@@ -56,15 +59,18 @@ Page({
               }
               console.log(votingHistory);
               var showList = [];
+              // get the first 30 voting history showing 
               for( var i=0;i<30;i++){
                 showList.push(votingHistory[votingHistory.length-i-1])
               }
+              
               that.setData({
                 votingList: showList,
                 page:1,
                 pageDownDis:true,
                 loadMore:true
               })
+              // save the whole voting history in an array .
               that.setData({
                 votingHistory: votingHistory
               })
@@ -174,19 +180,25 @@ Page({
     }
     return Math.round(score);
   },
+
+  // deal with the clicking on the pageUp and pageDown button
   pageChange: function (e) {
     this.setData({
       loadMore: false
     })
+    // get the button type .it can be "pageUp" or "pageDown" type 
     var pageType = e.currentTarget.dataset.type;
     var page = this.data.page;
     var votingHistory = this.data.votingHistory;
-    
+
+    // if users click the "pageUp" button , load the next part of the voting history and save in the showing array.
     if (pageType == "up"){
       var showList = [];
       for (var i = page * 30; i < (page +1)* 30; i++) {
         showList.push(votingHistory[votingHistory.length - i - 1])
       };
+      // the page number will add one 
+      // whenever clicking on the "pageUp" button , that means that there are the last part of the voting history ,for which users can click on the "pageDown" button.
       this.setData({
         votingList: showList,
         page: page + 1,
@@ -194,6 +206,9 @@ Page({
         pageDownDis:false
 
       })
+      
+      // when click on the "pageUp" button , judge if it has more next voting history to show or not .
+      // if not , just disable the "pageUp" button , letting the user not able to click for loading more 
       var votingLength = votingHistory.length;
       if (votingLength % 30 != 0){
         votingLength = parseInt(votingHistory.length / 30) + 1;
@@ -202,6 +217,7 @@ Page({
         this.setData({ pageUpDis: true })
       }
     }
+     // if users click the "pageDown" button , load the last part of the voting history and save in the showing array.
     else if (pageType == "down"){
       var showList = [];
       for (var i = (page-2) * 30; i < (page-1) * 30; i++) {
@@ -213,6 +229,7 @@ Page({
         loadMore: true,
         pageUpDis:false
       })
+      // if the first part of the voting history will be showing after this clicking operation , then disable the "pageDown" button for no more last part of voting history
       if(page-1==1){
         this.setData({ pageDownDis:true})
       }

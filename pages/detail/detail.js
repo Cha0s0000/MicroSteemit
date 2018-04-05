@@ -138,7 +138,7 @@ Page({
       return getTimeData;
     }
   },
-
+// Get the body and other detail info of the post whose permlink was transmitted by navigating 
   getPostdDtail(author,permlink){
     var that = this;
     var obj = new Object();
@@ -165,6 +165,7 @@ Page({
       }
     })
   },
+  // get the first depth conment of the post
   getPostComment(author,permlink){
     var that = this;
     var commentData= [];
@@ -209,6 +210,11 @@ Page({
     })
       
   },
+  /**
+   * deal with the clicking operation on the child comments num button
+   * to deal with the showing order , i save all depth of child comments of the same  parent comments in a array.
+   * if clicking on the first depth child comments ,then add the second depth child comments of this first depth comment to the array in the order after this fisrst depth comment. 
+   **/
   loadChildComment:function(e){
     var that = this;
     var idx = e.currentTarget.dataset.idx;
@@ -264,12 +270,18 @@ Page({
           obj.reputation = that.getReputation(data[d].author_reputation);
           obj.showState = true;
           singleChildCommentData.push(obj);
+
+          // judge the click operation if it is the fisrt clicking or not 
           if (ChildCommentData.length == 0){
             ChildCommentData.splice(idx + i, 0, obj);
           }
+          // if that is not the first clicking , it means there have been child comments saved in the array .
           else{
+            // everytime before adding child comments to the array , search if the same child comments if already existing in the array or not .
             for (var existChildComment in origin_children){
+              // if the ont of this level child coments have already been in the array , that means this level child comments are now in showing state which they should be hidden after the clicking .
               if (origin_children[existChildComment].permlink == obj.permlink){
+                // setting  the check_existing sign true means that  this level child comments will not be able to saved in the array once more .On the contrary they should be deleted for having existed in the array .
                 check_exist=true;
                 console.log("existChildComment");
                 console.log(existChildComment);
@@ -277,6 +289,8 @@ Page({
                 ChildCommentData.splice(existChildComment,1);
                 console.log(ChildCommentData);
                 console.log(ChildCommentData.length);
+                // when clicking the button to hide the child comments , firstly check if there have been further level child comments of this comments in the showing state or not .
+                // if there have been further level child comments in the showing state , just hide them all when clicking to hide their parent comments .
                 for (var j = existChildComment; j < ChildCommentData.length;j=j){
                   console.log('j');
                   console.log(j);
@@ -294,6 +308,7 @@ Page({
 
               }
             }
+            // if thses child comments have not been in the array , just add to the array in the order after the parent comment to show in the UI
             if ((origin_depth!=1)&& (!check_exist)){
               ChildCommentData.splice(idx + i, 0, obj);
               console.log("add new child");
@@ -305,10 +320,8 @@ Page({
           
         }
       },
+      // after dealing with the array , set into the showing array, then can show in the page UI
       complete: function () {
-        // if (origin_depth!=1 && (origin_children[idx+1] == singleChildCommentData[0])) {
-        //   ChildCommentData.splice(idx, data_length);
-        // }
         that.setData({ [update_item_child]: 1, [update_item_children]: ChildCommentData });
         console.log("childComments");
         console.log(ChildCommentData);
@@ -317,6 +330,7 @@ Page({
     })
       
   },
+  // according to the parent comments , loading different depth of child comments data
   getChildComment(author, permlink){
     var that = this;
     var ChildCommentData = [];
