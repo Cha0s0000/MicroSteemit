@@ -160,6 +160,9 @@ Page({
         obj.like_num = data.net_votes;
         obj.comment_num = data.children;
         obj.pending_payout_value = "$" + data.pending_payout_value.replace("SBD", "");
+        obj.total_payout_value = "$" + data.total_payout_value.replace("SBD", "");
+        obj.curator_payout_value = "$" + data.curator_payout_value.replace("SBD", "");
+        obj.promoted = "$" + data.promoted.replace("SBD", "");
         obj.reputation = that.getReputation(data.author_reputation);
         obj.tags = JSON.parse(data.json_metadata).tags;
         WxParse.wxParse('content', 'md', obj.body, that, 5);
@@ -370,5 +373,74 @@ Page({
       }
     })
   },
-  
+  showPayout: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var time = e.currentTarget.dataset.time;
+    var detail = e.currentTarget.dataset.detail;
+    /* create thte animation */
+    // Step 1：setup an animation instance
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+
+    // Step 2: this animation instance is assigned to the current animation instance.
+    this.animation = animation;
+
+    // Step 3: perform the first set of animations.
+    animation.opacity(0).rotateX(-100).step();
+
+    // Step 4: export the animation object to the data object store.
+    this.setData({
+      animationData: animation.export()
+    })
+
+    // Step 5: set the timer to the specified time and execute the second set of animations.
+    setTimeout(function () {
+      // Execute the second set of animations.
+      animation.opacity(1).rotateX(0).step();
+      // The first set of animations that are stored for the data object are replaced by the animation objects that perform the second animation.
+      this.setData({
+        animationData: animation
+      })
+
+      //hide 
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            showModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      if ((detail.time.indexOf("天") != -1)){
+        if (parseInt((detail.time.split('天')[0])) > 7){
+          payout = parseInt((detail.time.split('天')[0])) - 7;
+          payout = payout+"天前";
+        }
+        else{
+          payout = 7 - parseInt((detail.time.split('天')[0])) ;
+          payout = payout + "天后";
+        }
+
+      }
+      else{
+        payout =  "7天后";
+      }
+      this.setData(
+        {
+          PotentialPayout: detail.pending_payout_value,
+          PromotedPayout:detail.promoted,
+          AuthorPayout: detail.total_payout_value,
+          CurationPayout: detail.curator_payout_value,
+          Payout: payout,
+          showModalStatus: true
+        }
+      );
+    }
+  }
 })
