@@ -247,5 +247,16 @@ Page({
       return getTimeData;
     }
   },
+  click: function (e) {
+    var author = e.currentTarget.dataset.block.author;
+    var permlink = e.currentTarget.dataset.block.permlink;
+    console.log("click");
+    console.log(author);
+    wx.navigateTo({
+      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+    })
+
+  },
+
 
 })
