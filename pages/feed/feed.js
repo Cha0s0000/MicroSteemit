@@ -257,6 +257,78 @@ Page({
     })
 
   },
+  // whle pull down the app , the page will refresh
+  onPullDownRefresh: function () {
+    var that = this;
+    var author = this.data.author
+    wx.showNavigationBarLoading();
+    wx.request({
+      url: 'https://steemit.com/@' + author + '.json',
+      method: 'GET',
+      success: function (res) {
+        console.log(res);
+        if (res.data.status == '200') {
 
+          that.setData({
+            avatar: res.data.user.json_metadata.profile.profile_image,
+            post_count: res.data.user.post_count,
+            reputation: that.getReputation(res.data.user.reputation),
+            steemitname: res.data.user.json_metadata.profile.name,
+            about: res.data.user.json_metadata.profile.about,
+            info_title: "Feed",
+            hidden: true,
+            author: author
+          })
+        }
+      },
+      // after showint he basic and general info of the user , load the feed post to show in the list
+      complete: function (res) {
+        var authorPosts = [];
+        // var that = this;
+        wx.request({
+          url: 'https://api.steemjs.com/get_discussions_by_feed?query={"tag":"' + author + '", "limit": "10"}',
+          method: 'GET',
+          success: function (res) {
+            console.log(res.data)
+            var data = res.data;
+            for (var post in data) {
+              var obj = new Object();
+              var images = [];
+              obj.author = data[post].author;
+              obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+              obj.permlink = data[post].permlink;
+              obj.category = data[post].category;
+              obj.title = that.filterBody(data[post].title);
+              obj.body = that.filterBody(data[post].body);
+              obj.json_metadata = data[post].json_metadata;
+              images = JSON.parse(obj.json_metadata).image;
+              obj.image = that.getImage(images);
+              if (!obj.image) {
+                obj.image = 'https://steemitimages.com/640x480/' + JSON.parse(obj.json_metadata).thumbnail;
+              }
+              obj.time = that.getTime(data[post].created);
+              obj.like_num = data[post].net_votes;
+              obj.comment_num = data[post].children;
+              var payout = parseFloat(data[post].pending_payout_value) + parseFloat(data[post].total_payout_value) + parseFloat(data[post].curator_payout_value);
+              obj.pending_payout_value = "$" + payout.toFixed(2);
+              obj.reputation = that.data.reputation
+              authorPosts.push(obj);
+            }
+            console.log(authorPosts);
+            that.setData({
+              postsData: authorPosts,
+              loading: true
+            })
+            wx.hideNavigationBarLoading();
+          }
+        })
+
+
+      }
+    })
+
+    wx.stopPullDownRefresh();
+
+  },
 
 })
