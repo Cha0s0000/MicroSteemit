@@ -262,6 +262,13 @@ Page({
     wx.navigateTo({
       url: '../feed/feed?author=' + author,
     })
-  }
+  },
+  commentsHistory: function (e) {
+    var author = this.data.author;
+    console.log("navigate to voting history");
+    wx.navigateTo({
+      url: '../commentsHistory/commentsHistory?author=' + author,
+    })
+  },
 
 })

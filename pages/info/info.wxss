@@ -356,3 +356,14 @@
   align-items: center; 
   justify-content: center; 
 }
+.comments{
+  position: absolute;
+  right:110rpx;
+  width: 40rpx;
+  height: 40rpx;
+  margin-top:5rpx;
+  align-items: right; 
+  justify-content: right;
+  padding-right: 5rpx;
+  margin-right: 5rpx;
+}
