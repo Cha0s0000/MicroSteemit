@@ -47,8 +47,10 @@ Page({
               var obj = new Object();
               var images = [];
               obj.author = data[post].author;
+              obj.parent_author = data[post].parent_author;
               obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
               obj.permlink = data[post].permlink;
+              obj.parent_permlink = data[post].parent_permlink;
               obj.category = data[post].category;
               obj.title = that.filterBody(data[post].root_title);
               obj.body = that.filterBody(data[post].body);
@@ -233,6 +235,16 @@ Page({
       var getTimeData = "1秒前";
       return getTimeData;
     }
+  },
+  click: function (e) {
+    var author = e.currentTarget.dataset.block.parent_author;
+    var permlink = e.currentTarget.dataset.block.parent_permlink;
+    console.log("click");
+    console.log(author);
+    wx.navigateTo({
+      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+    })
+
   },
   
 })
