@@ -70,14 +70,14 @@ voting history showing :
 ### Existing features  
 
 - Show informations of the steemit account in the info page , including steemit account name ,reputation ,balance,sbd_balance, vesting_shares, steem power ,delegated SP ,voting _power , created time ,keys and posting auth.
-
 - Show posts in trending , hot , new ,created .
-
 - Add sharing to friends function
-
 - Show detail of the post  including the post content , voting number , comment number ,pending payout and comments detail
-
-  ​
+- Show steemit account voting history
+- Show steemit account followers and following list
+- Show steemit account ever posts
+- Show steemit account feed post list
+- Show steemit account comments history
 
 ---
 
