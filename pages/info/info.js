@@ -270,5 +270,12 @@ Page({
       url: '../commentsHistory/commentsHistory?author=' + author,
     })
   },
+  replyHistory: function (e) {
+    var author = this.data.author;
+    console.log("navigate to reply history");
+    wx.navigateTo({
+      url: '../replyHistory/replyHistory?author=' + author,
+    })
+  },
 
 })
