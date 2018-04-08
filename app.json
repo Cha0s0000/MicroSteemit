@@ -7,7 +7,9 @@
     "pages/follow/follow",
     "pages/authorPost/authorPost",
     "pages/voteHistory/voteHistory",
-    "pages/feed/feed"
+    "pages/feed/feed",
+    "pages/commentsHistory/commentsHistory",
+    "pages/replyHistory/replyHistory"
   ],
   "window":{
     "backgroundTextStyle":"light",

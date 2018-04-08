@@ -1,4 +1,4 @@
-/* pages/info/info.wxss */
+/* pages/replyHistory/replyHistory.wxss */
 .c8 {
   color: #888;
 }
@@ -64,30 +64,20 @@
 
 .person {
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
   width: 90%;
   font-size: 18px;
   color: #333333;
-}
-.feed{
-  position: absolute;
-  left:50rpx;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
 }
 .about{
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-   width: 100%; 
+  width: 100%; 
+  margin-bottom:30rpx;
 }
 .intro{
   font-size: 15px;
@@ -329,52 +319,156 @@
   margin:20rpx;
   margin-top:30rpx;
 }
-.voting{
-  position: absolute;
-  right:50rpx;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
+.content{
+  margin-top:30rpx;
 }
-.voteHistory {
+.header__container{
+    width: 18rem;
+    height: 64rpx;
+    white-space: nowrap;
+}
+.header__item{
+    padding: 14rpx;
+    display: inline-block;
+}
+.active{
+  color:#d81e06;
+  border-bottom: 2rpx solid #d81e06;
+}
+
+swiper,swiper image {
+  width: 100%;
+  height: 500rpx;
+}
+.post-container{
   display: flex;
-  align-items: right; 
-  width: 95%;
-   margin-left:50rpx; 
-   padding: 0px; 
-   text-align: center;  
-  justify-content: right; 
-   padding-right: 60rpx; 
+  flex-direction: column;
+  margin:20rpx;
+  /* margin-top: 20rpx;
+  margin-bottom: 20rpx; */
+  background-color: #fff;
+  border-bottom: 1px outset #eee;
+  border-top: 1px solid #ededed;
+  padding-bottom: 10px;
+  padding-top: 5px;
 }
-.name{
+.post-author-data{
+  margin: 10rpx 0 20rpx 10rpx;
+  display: flex;
+}
+.post-avatar{
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+}
+.post-author{
+  font-weight: 600;
+  margin-left: 20rpx;
+  vertical-align: middle;
+  margin-bottom: 5px;
+  font-size: 26rpx;
+}
+.reputation{
+  font-size: 26rpx;
+  vertical-align: middle;
+}
+
+.category{
+  margin-left:10rpx;
+  font-size: 26rpx;
+  vertical-align: middle;
+
+}
+.dot{
+  border-radius: 50%;
+  background-color: black;
+  margin-left: 15rpx;
+  margin-top: 15rpx;
+  margin-right: 10rpx;
+  height:10rpx;
+  width:10rpx;
+}
+
+.time{
+  margin-left:5rpx;
+  font-size: 26rpx;
+  vertical-align: middle;
+
+}
+.post-title{
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+.img-content{
   display: flex;
   flex-direction: row;
-  align-items: center; 
-  justify-content: center; 
+  margin: 5px;
 }
-.comments{
-  position: absolute;
-  right:170rpx;
+.post-content{
+  color: #666;
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+  letter-spacing: 2rpx;
+  line-height: 45rpx;
+  display: -webkit-box;
+  word-break:break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:4;
+}
+.foot-data{
+  display:flex;
+}
+.post-like{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.icon{
   width: 40rpx;
   height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
 }
-.reply{
-  position: absolute;
-  right:110rpx;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
+.post-like-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+.like-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.comment-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.like-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+
+.comment-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+.reply-title{
+  display: flex;
+  flex-direction: row;
 }

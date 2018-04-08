@@ -1,0 +1,42 @@
+<!--pages/replyHistory/replyHistory.wxml-->
+<view class="info" hidden ="{{!hidden}}">
+  <view class="info-header">
+    <image class="info-header-bg" src="../../static/images/info_head.png" />
+    <view class="none-work">
+      <view class="info-avatar-bg"></view>
+      <image class="info-avatar" src="{{avatar}}" />
+    </view>
+  </view>
+  <view class="info-content">
+    <view class="person">
+      <text class="name">{{steemitname}} ({{reputation}})</text>
+    </view>
+    <view class="about">
+      <text class="intro">{{about}}</text>
+    </view>
+    <view class="section-title">
+      <view class="left-border"></view>
+      <text>{{info_title}}</text>
+    </view>
+    <view class="content">
+      <block wx:for="{{postsData}}" wx:for-item="item">
+        <view class="post-container" bindtap='click' data-block='{{item}}'>
+          <view class="post-author-data">     
+            <image class="post-avatar" src="{{item.avatar}}"></image>
+            <text class="post-author">{{item.author}}</text>
+            <view class ="dot"></view>
+            <text class="time">{{item.time}}</text>
+          </view>
+          <text class="post-title">REPLY TO - {{item.title}}</text>
+          <view class="img-content">
+            <text class="post-content">{{item.body}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
+
