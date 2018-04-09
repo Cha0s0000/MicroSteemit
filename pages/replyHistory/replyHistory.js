@@ -58,6 +58,7 @@ Page({
               obj.title = that.filterBody(data[content].root_title);
               obj.body = that.filterBody(data[content].body);
               obj.time = that.getTime(data[content].created);
+              obj.originTime = data[content].created;
               obj.like_num = data[content].net_votes;
               obj.comment_num = data[content].children;
               var payout = parseFloat(data[content].pending_payout_value) + parseFloat(data[content].total_payout_value) + parseFloat(data[content].curator_payout_value);
@@ -65,7 +66,9 @@ Page({
               obj.reputation = that.getReputation(data[content].author_reputation)
               authorPosts.push(obj);
             }
-
+            authorPosts.sort(function(i1,i2){
+              return Date.parse(i2.originTime) - Date.parse(i1.originTime);
+            });
             console.log(authorPosts);
             that.setData({
               postsData: authorPosts,
