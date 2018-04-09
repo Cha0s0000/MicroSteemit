@@ -24,6 +24,8 @@
           <view class="post-author-data">     
             <image class="post-avatar" src="{{item.avatar}}"></image>
             <text class="post-author">{{item.author}}</text>
+            <text class= "reputation">({{item.reputation}})</text>
+            <text class= "category">在 {{item.category}}</text>
             <view class ="dot"></view>
             <text class="time">{{item.time}}</text>
           </view>

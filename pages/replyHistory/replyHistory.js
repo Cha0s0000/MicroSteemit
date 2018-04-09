@@ -51,7 +51,7 @@ Page({
             for (var content in data) {
               var obj = new Object();
               obj.author = data[content].author;
-              obj.parent_author = data[content].root_author;
+              obj.root_author = data[content].root_author;
               obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
               obj.root_permlink = data[content].root_permlink;
               obj.category = data[content].category;
@@ -196,4 +196,14 @@ Page({
       return getTimeData;
     }
   },
+  click: function (e) {
+    var author = e.currentTarget.dataset.block.root_author;
+    var permlink = e.currentTarget.dataset.block.root_permlink;
+    console.log("click");
+    console.log(author);
+    wx.navigateTo({
+      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+    })
+
+  }
 })
