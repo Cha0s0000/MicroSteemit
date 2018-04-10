@@ -79,7 +79,28 @@ Page({
           })
         }
         that.calc_bandwidth();
-      } 
+      },
+      complete: function (res) {
+        var transactionHistory = [];
+        wx.request({
+          url: 'https://uploadbeta.com/api/steemit/transfer-history/?id=cha0s0000',
+          method:'GET',
+          success:function(res){
+            if (res.statusCode == '200') {
+              var transactionDatas = res.data;
+              for (var transactionData in transactionDatas){
+                var obj = new Object();
+                obj.time = transactionDatas[transactionData].time_desc;
+                obj.transaction = transactionDatas[transactionData].transaction;
+                obj.memo = transactionDatas[transactionData].memo;
+                transactionHistory.push(obj);
+              }
+            }
+            console.log(transactionHistory);
+            that.setData({ transactions: transactionHistory})
+          }
+        })
+      }
     })
   
   },

@@ -160,6 +160,24 @@
           </view>
         </block>
       </view>
+      <view class="transaction-section-title">
+        <view class="transaction-left-border"></view>
+        <text>Transaction history</text>
+      </view>
+      <view class="transaction-history-section">
+        <block wx:for="{{transactions}}" wx:for-item="transaction">
+          <view class="transactions-container" bindtap='click' data-block='{{item}}'>
+            <view class="transaction-time">     
+              <view class ="dot"></view>
+              <text class="time">{{transaction.time}}</text>
+            </view>
+            <text class="transaction-transaction">{{transaction.transaction}}</text>
+            <view class="transaction-memo">
+              <text class="memo">{{transaction.memo}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
     </view>
     <!-- auth-end -->
   </view>

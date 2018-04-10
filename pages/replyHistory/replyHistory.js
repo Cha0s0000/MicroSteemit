@@ -31,7 +31,11 @@ Page({
             steemitname: res.data.user.json_metadata.profile.name,
             about: res.data.user.json_metadata.profile.about,
             info_title: "Reply history",
-            hidden: true
+            hidden: true,
+            author: author,
+            postsData:[],
+            startNum:-1,
+            num:0
           })
         }
       },
@@ -39,30 +43,32 @@ Page({
         var num = 0;
         var authorPosts = [];
         wx.request({
-          url: 'https://api.steemjs.com/get_account_history?account='+author+'&from=-1&limit=30',
+          url: 'https://api.steemjs.com/get_state?path=/@' + author + '/recent-replies',
           method: 'GET',
           success: function (res) {
-            console.log(res.data)
-            var data = res.data;
-            for (var post in data) {
-              console.log("show all data");
-              console.log(data[post][1].op[1]);
-              if (data[post][1].op[0] == 'comment' && data[post][1].op[1].parent_author == author){
-                console.log(data[post][1].op[0]);
-                var commentObject = data[post][1].op[1];
-                num = num +1;
-                var obj = new Object();
-                obj.author = commentObject.author;
-                obj.parent_author = commentObject.parent_author;
-                obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
-                obj.permlink = commentObject.permlink;
-                obj.title = commentObject.parent_permlink;
-                obj.parent_permlink = data[post].parent_permlink;
-                obj.body = commentObject.body;
-                obj.time = that.getTime(data[post].timestamp);
-                authorPosts.push(obj);
-              }
+            var data = res.data['content'];
+            console.log(data);
+            for (var content in data) {
+              var obj = new Object();
+              obj.author = data[content].author;
+              obj.root_author = data[content].root_author;
+              obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
+              obj.root_permlink = data[content].root_permlink;
+              obj.category = data[content].category;
+              obj.title = that.filterBody(data[content].root_title);
+              obj.body = that.filterBody(data[content].body);
+              obj.time = that.getTime(data[content].created);
+              obj.originTime = data[content].created;
+              obj.like_num = data[content].net_votes;
+              obj.comment_num = data[content].children;
+              var payout = parseFloat(data[content].pending_payout_value) + parseFloat(data[content].total_payout_value) + parseFloat(data[content].curator_payout_value);
+              obj.pending_payout_value = "$" + payout.toFixed(2);
+              obj.reputation = that.getReputation(data[content].author_reputation)
+              authorPosts.push(obj);
             }
+            authorPosts.sort(function(i1,i2){
+              return Date.parse(i2.originTime) - Date.parse(i1.originTime);
+            });
             console.log(authorPosts);
             that.setData({
               postsData: authorPosts,
@@ -190,6 +196,14 @@ Page({
       return getTimeData;
     }
   },
+  click: function (e) {
+    var author = e.currentTarget.dataset.block.root_author;
+    var permlink = e.currentTarget.dataset.block.root_permlink;
+    console.log("click");
+    console.log(author);
+    wx.navigateTo({
+      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+    })
 
-
+  }
 })
