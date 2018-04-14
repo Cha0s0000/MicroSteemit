@@ -1,10 +1,10 @@
 <view class = "posts">
   <loading hidden="{{loading}}">
   Loading...
-  </loading>
-  
+  </loading> 
   <scroll-view scroll-y="true" style="height:100%;" bindscrolltolower="loadMore" bindscrolltoupper="refesh" bindscroll="scroll" enable-back-to-top="true" scroll-top="{{scrollTop}}">
       <view class="header">
+        <image bindtap='showTags' class="tagsIcon" src="../../images/icon/tags.png"></image>
         <scroll-view class="header__container" scroll-x="true" >
           <block wx:for="{{categoryTabs}}" wx:key="lanmu_id" wx:if="1">
               <view 
@@ -14,10 +14,12 @@
               >
                   {{ item }}
               </view>
+              
           </block>
         </scroll-view>
     </view>
-    <view class="content">
+    <view class="content {{open ? 'page-move' : ''}}">
+      <view class="page-mask {{open ? '' : 'page-mask-hide'}}" bindtap="off_canvas"></view>
       <block wx:for="{{postsData}}" wx:for-item="item">
         <view class="post-container" bindtap='click' data-block='{{item}}'>
           <view class="post-author-data">     
@@ -55,4 +57,13 @@
       </block>
     </view>
   </scroll-view>
+</view>
+<view class="page-top {{open ? 'page-top-show' : ''}}">
+  <view class="tags">
+    <view  wx:for="{{tagsList}}" wx:for-item="tag" wx:key="tag">
+      <view class="tag1"> 
+        <text decode="true" class="tag-text">&nbsp;{{tag.tag}}&nbsp;</text>
+      </view>
+    </view>
+  </view>
 </view>

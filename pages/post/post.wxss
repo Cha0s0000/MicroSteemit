@@ -17,11 +17,18 @@
 }
 .content{
   margin-top:80rpx;
+  transition: all 0.4s ease; 
 }
 .header__container{
-    width: 18rem;
+    position: absolute;
+    left:80rpx;
+    width: 100%;
     height: 64rpx;
     white-space: nowrap;
+}
+.categoryTabs{
+  position: absolute;
+  right:100rpx;
 }
 .header__item{
     padding: 14rpx;
@@ -169,4 +176,69 @@ swiper,swiper image {
   vertical-align: middle;
   margin-right: 20px;
   margin-left:5px;
+}
+.tagsIcon{
+  position: absolute;
+  left:15rpx;
+  width: 55rpx;
+  height: 55rpx;
+  vertical-align: cernter;
+}
+.page-top{
+  position: fixed;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color:#fff;
+  transform: rotate(0deg) scale(1) translate(-100%,80rpx); 
+  -webkit-transform: rotate(0deg) scale(1) translate(-100%,80rpx); 
+  transition: all 0.4s ease;
+  z-index: 998;
+  overflow:scroll;
+}
+.page-top-show{
+  transform: rotate(0deg) scale(1) translate(0%,80rpx); 
+  -webkit-transform: rotate(0deg) scale(1) translate(0%,80rpx); 
+}
+.page-move{
+  transform: rotate(0deg) scale(1) translate(50%,0%);  
+ -webkit-transform: rotate(0deg) scale(1) translate(50%,0%);  
+  /* overflow:hidden; */
+  overflow-y:hidden;
+}
+.page-mask{
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0,0,0,0.5); 
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.page-mask-hide{
+  display: none;
+}
+.tags{
+  display: flex;
+  flex-wrap:wrap; 
+  flex-direction: column;
+  word-break: break-all;
+}
+
+.tag{
+  word-break: break-all;
+  margin-top: 4px;
+  margin-left: 10px;
+  border-width: medium;
+  border-style: solid;
+  border-color: gray;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+}
+.tag-text{
+  font-size: 13px;
+  space:nbsp;
 }
