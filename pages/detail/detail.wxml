@@ -34,7 +34,7 @@
         </view>
         <view class="like-num">
           <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
-          <text class="like-num-font">{{detail.like_num}}</text>
+          <text class="like-num-font" bindtap="showVoters" data-statu="open" data-detail="{{detail}}">{{detail.like_num}}</text>
         </view>
         <view class="comment-num">
             <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
@@ -173,6 +173,25 @@
     </view>  
     <view class="btn_ok" bindtap="showPayout" data-statu="close">OK</view>  
   </view> 
+  <view animation="{{voterListAnimationData}}" class="voterList-drawer_box" wx:if="{{voterListShowModalStatus}}">  
+    <scroll-view scroll-y="true" style="height: 400px">
+      <view class="voterList-drawer_title">Voters List</view>  
+      <view class="voters-list">
+          <block wx:for="{{voterLists}}" wx:for-item="voterList">
+            <view class="voters-item">
+              <view class="item">
+                <view class="voter-dot"></view>
+                <text class="voterList-voter">{{voterList.voter}}({{voterList.reputation}})</text>
+                <text class="voterList-percent">{{voterList.percent}}</text>
+                <text class="voterList-time">{{voterList.time}}</text>
+              </view>  
+            </view>
+          </block>
+        </view> 
+      <view class="btn_ok" bindtap="showVoters" data-statu="close">OK</view>  
+    </scroll-view>
+  </view> 
+  <view class="drawer_screen" bindtap="showVoters" data-statu="close" wx:if="{{voterListShowModalStatus}}"></view>  
 </view>
 <loading hidden="{{hidden}}">
   Loading...

@@ -417,8 +417,8 @@
   text-align: center;  
 }  
 .drawer_content {  
-  height: 210px;  
-  overflow-y: scroll; /*The height above the parent box can be scrolled.*/  
+  height: 240px;  
+  overflow-y:scroll; /*The height above the parent box can be scrolled.*/  
 }  
   
 .btn_ok{  
@@ -504,4 +504,74 @@ radio{
   font-style:inherit;
   font-weight: 20;
 
+}
+.status-time{
+  display:flex;
+  flex-direction: row;
+}
+.voters-list
+{
+  width: 87%;
+  padding: 15px 20px;
+  font-size: 16px;
+  line-height: 24px;
+}
+.item{
+  display:flex;
+  flex-direction: row;
+}
+.voterList-drawer_box {  
+  width: 650rpx;  
+  overflow: hidden;  
+  position: fixed;  
+  top: 50%;  
+  left: 0;  
+  z-index: 1001;  
+  background: #FAFAFA;  
+  margin: -150px 50rpx 0 50rpx;  
+  border-radius: 3px;  
+}  
+.voterList-drawer_title{  
+  padding:15px;  
+  font: 20px "microsoft yahei";  
+  text-align: center;  
+}  
+.voters-item{
+  display: flex;
+  flex-direction: row;
+  margin-top:20rpx;
+}
+.voter-dot {
+  display: inline-block;
+  margin: 7px 10px 0 0;
+  width: 6px;
+  height: 6px;
+  border: 2px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 0;
+}
+.voterList-voter {
+  position:absolute;
+  left:70rpx;
+  font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+  font-style:inherit;
+  font-weight: 1000;
+  font-size: 14px;
+}
+
+.voterList-percent{
+  position:absolute;
+  left:350rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style:inherit;
+  font-weight: 20;
+  font-size: 13px;
+}
+.voterList-time{
+  position:absolute;
+  right:50rpx;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style:inherit;
+  font-weight: 20;
+  font-size: 13px;
 }

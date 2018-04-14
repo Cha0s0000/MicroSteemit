@@ -595,6 +595,28 @@ Page({
       }
     })
 
-  }
+  },
+  showTags:function(e){
+    var that =this;
+    var tagsList = [];
+    wx.request({
+      url: 'https://api.steemjs.com/get_trending_tags?limit=30',
+      method: 'GET',
+      success: function(res) {
+        if(res.statusCode == '200'){
+          var tagsDatas = res.data;
+          for (var tagsData in tagsDatas){
+            var obj = new Object();
+            obj.tag = tagsDatas[tagsData].name;
+            tagsList.push(obj);
+          }
+          console.log(tagsList);
+          that.setData({ tagsList: tagsList})
+        }
+      },
+      complete: function(res) {},
+    })
+    this.data.open ? this.setData({ open: false }) : this.setData({ open: true });
+  },
 })
 
