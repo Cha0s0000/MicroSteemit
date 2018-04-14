@@ -442,5 +442,63 @@ Page({
         }
       );
     }
+  },
+  showVoters: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var detail = e.currentTarget.dataset.detail;
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      voterListAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        voterListAnimationData: animation
+      })
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            voterListShowModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      var that= this;
+      var votersList = [];
+      wx:wx.request({
+        url: 'https://api.steemjs.com/get_active_votes?author=' + that.data.author + '&permlink=' + that.data.permlink,
+        method: 'GET',
+        success: function(res) {
+          if(res.statusCode == '200'){
+            var voterDatas = res.data;
+            for(var voterData in voterDatas){
+              var obj = new Object();
+              obj.voter = voterDatas[voterData].voter;
+              obj.percent = String(voterDatas[voterData].percent/100) +'%';
+              obj.reputation = that.getReputation(voterDatas[voterData].reputation);
+              obj.time = that.getTime(voterDatas[voterData].time);
+              obj.weight = voterDatas[voterData].weight;
+              votersList.push(obj);
+            }
+            console.log(votersList);
+            that.setData({
+              voterLists: votersList,
+              voterListShowModalStatus: true
+            })
+
+          }
+        },
+        complete: function(res) {},
+      })
+    }
   }
 })
