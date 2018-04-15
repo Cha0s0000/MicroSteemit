@@ -17,6 +17,7 @@
               
           </block>
         </scroll-view>
+        <image bindtap='searchTags' class="searchIcon" src="../../images/icon/search.png"></image>
     </view>
     <view class="content {{open ? 'page-move' : ''}}">
       <view class="page-mask {{open ? '' : 'page-mask-hide'}}" bindtap="off_canvas"></view>
@@ -59,9 +60,9 @@
   </scroll-view>
 </view>
 <view class="page-top {{open ? 'page-top-show' : ''}}">
+  <view class="tags-title">Trending tags:</view>
   <view class="tags">
     <view  wx:for="{{tagsList}}" wx:for-item="tag" wx:key="tag">
-      <view class="tag1"> 
         <text decode="true" class="tag-text">&nbsp;{{tag.tag}}&nbsp;</text>
       </view>
     </view>
