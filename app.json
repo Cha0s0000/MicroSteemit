@@ -9,7 +9,8 @@
     "pages/voteHistory/voteHistory",
     "pages/feed/feed",
     "pages/commentsHistory/commentsHistory",
-    "pages/replyHistory/replyHistory"
+    "pages/replyHistory/replyHistory",
+    "pages/search/search"
   ],
   "window":{
     "backgroundTextStyle":"light",
