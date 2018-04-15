@@ -1,29 +1,29 @@
 //app.js
 App({
   onLaunch: function () {
-    // 展示本地存储能力
+    // get local storage
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    // 登录
+    // login with wechat account 
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        // get data "res" after login success
       }
     })
-    // 获取用户信息
+    // get wechat account info 
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          // Already authorized, you can call getUserInfo directly to get the avatar name, not the box.
           wx.getUserInfo({
             success: res => {
-              // 可以将 res 发送给后台解码出 unionId
+              // You can send the res to the background to decode the unionId.
               this.globalData.userInfo = res.userInfo
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
+              //Since getUserInfo is a network request, it might be returned after page.onload.
+              // So add a callback here to prevent this.
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
@@ -34,6 +34,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    tag:''
   }
 })

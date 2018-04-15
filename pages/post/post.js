@@ -1,4 +1,5 @@
 var postsData=require('../../data/posts-data.js')
+var app = getApp();
 Page({
     /**
    * initial page
@@ -21,6 +22,10 @@ Page({
    * Life cycle function - listen to page load.
    */
   onLoad:function(options){
+    var tag = app.globalData.tag;
+    this.setData({curTag:tag});
+    console.log("current tag is ");
+    console.log(tag);
     this.getTrendingPosts();
   },
 
@@ -207,8 +212,9 @@ Page({
     })
     var that = this;
     var posts = [];
+    var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_trending?query={"limit":"10","tag":""}',
+      url: 'https://api.steemjs.com/get_discussions_by_trending?query={"limit":"10","tag":"' + tag+'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -254,8 +260,9 @@ Page({
     console.log(lastAuthor);
     var that = this;
     var posts = [];
+    var tag = this.data.curTag;
     var i=0;
-    var url = 'https://api.steemjs.com/get_discussions_by_trending?query={"limit":"10","tag":"","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var url = 'https://api.steemjs.com/get_discussions_by_trending?query={"limit":"10","tag":"'+tag +'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -307,8 +314,9 @@ Page({
     })
     var that = this;
     var posts = [];
+    var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_created?query={"limit":"10","tag":""}',
+      url: 'https://api.steemjs.com/get_discussions_by_created?query={"limit":"10","tag":"'+tag +'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -353,7 +361,8 @@ Page({
     var that = this;
     var posts = [];
     var i = 0;
-    var url = 'https://api.steemjs.com/get_discussions_by_created?query={"limit":"10","tag":"","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var tag = this.data.curTag;
+    var url = 'https://api.steemjs.com/get_discussions_by_created?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -405,8 +414,9 @@ Page({
     })
     var that = this;
     var posts = [];
+    var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_hot?query={"limit":"10","tag":""}',
+      url: 'https://api.steemjs.com/get_discussions_by_hot?query={"limit":"10","tag":"'+tag+'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -451,8 +461,9 @@ Page({
     console.log(lastAuthor);
     var that = this;
     var posts = [];
+    var tag = this.data.curTag;
     var i = 0;
-    var url = 'https://api.steemjs.com/get_discussions_by_hot?query={"limit":"10","tag":"","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var url = 'https://api.steemjs.com/get_discussions_by_hot?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -504,8 +515,9 @@ Page({
     })
     var that = this;
     var posts = [];
+    var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_promoted?query={"limit":"10","tag":""}',
+      url: 'https://api.steemjs.com/get_discussions_by_promoted?query={"limit":"10","tag":"'+tag+'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -550,8 +562,9 @@ Page({
     console.log(lastAuthor);
     var that = this;
     var posts = [];
+    var tag = this.data.curTag;
     var i = 0;
-    var url = 'https://api.steemjs.com/get_discussions_by_promoted?query={"limit":"10","tag":"","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var url = 'https://api.steemjs.com/get_discussions_by_promoted?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -599,24 +612,34 @@ Page({
   showTags:function(e){
     var that =this;
     var tagsList = [];
-    wx.request({
-      url: 'https://api.steemjs.com/get_trending_tags?limit=30',
-      method: 'GET',
-      success: function(res) {
-        if(res.statusCode == '200'){
-          var tagsDatas = res.data;
-          for (var tagsData in tagsDatas){
-            var obj = new Object();
-            obj.tag = tagsDatas[tagsData].name;
-            tagsList.push(obj);
+    if (!this.data.open){
+      wx.request({
+        url: 'https://api.steemjs.com/get_trending_tags?limit=15',
+        method: 'GET',
+        success: function(res) {
+          if(res.statusCode == '200'){
+            var tagsDatas = res.data;
+            for (var tagsData in tagsDatas){
+              if (tagsData == 0){
+                continue;
+              }
+              var obj = new Object();
+              obj.tag = tagsDatas[tagsData].name;
+              tagsList.push(obj);
+            }
+            console.log(tagsList);
+            that.setData({ tagsList: tagsList})
           }
-          console.log(tagsList);
-          that.setData({ tagsList: tagsList})
-        }
-      },
-      complete: function(res) {},
-    })
+        },
+        complete: function(res) {},
+      })
+    }
     this.data.open ? this.setData({ open: false }) : this.setData({ open: true });
   },
+  searchTags:function(e){
+    wx.navigateTo({
+      url: '../search/search'
+    })
+  }
 })
 

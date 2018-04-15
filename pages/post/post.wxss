@@ -94,7 +94,7 @@ swiper,swiper image {
 
 .time{
   margin-left:5rpx;
-  font-size: 26rpx;
+  font-size: 24rpx;
   vertical-align: middle;
 
 }
@@ -227,6 +227,9 @@ swiper,swiper image {
 }
 
 .tag{
+  width:300rpx; 
+  display: flex;
+  flex-wrap:wrap; 
   word-break: break-all;
   margin-top: 4px;
   margin-left: 10px;
@@ -237,8 +240,16 @@ swiper,swiper image {
   border-top-right-radius: 30rpx;
   border-bottom-left-radius: 30rpx;
   border-bottom-right-radius: 30rpx;
+  justify-content:center;
 }
 .tag-text{
+  text-align: center;
   font-size: 13px;
-  space:nbsp;
+}
+.searchIcon{
+  position: absolute;
+  right:15rpx;
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: cernter;
 }
