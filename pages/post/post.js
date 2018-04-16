@@ -26,6 +26,10 @@ Page({
     this.setData({curTag:tag});
     console.log("current tag is ");
     console.log(tag);
+    if(!tag){
+      tag = "All";
+    }
+    this.setData({ open: false, currentTag: tag})
     this.getTrendingPosts();
   },
 
@@ -640,6 +644,14 @@ Page({
     wx.navigateTo({
       url: '../search/search'
     })
+  },
+  clickTags:function(e){
+    var clickTag = e.currentTarget.dataset.tag;
+    console.log("clickTag");
+    console.log(clickTag);
+    app.globalData.tag = clickTag;
+    this.onLoad();
+    this.setData({ open: false })
   }
 })
 
