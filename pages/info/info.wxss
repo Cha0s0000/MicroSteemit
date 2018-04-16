@@ -84,13 +84,15 @@
 }
 .about{
   display: flex;
+  flex-direction: row;
+  margin-top:10rpx;
   align-items: center;
   justify-content: center;
   height: 100%;
-   width: 100%; 
+  width: 100%; 
 }
 .intro{
-  font-size: 15px;
+  font-size: 13px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-align:center;
   margin:auto;
@@ -286,6 +288,7 @@
   vertical-align: middle;
   margin-right: 5px;
   margin-left:5px;
+  font-size:11px
 }
 .post-view{
   display: flex;
@@ -306,12 +309,14 @@
   vertical-align: middle;
   margin-right: 5px;
   margin-left:5px;
+  font-size:11px
 }
 
 .following-text{
   vertical-align: middle;
   margin-right: 5px;
   margin-left:5px;
+  font-size:11px
 }
 .split{
   margin-bottom: 30rpx;

@@ -11,6 +11,7 @@
     background-color:azure;
     font-size: 30rpx;
     display: flex;
+    flex-direction: row;
     align-items: center;
     height: 80rpx;
     position: fixed;
@@ -31,7 +32,7 @@
   right:100rpx;
 }
 .header__item{
-    padding: 14rpx;
+    padding: 10rpx;
     display: inline-block;
 }
 .active{
@@ -252,4 +253,21 @@ swiper,swiper image {
   width: 50rpx;
   height: 50rpx;
   vertical-align: cernter;
+}
+.currentTag{
+  position: absolute;
+  left:350rpx;
+  display:block;
+  text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-width: medium;
+  border-style: solid;
+  border-color: gray;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  justify-content:center;
+  
 }

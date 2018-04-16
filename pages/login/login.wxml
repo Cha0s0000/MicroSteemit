@@ -1,0 +1,29 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <view class="login-icon">
+    <image class="login-img" src="../../images/icon/logo.png"></image>
+  </view>
+  <view class="login-from">
+
+    <!--name-->
+    <view class="inputView">
+      <image class="nameImage" src="../../images/icon/name.png"></image>
+      <label class="loginLab">Name</label>
+      <input class="inputText" placeholder="Steemit account" bindinput="nameInput" />
+    </view>
+    <view class="line"></view>
+
+    <!--password-->
+    <!-- <view class="inputView">
+      <image class="keyImage" src="../../images/icon/key.png"></image>
+      <label class="loginLab">密码</label>
+      <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" />
+    </view> -->
+
+    <!--button-->
+    <view class="BtnView">
+      <button class="loginBtn" type="primary"  disabled="{{disabled}}" bindtap="login">Login</button>
+      <button class="backBtn" type="primary"  bindtap="back">Back</button>
+    </view>
+  </view>
+</view>

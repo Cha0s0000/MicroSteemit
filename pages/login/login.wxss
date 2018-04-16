@@ -1,0 +1,84 @@
+/* pages/login/login.wxss */
+page{ 
+ height: 100%; 
+} 
+  
+.container { 
+ height: 100%; 
+ display: flex; 
+ flex-direction: column; 
+ padding: 0; 
+ box-sizing: border-box; 
+ background-color: #f2f2f2
+} 
+  
+/*login-icon*/
+.login-icon{ 
+ flex: none; 
+ margin-top:200rpx;
+} 
+.login-img{ 
+ width: 400rpx; 
+ height: 150rpx; 
+} 
+  
+/*content*/
+.login-from { 
+ margin-top: 20px; 
+ flex: auto; 
+ height:100%; 
+} 
+  
+.inputView { 
+ background-color: #fff; 
+ line-height: 44px; 
+} 
+/*input box */
+.nameImage, .keyImage { 
+ margin-left: 22px; 
+ width: 14px; 
+ height: 14px
+} 
+  
+.loginLab { 
+ margin: 15px 15px 15px 10px; 
+ color: #545454; 
+ font-size: 14px
+} 
+.inputText { 
+ flex: block; 
+ float: right; 
+ text-align: right; 
+ margin-right: 22px; 
+ margin-top: 11px; 
+ color: #cccccc; 
+ font-size: 14px
+} 
+  
+.line { 
+ width: 100%; 
+ height: 1px; 
+ background-color: #cccccc; 
+ margin-top: 1px; 
+} 
+/*button*/
+.BtnView { 
+ display: flex;
+ flex-direction: row;
+ width: 100%; 
+ height: auto; 
+  background-color: #f2f2f2;  
+ margin-top: 0px; 
+ margin-bottom: 0px; 
+ padding-bottom: 0px; 
+} 
+  
+.loginBtn { 
+ width: 40%; 
+ margin-top: 35px; 
+}
+
+.backBtn { 
+ width: 40%; 
+ margin-top: 35px; 
+}
