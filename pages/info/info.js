@@ -40,69 +40,76 @@ Page({
    * Life cycle function - listen to page load.
    */
   onLoad: function (options) {
-    // this.steem_per_mvests();
-    var that = this;
-    wx.request({
-      // testing the hostname
-      url: 'https://steemit.com/@cha0s0000.json',
-      method: 'GET',
-      success: function (res) {
-        console.log(res);
-        if(res.data.status == '200')
-        {
-          that.vests_to_sp(parseFloat(res.data.user.vesting_shares), parseFloat(res.data.user.delegated_vesting_shares));
-          that.get_follower_following();
-          that.setData({
-            avatar: res.data.user.json_metadata.profile.profile_image,
-            balance: res.data.user.balance,
-            created: res.data.user.created,
-            post_count : res.data.user.post_count,
-            sbd_balance: res.data.user.sbd_balance,
-            vesting_shares: parseInt(res.data.user.vesting_shares),
-            voting_power: String(res.data.user.voting_power).substr(0,2),
-            reputation: that.getReputation(res.data.user.reputation),
-            average_market_bandwidth: res.data.user.average_market_bandwidth,
-            author:res.data.user.name,
-            steemitname: res.data.user.json_metadata.profile.name,
-            about: res.data.user.json_metadata.profile.about,
-            location: res.data.user.json_metadata.profile.location,
-            postkey: res.data.user.posting.key_auths[0][0],
-            activekey: res.data.user.active.key_auths[0][0],
-            ownerkey: res.data.user.owner.key_auths[0][0],
-            memokey: res.data.user.memo_key,
-            account_auths: res.data.user.posting.account_auths,
-            witness_votes: res.data.user.witness_votes,
-            hidden:true
+    var account = wx.getStorageSync('name')
+    if(account == ''){
+      wx.redirectTo({
+        url: '../login/login',
+      })
+    }
+    else{
+      var that = this;
+      wx.request({
+        // testing the hostname
+        url: 'https://steemit.com/@' + account+'.json',
+        method: 'GET',
+        success: function (res) {
+          console.log(res);
+          if (res.data.status == '200') {
+            that.vests_to_sp(parseFloat(res.data.user.vesting_shares), parseFloat(res.data.user.delegated_vesting_shares));
+            that.get_follower_following();
+            that.setData({
+              avatar: res.data.user.json_metadata.profile.profile_image,
+              balance: res.data.user.balance,
+              created: res.data.user.created,
+              post_count: res.data.user.post_count,
+              sbd_balance: res.data.user.sbd_balance,
+              vesting_shares: parseInt(res.data.user.vesting_shares),
+              voting_power: String(res.data.user.voting_power).substr(0, 2),
+              reputation: that.getReputation(res.data.user.reputation),
+              average_market_bandwidth: res.data.user.average_market_bandwidth,
+              author: res.data.user.name,
+              steemitname: res.data.user.json_metadata.profile.name,
+              about: res.data.user.json_metadata.profile.about,
+              location: res.data.user.json_metadata.profile.location,
+              postkey: res.data.user.posting.key_auths[0][0],
+              activekey: res.data.user.active.key_auths[0][0],
+              ownerkey: res.data.user.owner.key_auths[0][0],
+              memokey: res.data.user.memo_key,
+              account_auths: res.data.user.posting.account_auths,
+              witness_votes: res.data.user.witness_votes,
+              hidden: true
 
 
 
+            })
+          }
+          that.calc_bandwidth();
+        },
+        complete: function (res) {
+          var transactionHistory = [];
+          wx.request({
+            url: 'https://uploadbeta.com/api/steemit/transfer-history/?id=' + account,
+            method: 'GET',
+            success: function (res) {
+              if (res.statusCode == '200') {
+                var transactionDatas = res.data;
+                for (var transactionData in transactionDatas) {
+                  var obj = new Object();
+                  obj.time = transactionDatas[transactionData].time_desc;
+                  obj.transaction = transactionDatas[transactionData].transaction;
+                  obj.memo = transactionDatas[transactionData].memo;
+                  transactionHistory.push(obj);
+                }
+              }
+              console.log(transactionHistory);
+              that.setData({ transactions: transactionHistory })
+            }
           })
         }
-        that.calc_bandwidth();
-      },
-      complete: function (res) {
-        var transactionHistory = [];
-        wx.request({
-          url: 'https://uploadbeta.com/api/steemit/transfer-history/?id=cha0s0000',
-          method:'GET',
-          success:function(res){
-            if (res.statusCode == '200') {
-              var transactionDatas = res.data;
-              for (var transactionData in transactionDatas){
-                var obj = new Object();
-                obj.time = transactionDatas[transactionData].time_desc;
-                obj.transaction = transactionDatas[transactionData].transaction;
-                obj.memo = transactionDatas[transactionData].memo;
-                transactionHistory.push(obj);
-              }
-            }
-            console.log(transactionHistory);
-            that.setData({ transactions: transactionHistory})
-          }
-        })
-      }
-    })
-  
+      })
+
+    }
+     
   },
 
   /**
@@ -137,6 +144,8 @@ Page({
    * Page correlation event handler - listen to the user to pull.
    */
   onPullDownRefresh: function () {
+    this.setData({ hidden: false})
+    this.onLoad();
   
   },
 
@@ -298,5 +307,22 @@ Page({
       url: '../replyHistory/replyHistory?author=' + author,
     })
   },
+
+  clickAvatar:function(){
+    var that =this;
+    wx.showModal({
+      title: 'LogOut',
+      content: 'Are you sure to log out',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('confirm log out')
+          wx.removeStorageSync('name')
+          that.onLoad();
+        } else if (res.cancel) {
+          console.log('cancel the log out ')
+        }
+      }
+    })
+  }
 
 })
