@@ -2,7 +2,7 @@
   <loading hidden="{{loading}}">
   Loading...
   </loading> 
-  <scroll-view scroll-y="true" style="height:100%;" bindscrolltolower="loadMore" bindscrolltoupper="refesh" bindscroll="scroll" enable-back-to-top="true" scroll-top="{{scrollTop}}">
+  <view scroll-y="true" style="height:100%;" bindscrolltolower="loadMore" bindscrolltoupper="refesh" bindscroll="scroll" enable-back-to-top="true" scroll-top="{{scrollTop}}">
       <view class="header">
         <image bindtap='showTags' class="tagsIcon" src="../../images/icon/tags.png"></image>
         <scroll-view class="header__container" scroll-x="true" >
@@ -58,7 +58,7 @@
         </view>
       </block>
     </view>
-  </scroll-view>
+  </view>
 </view>
 <view class="page-top {{open ? 'page-top-show' : ''}}">
   <view class="tags-title">Trending tags:</view>
