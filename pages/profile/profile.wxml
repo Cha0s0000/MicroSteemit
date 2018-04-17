@@ -1,0 +1,187 @@
+<!--pages/profile/profile.wxml-->
+<view class="info" hidden ="{{!hidden}}">
+  <view class="info-header">
+    <image class="info-header-bg" src="../../static/images/info_head.png" />
+    <view class="none-work">
+      <view class="info-avatar-bg"></view>
+      <image class="info-avatar" bindtap='clickAvatar' src="{{avatar}}" /> 
+    </view>
+  </view>
+  <view class="info-content">
+    <view class="person">
+      <image mode="aspectFill" bindtap = "feed" class="feed" src="../../images/icon/feed.png"></image>
+      <view class="name">{{steemitname}} ({{reputation}})</view>
+      <image mode="aspectFill" bindtap = "replyHistory" class="reply" src="../../images/icon/reply.png"></image>
+      <image mode="aspectFill" bindtap = "commentsHistory" class="comments" src="../../images/icon/comments.png"></image>
+      <image mode="aspectFill" bindtap = "voteHistory" class="voting" src="../../images/icon/good-filling.png"></image>
+    </view>
+    <view class="about">
+      <text class="intro">{{about}}</text>
+    </view>
+    <view class= "account-info">
+      <view class="follower-view" bindtap='show_follow' data-type="Follower list">
+        <text class="follower-text"> {{follower}} Followers</text>
+        <view class="split"><text class="split-text">|</text></view>
+      </view>
+      <view class="post-view">
+        <text class="post-text" bindtap='show_authorPost'>{{post_count}} Posts</text>
+        <view class="split"><text class="split-text">|</text></view>
+      </view>
+      <view class="following-view" bindtap='show_follow' data-type="Following list">
+          <text class="following-text">{{following}} Following</text>
+      </view>
+    </view>
+     <view class="info-text">
+       <image mode="aspectFill" class="location" src="../../images/icon/location.png"></image>
+      <text>{{location}}</text>
+    </view>
+    <view class="bandwidth">
+      <text>Available bandwidth</text>
+      <progress percent="{{available_bandwidth}}" show-info active stroke-width="16" activeColor='greenyellow'/>
+    </view>
+    <view class="voting-power">
+      <text>Voting power</text>
+      <progress percent="{{voting_power}}" show-info active stroke-width="16" activeColor="cadetblue" />
+    </view>
+    <!-- basic-start -->
+    <view class="info-section">
+      <view class="section-title">
+        <view class="left-border"></view>
+        <text>Basic infomation</text>
+      </view>
+      <view class="info-detail">
+        <view>
+          <text class="detail-key c8">Reputation：</text>
+          <text class="detail-value">{{reputation}}</text>
+        </view>
+        <view>
+          <text class="detail-key c8">balance：</text>
+          <text class="detail-value">{{balance}}</text>
+        </view>
+        <view>
+          <text class="detail-key c8">sbd_balance：</text>
+          <text class="detail-value">{{sbd_balance}}</text>
+        </view>
+        <view>
+          <text class="detail-key c8">vesting_shares：</text>
+          <text class="detail-value">{{vesting_shares}} VESTS</text>
+        </view>
+        <view>
+          <text class="detail-key c8">Steem Power：</text>
+          <text class="detail-value">{{steem_power}} STEEM</text>
+        </view>
+        <view>
+          <text class="detail-key c8">Delegated SP：</text>
+          <text class="detail-value">{{delegated_steem_power}} STEEM</text>
+        </view>
+        <view>
+          <text class="detail-key c8">voting_power：</text>
+          <text class="detail-value">{{voting_power}}%</text>
+        </view>
+        <view>
+          <text class="detail-key c8">created：</text>
+          <text class="detail-value">{{created}}</text>
+        </view>
+      </view>
+    </view>
+    <!-- basic-end -->
+    <!-- keys-start -->
+    <view class="info-section">
+      <view class="section-title">
+        <view class="left-border"></view>
+        <text>Keys</text>
+      </view>
+      <view class="info-list">
+        <view class="info-item info-item-last">
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Post key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="post"> {{post_button}} </button>  
+          </view>
+          <view class="status-text" hidden="{{post_key_hid}}">
+            <view class="c8">{{postkey}}</view>
+          </view>
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Active key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="active"> {{active_button}} </button>  
+          </view>
+          <view class="status-text" hidden="{{active_key_hid}}">
+            <view class="c8">{{activekey}}</view>
+          </view>
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Owner key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="owner"> {{owner_button}} </button>  
+          </view>
+          <view class="status-text" hidden="{{owner_key_hid}}">
+            <view class="c8">{{ownerkey}}</view>
+          </view>
+          <view class="status-time">
+            <view class="dot"></view>
+            <text class="c8">Memo key</text>
+            <button class= "show_button" type="default" size="mini" bindtap='show_hid' data-type="memo"> {{memo_button}} </button>  
+          </view>
+          <view class="status-text" hidden="{{memo_key_hid}}">
+            <view class="c8">{{memokey}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- keys-end -->
+    <!-- auth-start -->
+    <view class="info-section">
+      
+      <view class="section-title">
+        <view class="left-border"></view>
+        <text>Posting auth</text>
+      </view>
+      <view class="info-list">
+        <block wx:for="{{account_auths}}" wx:for-item="account_auth">
+          <view class="info-item">
+            <view class="status-time">
+              <view class="dot"></view>
+              <text class="c8">{{account_auth[0]}}</text>
+            </view>  
+          </view>
+        </block>
+      </view>
+      <view class="witness-section-title">
+        <view class="witness-left-border"></view>
+        <text>Witness_votes</text>
+      </view>
+      <view class="witness-list">
+        <block wx:for="{{witness_votes}}" wx:for-item="witness">
+          <view class="witness-item">
+            <view class="witness">
+              <view class="dot"></view>
+              <text class="witness_name">{{witness}}</text>
+            </view>  
+          </view>
+        </block>
+      </view>
+      <view class="transaction-section-title">
+        <view class="transaction-left-border"></view>
+        <text>Transaction history</text>
+      </view>
+      <view class="transaction-history-section">
+        <block wx:for="{{transactions}}" wx:for-item="transaction">
+          <view class="transactions-container" bindtap='click' data-block='{{item}}'>
+            <view class="transaction-time">     
+              <view class ="dot"></view>
+              <text class="time">{{transaction.time}}</text>
+            </view>
+            <text class="transaction-transaction">{{transaction.transaction}}</text>
+            <view class="transaction-memo">
+              <text class="memo">{{transaction.memo}}</text>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <!-- auth-end -->
+  </view>
+</view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>

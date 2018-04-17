@@ -244,6 +244,9 @@ Page({
           obj.comment_num = data[post].children;
           var payout = parseFloat(data[post].pending_payout_value) + parseFloat(data[post].total_payout_value) + parseFloat(data[post].curator_payout_value);
           obj.pending_payout_value = "$" + payout.toFixed(2);
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
@@ -297,6 +300,9 @@ Page({
           obj.like_num = data[post].net_votes;
           obj.comment_num = data[post].children;
           obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
@@ -344,6 +350,9 @@ Page({
           obj.like_num = data[post].net_votes;
           obj.comment_num = data[post].children;
           obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
@@ -397,6 +406,9 @@ Page({
           obj.like_num = data[post].net_votes;
           obj.comment_num = data[post].children;
           obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
@@ -444,6 +456,9 @@ Page({
           obj.like_num = data[post].net_votes;
           obj.comment_num = data[post].children;
           obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
@@ -498,6 +513,9 @@ Page({
           obj.like_num = data[post].net_votes;
           obj.comment_num = data[post].children;
           obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
@@ -546,6 +564,9 @@ Page({
           obj.comment_num = data[post].children;
           obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           posts.push(obj);
         }
         console.log(posts);
@@ -599,6 +620,9 @@ Page({
           obj.like_num = data[post].net_votes;
           obj.comment_num = data[post].children;
           obj.pending_payout_value = "$" + data[post].pending_payout_value.replace("SBD", "");
+          obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+          obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+          obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
           posts.push(obj);
         }
@@ -652,6 +676,152 @@ Page({
     app.globalData.tag = clickTag;
     this.onLoad();
     this.setData({ open: false })
+  },
+  off_canvas:function(e){
+    this.setData({ open: false })
+  },
+  touchMove:function(e){
+    this.setData({ open: false })
+  },
+  clickCategory:function(e){
+    var clickCategory = e.currentTarget.dataset.category;
+    app.globalData.tag = clickCategory;
+    this.onLoad();
+  },
+
+  showPayout: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var time = e.currentTarget.dataset.time;
+    var detail = e.currentTarget.dataset.detail;
+    /* create thte animation */
+    // Step 1：setup an animation instance
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+
+    // Step 2: this animation instance is assigned to the current animation instance.
+    this.animation = animation;
+
+    // Step 3: perform the first set of animations.
+    animation.opacity(0).rotateX(-100).step();
+
+    // Step 4: export the animation object to the data object store.
+    this.setData({
+      animationData: animation.export()
+    })
+
+    // Step 5: set the timer to the specified time and execute the second set of animations.
+    setTimeout(function () {
+      // Execute the second set of animations.
+      animation.opacity(1).rotateX(0).step();
+      // The first set of animations that are stored for the data object are replaced by the animation objects that perform the second animation.
+      this.setData({
+        animationData: animation
+      })
+
+      //hide 
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            showModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      if ((detail.time.indexOf("天") != -1)) {
+        if (parseInt((detail.time.split('天')[0])) > 7) {
+          payout = parseInt((detail.time.split('天')[0])) - 7;
+          payout = payout + "天前";
+        }
+        else {
+          payout = 7 - parseInt((detail.time.split('天')[0]));
+          payout = payout + "天后";
+        }
+
+      }
+      else {
+        payout = "7天后";
+      }
+      this.setData(
+        {
+          PotentialPayout: detail.pending_payout_value,
+          PromotedPayout: detail.promoted,
+          AuthorPayout: detail.total_payout_value,
+          CurationPayout: detail.curator_payout_value,
+          Payout: payout,
+          showModalStatus: true
+        }
+      );
+    }
+  },
+  showVoters: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var detail = e.currentTarget.dataset.detail;
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      voterListAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        voterListAnimationData: animation
+      })
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            voterListShowModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      var that = this;
+      var votersList = [];
+      wx: wx.request({
+        url: 'https://api.steemjs.com/get_active_votes?author=' + detail.author + '&permlink=' + detail.permlink,
+        method: 'GET',
+        success: function (res) {
+          if (res.statusCode == '200') {
+            var voterDatas = res.data;
+            for (var voterData in voterDatas) {
+              var obj = new Object();
+              obj.voter = voterDatas[voterData].voter;
+              obj.percent = String(voterDatas[voterData].percent / 100) + '%';
+              obj.reputation = that.getReputation(voterDatas[voterData].reputation);
+              obj.time = that.getTime(voterDatas[voterData].time);
+              obj.weight = voterDatas[voterData].weight;
+              votersList.push(obj);
+            }
+            console.log(votersList);
+            that.setData({
+              voterLists: votersList,
+              voterListShowModalStatus: true
+            })
+
+          }
+        },
+        complete: function (res) { },
+      })
+    }
+  },
+  clickAuthor:function(e){
+    var account = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../profile/profile?account=' + account
+    })
   }
 })
 
