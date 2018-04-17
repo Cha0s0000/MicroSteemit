@@ -44,11 +44,11 @@
               <!-- <icon type="success_circle" size="18"/> -->
               <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
               <!-- <icon type="success" size="18"/> -->
-              <text class="post-like-font"> {{item.pending_payout_value}}</text>
+              <text class="post-like-font" bindtap="showPayout" data-statu="open" data-detail="{{item}}"> {{item.pending_payout_value}}</text>
             </view>
             <view class="like-num">
               <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
-              <text class="like-num-font">{{item.like_num}}</text>
+              <text class="like-num-font" bindtap="showVoters" data-statu="open" data-detail="{{item}}">{{item.like_num}}</text>
             </view>
             <view class="comment-num">
                 <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
@@ -70,3 +70,55 @@
     </view>
   </view>
 </view>
+<!--mask-->  
+  <view class="drawer_screen" bindtap="showPayout" data-statu="close" wx:if="{{showModalStatus}}"></view>  
+  <!--content-->  
+  <!--Use the animation attribute to specify the animation that needs to be executed.-->  
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">  
+    
+    <!--drawer content-->  
+    <view class="drawer_title">Total payout</view>  
+    <view class="drawer_content">  
+      
+      <view class="top grid">  
+        <text class="payout-type">Potential Payout</text>
+        <text class="payout-text">{{PotentialPayout}}</text>
+      </view>  
+      <view class="top grid">  
+        <text class="payout-type">Promoted</text>
+        <text class="payout-text">{{PromotedPayout}}</text>
+      </view>  
+      <view class="top grid">  
+        <text class="payout-type">Author Payout</text>
+        <text class="payout-text">{{AuthorPayout}}</text> 
+      </view>  
+      <view class="top grid">  
+        <text class="payout-type">Curation Payout</text>
+        <text class="payout-text">{{CurationPayout}}</text>
+      </view>  
+      <view class="top bottom grid">  
+        <text class="payout-type">Payout</text>
+        <text class="payout-text">{{Payout}}</text>
+      </view>  
+    </view>  
+    <view class="btn_ok" bindtap="showPayout" data-statu="close">OK</view>  
+  </view> 
+  <view animation="{{voterListAnimationData}}" class="voterList-drawer_box" wx:if="{{voterListShowModalStatus}}">  
+    <scroll-view scroll-y="true" style="height: 400px">
+      <view class="voterList-drawer_title">Voters List</view>  
+      <view class="voters-list">
+          <block wx:for="{{voterLists}}" wx:for-item="voterList">
+            <view class="voters-item">
+              <view class="item">
+                <view class="voter-dot"></view>
+                <text class="voterList-voter">{{voterList.voter}}({{voterList.reputation}})</text>
+                <text class="voterList-percent">{{voterList.percent}}</text>
+                <text class="voterList-time">{{voterList.time}}</text>
+              </view>  
+            </view>
+          </block>
+        </view> 
+      <view class="btn_ok" bindtap="showVoters" data-statu="close">OK</view>  
+    </scroll-view>
+  </view> 
+  <view class="drawer_screen" bindtap="showVoters" data-statu="close" wx:if="{{voterListShowModalStatus}}"></view>  
