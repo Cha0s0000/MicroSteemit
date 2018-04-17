@@ -21,19 +21,19 @@
         <image bindtap='searchTags' class="searchIcon" src="../../images/icon/search.png"></image>
     </view>
     <view class="content {{open ? 'page-move' : ''}}">
-      <view class="page-mask {{open ? '' : 'page-mask-hide'}}" bindtap="off_canvas"></view>
+      <view class="page-mask {{open ? '' : 'page-mask-hide'}}" catchtouchmove="touchMove" bindtap="off_canvas"></view>
       <block wx:for="{{postsData}}" wx:for-item="item">
-        <view class="post-container" bindtap='click' data-block='{{item}}'>
+        <view class="post-container">
           <view class="post-author-data">     
             <image class="post-avatar" src="{{item.avatar}}"></image>
-            <text class="post-author">{{item.author}}</text>
+            <text class="post-author" bindtap='clickAuthor' data-author='{{item.author}}'>{{item.author}}</text>
             <text class= "reputation">({{item.reputation}})</text>
-            <text class= "category">在 {{item.category}}</text>
+            <text class= "category" bindtap='clickCategory' data-category='{{item.category}}'>在 {{item.category}}</text>
             <view class ="dot"></view>
             <text class="time">{{item.time}}</text>
           </view>
-          <text class="post-title">{{item.title}}</text>
-          <view class="img-content">
+          <text class="post-title" bindtap='click' data-block='{{item}}'>{{item.title}}</text>
+          <view class="img-content" bindtap='click' data-block='{{item}}'>
             <view class = "img">
               <image mode="aspectFill" class="post-image" src="{{item.image}}"></image>
             </view>

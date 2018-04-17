@@ -652,6 +652,17 @@ Page({
     app.globalData.tag = clickTag;
     this.onLoad();
     this.setData({ open: false })
+  },
+  off_canvas:function(e){
+    this.setData({ open: false })
+  },
+  touchMove:function(e){
+    this.setData({ open: false })
+  },
+  clickCategory:function(e){
+    var clickCategory = e.currentTarget.dataset.category;
+    app.globalData.tag = clickCategory;
+    this.onLoad();
   }
 })
 
