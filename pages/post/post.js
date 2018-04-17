@@ -816,6 +816,12 @@ Page({
         complete: function (res) { },
       })
     }
+  },
+  clickAuthor:function(e){
+    var account = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../profile/profile?account=' + account
+    })
   }
 })
 
