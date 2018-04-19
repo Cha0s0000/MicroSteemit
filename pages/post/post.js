@@ -194,8 +194,30 @@ Page({
    // monitoring the long tap function of the view item
   bindLongTap: function (e) {
     console.log("long tap");
-    // var block = e.currentTarget.dataset.block;
-    // wx.setStorageSync('favouritePosts', block)
+    wx.showModal({
+      title: 'Favourite Posts',
+      content: 'Would you like to add this to your favourite list?',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('confirm log out')
+          var newList = [];
+          var block2Arr = [];
+          block2Arr.push(e.currentTarget.dataset.block);
+          var existList = wx.getStorageSync('favouritePosts');
+          if (existList){
+            newList = existList.concat(block2Arr);
+          }
+          else{
+            newList = block2Arr;
+          }
+          wx.setStorageSync('favouritePosts', newList);
+          console.log(wx.getStorageSync('favouritePosts'));
+        } else if (res.cancel) {
+          console.log('cancel model ');
+        }
+      }
+    })
+   
   },
 
 // when the page reach the bottom of the page , js  will go on to request for more data 
