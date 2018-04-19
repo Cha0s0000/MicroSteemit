@@ -22,6 +22,67 @@ Page({
    * Life cycle function - listen to page load.
    */
   onLoad:function(options){
+    wx.getClipboardData({
+      success: function (res) {
+        console.log(res.data)
+        var linkData = res.data;
+        if (linkData.indexOf('https://steemit.com/') >= 0){
+          wx.showModal({
+            title: 'Clipboard Detection',
+            content: 'Would you like to open this url?   ' + linkData,
+            success: function (res) {
+              if (res.confirm) {
+                var linkAuthor = linkData.split('https://steemit.com/')[1].split('@')[1].split('/')[0];
+                var linkEnd = linkData.split('https://steemit.com/')[1].split('@')[1].split('/')[1];
+                console.log(linkAuthor);
+                console.log(linkEnd);
+                if(linkEnd){
+                  if (linkEnd == 'feed'){
+                    wx.navigateTo({
+                      url: '../feed/feed?author=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'comments'){
+                    wx.navigateTo({
+                      url: '../commentsHistory/commentsHistory?author=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'recent-replies') {
+                    wx.navigateTo({
+                      url: '../replyHistory/replyHistory?author=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'transfers') {
+                    wx.navigateTo({
+                      url: '../profile/profile?account=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'settings') {
+                    wx.navigateTo({
+                      url: '../profile/profile?account=' + linkAuthor,
+                    })
+                  }
+                  else{
+                    wx.navigateTo({
+                      url: '../detail/detail?author=' + linkAuthor + '&permlink=' + linkEnd,
+                    })
+                  }
+                }
+                else{
+                    wx.navigateTo({
+                      url: '../profile/profile?account=' + linkAuthor,
+                    })
+                }
+                
+              } else if (res.cancel) {
+                console.log('cancel the log out ')
+              }
+            }
+          })        
+
+        }
+      }
+    })
     var tag = app.globalData.tag;
     this.setData({curTag:tag});
     console.log("current tag is ");
