@@ -22,6 +22,67 @@ Page({
    * Life cycle function - listen to page load.
    */
   onLoad:function(options){
+    wx.getClipboardData({
+      success: function (res) {
+        console.log(res.data)
+        var linkData = res.data;
+        if (linkData.indexOf('https://steemit.com/') >= 0){
+          wx.showModal({
+            title: 'Clipboard Detection',
+            content: 'Would you like to open this url?   ' + linkData,
+            success: function (res) {
+              if (res.confirm) {
+                var linkAuthor = linkData.split('https://steemit.com/')[1].split('@')[1].split('/')[0];
+                var linkEnd = linkData.split('https://steemit.com/')[1].split('@')[1].split('/')[1];
+                console.log(linkAuthor);
+                console.log(linkEnd);
+                if(linkEnd){
+                  if (linkEnd == 'feed'){
+                    wx.navigateTo({
+                      url: '../feed/feed?author=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'comments'){
+                    wx.navigateTo({
+                      url: '../commentsHistory/commentsHistory?author=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'recent-replies') {
+                    wx.navigateTo({
+                      url: '../replyHistory/replyHistory?author=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'transfers') {
+                    wx.navigateTo({
+                      url: '../profile/profile?account=' + linkAuthor,
+                    })
+                  }
+                  else if (linkEnd == 'settings') {
+                    wx.navigateTo({
+                      url: '../profile/profile?account=' + linkAuthor,
+                    })
+                  }
+                  else{
+                    wx.navigateTo({
+                      url: '../detail/detail?author=' + linkAuthor + '&permlink=' + linkEnd,
+                    })
+                  }
+                }
+                else{
+                    wx.navigateTo({
+                      url: '../profile/profile?account=' + linkAuthor,
+                    })
+                }
+                
+              } else if (res.cancel) {
+                console.log('cancel the log out ')
+              }
+            }
+          })        
+
+        }
+      }
+    })
     var tag = app.globalData.tag;
     this.setData({curTag:tag});
     console.log("current tag is ");
@@ -108,15 +169,57 @@ Page({
 
   // monitoring the click function of the view item
   click:function(e){
-    var author = e.currentTarget.dataset.block.author;
-    var permlink = e.currentTarget.dataset.block.permlink;
-    console.log("click");
-    console.log(author);
-    wx.navigateTo({
-      url: '../detail/detail?author=' + author +'&permlink=' + permlink,
-    })
+    if (this.tapEndTime - this.tapStartTime < 350) {
+      console.log("short tap");
+      var author = e.currentTarget.dataset.block.author;
+      var permlink = e.currentTarget.dataset.block.permlink;
+      console.log("click");
+      console.log(author);
+      wx.navigateTo({
+        url: '../detail/detail?author=' + author +'&permlink=' + permlink,
+      })
+    }
 
   },
+  // monitoring the start touching  function of the view item
+  bindTouchStart: function (e) {
+    this.tapStartTime = e.timeStamp;
+  },
+
+   // monitoring the end touching  function of the view item
+  bindTouchEnd: function (e) {
+    this.tapEndTime = e.timeStamp;
+  },
+
+   // monitoring the long tap function of the view item
+  bindLongTap: function (e) {
+    console.log("long tap");
+    wx.showModal({
+      title: 'Favourite Posts',
+      content: 'Would you like to add this to your favourite list?',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('confirm log out')
+          var newList = [];
+          var block2Arr = [];
+          block2Arr.push(e.currentTarget.dataset.block);
+          var existList = wx.getStorageSync('favouritePosts');
+          if (existList){
+            newList = existList.concat(block2Arr);
+          }
+          else{
+            newList = block2Arr;
+          }
+          wx.setStorageSync('favouritePosts', newList);
+          console.log(wx.getStorageSync('favouritePosts'));
+        } else if (res.cancel) {
+          console.log('cancel model ');
+        }
+      }
+    })
+   
+  },
+
 // when the page reach the bottom of the page , js  will go on to request for more data 
   onReachBottom:function(e){
     console.log("refresh");

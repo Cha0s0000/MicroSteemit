@@ -1,4 +1,4 @@
-/* pages/info/info.wxss */
+/* pages/favouritePost/favouritePost.wxss */
 .c8 {
   color: #888;
 }
@@ -64,35 +64,23 @@
 
 .person {
   display: flex;
-  align-items: center; 
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
   width: 90%;
   font-size: 18px;
   color: #333333;
 }
-.feed{
-  position: absolute;
-  left:50rpx;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
-}
 .about{
   display: flex;
-  flex-direction: row;
-  margin-top:10rpx;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%; 
+  margin-bottom:30rpx;
 }
 .intro{
-  font-size: 13px;
+  font-size: 15px;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-align:center;
   margin:auto;
@@ -288,7 +276,6 @@
   vertical-align: middle;
   margin-right: 5px;
   margin-left:5px;
-  font-size:11px
 }
 .post-view{
   display: flex;
@@ -309,14 +296,12 @@
   vertical-align: middle;
   margin-right: 5px;
   margin-left:5px;
-  font-size:11px
 }
 
 .following-text{
   vertical-align: middle;
   margin-right: 5px;
   margin-left:5px;
-  font-size:11px
 }
 .split{
   margin-bottom: 30rpx;
@@ -334,97 +319,101 @@
   margin:20rpx;
   margin-top:30rpx;
 }
-.voting{
-  position: absolute;
-  right:50rpx;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
-}
-.voteHistory {
-  display: flex;
-  align-items: right; 
-  width: 95%;
-   margin-left:50rpx; 
-   padding: 0px; 
-   text-align: center;  
-  justify-content: right; 
-   padding-right: 60rpx; 
-}
-.name{
-  display: flex;
-  flex-direction: row;
-  align-items: center; 
-  justify-content: center; 
-}
-.comments{
-  position: absolute;
-  right:170rpx;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
-}
-.reply{
-  position: absolute;
-  right:110rpx;
-  width: 40rpx;
-  height: 40rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
-}
-.transaction-section-title {
-  display: flex;
-  padding: 8px 15px;
-  margin: 0;
-  font-size: 18px;
-  border-top: 1px solid #dbdbdb;
-  background-color: #eeeeee;
-}
-.transaction-left-border {
-  margin: 3px 7px 0 0px;
-  width: 7px;
-  height: 16px;
-  background: #019875;
-}
-.transaction-history-section{
+.content{
   margin-top:30rpx;
 }
-.transaction-time{
+.header__container{
+    width: 18rem;
+    height: 64rpx;
+    white-space: nowrap;
+}
+.header__item{
+    padding: 14rpx;
+    display: inline-block;
+}
+.active{
+  color:#d81e06;
+  border-bottom: 2rpx solid #d81e06;
+}
+
+swiper,swiper image {
+  width: 100%;
+  height: 500rpx;
+}
+.post-container{
+  display: flex;
+  flex-direction: column;
+  margin:20rpx;
+  /* margin-top: 20rpx;
+  margin-bottom: 20rpx; */
+  background-color: #fff;
+  border-bottom: 1px outset #eee;
+  border-top: 1px solid #ededed;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+.post-author-data{
   margin: 10rpx 0 20rpx 10rpx;
   display: flex;
-  flex-direction: row;
 }
+.post-avatar{
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+}
+.post-author{
+  font-weight: 600;
+  margin-left: 20rpx;
+  vertical-align: middle;
+  margin-bottom: 5px;
+  font-size: 26rpx;
+}
+.reputation{
+  font-size: 26rpx;
+  vertical-align: middle;
+}
+
+.category{
+  margin-left:10rpx;
+  font-size: 26rpx;
+  vertical-align: middle;
+
+}
+.dot{
+  border-radius: 50%;
+  background-color: black;
+  margin-left: 15rpx;
+  margin-top: 15rpx;
+  margin-right: 10rpx;
+  height:10rpx;
+  width:10rpx;
+}
+
 .time{
-  margin-top:10rpx;
   margin-left:5rpx;
   font-size: 26rpx;
   vertical-align: middle;
 
 }
-.transaction-transaction{
+.post-title{
   font-size: 34rpx;
   font-weight: 600;
   color: #333;
   margin-bottom: 10px;
   margin-left: 10px;
 }
-.transaction-memo{
+.img-content{
   display: flex;
   flex-direction: row;
   margin: 5px;
 }
-.memo{
+.post-image{
+  width: 200rpx;
+  height: 150rpx;
+  margin:  0;
+  margin-bottom: 15px;
+}
+.post-content{
   color: #666;
   font-size: 28rpx;
   margin-bottom: 20rpx;
@@ -438,35 +427,50 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp:4;
 }
-.transactions-container{
+.foot-data{
+  display:flex;
+}
+.post-like{
   display: flex;
-  flex-direction: column;
-  margin:20rpx;
-  /* margin-top: 20rpx;
-  margin-bottom: 20rpx; */
-  background-color: #fff;
-  border-bottom: 1px outset #eee;
-  border-top: 1px solid #ededed;
-  padding-bottom: 10px;
-  padding-top: 5px;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
 }
-.dot {
-  display: inline-block;
-  margin: 7px 10px 0 0;
-  width: 6px;
-  height: 6px;
-  border: 2px solid #d0d0d0;
-  border-radius: 6px;
-  font-size: 0;
+
+.icon{
+  width: 40rpx;
+  height: 40rpx;
 }
-.favorites{
-  position: absolute;
-  left:120rpx;
-  width: 50rpx;
-  height: 50rpx;
-  margin-top:5rpx;
-  align-items: right; 
-  justify-content: right;
-  padding-right: 5rpx;
-  margin-right: 5rpx;
+.post-like-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+.like-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.comment-num{
+  display: flex;
+  font-size: 13px;
+  flex-direction: row;
+  line-height: 16px;
+  margin-left: 10px;
+}
+
+.like-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
+}
+
+.comment-num-font{
+  vertical-align: middle;
+  margin-right: 20px;
+  margin-left:5px;
 }

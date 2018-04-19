@@ -32,8 +32,8 @@
             <view class ="dot"></view>
             <text class="time">{{item.time}}</text>
           </view>
-          <text class="post-title" bindtap='click' data-block='{{item}}'>{{item.title}}</text>
-          <view class="img-content" bindtap='click' data-block='{{item}}'>
+          <text class="post-title" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}'>{{item.title}}</text>
+          <view class="img-content" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}'>
             <view class = "img">
               <image mode="aspectFill" class="post-image" src="{{item.image}}"></image>
             </view>
