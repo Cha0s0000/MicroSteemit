@@ -169,15 +169,35 @@ Page({
 
   // monitoring the click function of the view item
   click:function(e){
-    var author = e.currentTarget.dataset.block.author;
-    var permlink = e.currentTarget.dataset.block.permlink;
-    console.log("click");
-    console.log(author);
-    wx.navigateTo({
-      url: '../detail/detail?author=' + author +'&permlink=' + permlink,
-    })
+    if (this.tapEndTime - this.tapStartTime < 350) {
+      console.log("short tap");
+      var author = e.currentTarget.dataset.block.author;
+      var permlink = e.currentTarget.dataset.block.permlink;
+      console.log("click");
+      console.log(author);
+      wx.navigateTo({
+        url: '../detail/detail?author=' + author +'&permlink=' + permlink,
+      })
+    }
 
   },
+  // monitoring the start touching  function of the view item
+  bindTouchStart: function (e) {
+    this.tapStartTime = e.timeStamp;
+  },
+
+   // monitoring the end touching  function of the view item
+  bindTouchEnd: function (e) {
+    this.tapEndTime = e.timeStamp;
+  },
+
+   // monitoring the long tap function of the view item
+  bindLongTap: function (e) {
+    console.log("long tap");
+    // var block = e.currentTarget.dataset.block;
+    // wx.setStorageSync('favouritePosts', block)
+  },
+
 // when the page reach the bottom of the page , js  will go on to request for more data 
   onReachBottom:function(e){
     console.log("refresh");
