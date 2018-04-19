@@ -1,0 +1,62 @@
+<!--pages/favouritePost/favouritePost.wxml-->
+<view class="info" hidden ="{{!hidden}}">
+  <view class="info-header">
+    <image class="info-header-bg" src="../../static/images/info_head.png" />
+    <view class="none-work">
+      <view class="info-avatar-bg"></view>
+      <image class="info-avatar" src="{{avatar}}" />
+    </view>
+  </view>
+  <view class="info-content">
+    <view class="person">
+      <text class="name">{{steemitname}} ({{reputation}})</text>
+    </view>
+    <view class="about">
+      <text class="intro">{{about}}</text>
+    </view>
+    <view class="section-title">
+      <view class="left-border"></view>
+      <text>{{info_title}}</text>
+    </view>
+    <view class="content">
+      <block wx:for="{{postsData}}" wx:for-item="item">
+        <view class="post-container" bindtap='click' data-block='{{item}}'>
+          <view class="post-author-data">     
+            <image class="post-avatar" src="{{item.avatar}}"></image>
+            <text class="post-author">{{item.author}}</text>
+            <text class= "reputation">({{item.reputation}})</text>
+            <text class= "category">在 {{item.category}}</text>
+            <view class ="dot"></view>
+            <text class="time">{{item.time}}</text>
+          </view>
+          <text class="post-title">{{item.title}}</text>
+          <view class="img-content">
+            <view class = "img">
+              <image mode="aspectFill" class="post-image" src="{{item.image}}"></image>
+            </view>
+            <text class="post-content">{{item.body}}</text>
+          </view>
+          <view class= "foot-data">
+            <view class="post-like">
+              <!-- <icon type="success_circle" size="18"/> -->
+              <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+              <!-- <icon type="success" size="18"/> -->
+              <text class="post-like-font"> {{item.pending_payout_value}}</text>
+            </view>
+            <view class="like-num">
+              <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
+              <text class="like-num-font">{{item.like_num}}</text>
+            </view>
+            <view class="comment-num">
+                <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
+                <text class="comment-num-font">{{item.comment_num}}</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
