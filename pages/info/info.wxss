@@ -459,3 +459,14 @@
   border-radius: 6px;
   font-size: 0;
 }
+.favorites{
+  position: absolute;
+  left:120rpx;
+  width: 50rpx;
+  height: 50rpx;
+  margin-top:5rpx;
+  align-items: right; 
+  justify-content: right;
+  padding-right: 5rpx;
+  margin-right: 5rpx;
+}
