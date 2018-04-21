@@ -1,0 +1,2 @@
+<!--pages/market/market.wxml-->
+<canvas canvas-id="lineCanvas" class="myCanvas" disable-scroll="true" class="canvas"></canvas>

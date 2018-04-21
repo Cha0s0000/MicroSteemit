@@ -10,7 +10,11 @@
     "pages/feed/feed",
     "pages/commentsHistory/commentsHistory",
     "pages/replyHistory/replyHistory",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/login/login",
+    "pages/profile/profile",
+    "pages/favouritePost/favouritePost",
+    "pages/market/market"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -34,6 +38,12 @@
         "iconPath": "images/icon/user.png",
         "pagePath": "pages/info/info",
         "text": "User"
+      },
+      {
+        "selectedIconPath": "images/icon/marketSelect.png",
+        "iconPath": "images/icon/market.png",
+        "pagePath": "pages/market/market",
+        "text": "Market"
       }]
   }
  
