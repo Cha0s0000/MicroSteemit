@@ -19,8 +19,8 @@
       <text>{{info_title}}</text>
     </view>
     <view class="content">
-      <block wx:for="{{postsData}}" wx:for-item="item">
-        <view class="post-container" bindtap='click' data-block='{{item}}'>
+      <block wx:for="{{postsData}}" wx:for-item="item" wx:for-index="i">
+        <view class="post-container">
           <view class="post-author-data">     
             <image class="post-avatar" src="{{item.avatar}}"></image>
             <text class="post-author">{{item.author}}</text>
@@ -29,8 +29,8 @@
             <view class ="dot"></view>
             <text class="time">{{item.time}}</text>
           </view>
-          <text class="post-title">{{item.title}}</text>
-          <view class="img-content">
+          <text class="post-title" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}' data-index='{{i}}'>{{item.title}}</text>
+          <view class="img-content" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}' data-index='{{i}}'>
             <view class = "img">
               <image mode="aspectFill" class="post-image" src="{{item.image}}"></image>
             </view>

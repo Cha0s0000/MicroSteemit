@@ -104,13 +104,15 @@ Page({
   onReachBottom: function (e) {
   },
   click: function (e) {
-    var author = e.currentTarget.dataset.block.author;
-    var permlink = e.currentTarget.dataset.block.permlink;
-    console.log("click");
-    console.log(author);
-    wx.navigateTo({
-      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
-    })
+    if (this.tapEndTime - this.tapStartTime < 350){
+      var author = e.currentTarget.dataset.block.author;
+      var permlink = e.currentTarget.dataset.block.permlink;
+      console.log("click");
+      console.log(author);
+      wx.navigateTo({
+        url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+      })
+    }
 
   },
   getReputation(rep) {
@@ -122,5 +124,41 @@ Page({
       score = 50 - score;
     }
     return Math.round(score);
+  },
+
+  // monitoring the start touching  function of the view item
+  bindTouchStart: function (e) {
+    this.tapStartTime = e.timeStamp;
+  },
+
+  // monitoring the end touching  function of the view item
+  bindTouchEnd: function (e) {
+    this.tapEndTime = e.timeStamp;
+  },
+
+  // monitoring the long tap function of the view item
+  bindLongTap: function (e) {
+    var that = this;
+    console.log("long tap");
+    wx.showModal({
+      title: 'Favourite Posts',
+      content: 'Would you like to remove it from your favourite list?',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('confirm')
+          var index = e.currentTarget.dataset.index;
+          var existList = wx.getStorageSync('favouritePosts');
+          existList.splice(index,1);
+          wx.setStorageSync('favouritePosts', existList);
+          that.setData({
+            postsData: existList,
+          })
+          console.log(wx.getStorageSync('favouritePosts'));
+        } else if (res.cancel) {
+          console.log('cancel model ');
+        }
+      }
+    })
+
   },
 })
