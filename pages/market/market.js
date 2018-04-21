@@ -1,5 +1,6 @@
 // pages/market/market.js
 var wxCharts = require("../../utils/wxcharts.js");
+var lineChart = null;
 Page({
 
   /**
@@ -20,7 +21,7 @@ Page({
     priceHistory.price = [];
     priceHistory.time = [];
     wx.request({
-      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=SBD&limit=10',
+      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=SBD&limit=20',
       method: 'GET',
       success: function (res) {
         if(res.statusCode == '200'){
@@ -43,7 +44,7 @@ Page({
         } catch (e) {
           console.error('getSystemInfoSync failed!');
         }
-        new wxCharts({
+        lineChart = new wxCharts({
           canvasId: 'priceHistory',
           type: 'line',
           categories: priceHistory.time,
@@ -168,4 +169,14 @@ Page({
       return getTimeData;
     }
   },
+
+  touchHandler: function (e) {
+    console.log(lineChart.getCurrentDataIndex(e));
+    lineChart.showToolTip(e, {
+      // background: '#7cb5ec',
+      format: function (item, category) {
+        return category + '\r\n ' + item.name + ':' + item.data
+      }
+    });
+  },  
 })
