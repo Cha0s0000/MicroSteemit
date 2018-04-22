@@ -7,6 +7,7 @@
   <button type="primary" bindtap="updateData">更新数据</button>
 </view>
 <view class="table-container">
+  <view class="instruction">STEEM SBD 单位为 /USD</view>
   <view class="table">
     <view class="tr">
       <view class="th">Date</view>
@@ -14,11 +15,11 @@
       <view class="th">STEEM</view>
       <view class="th">SBD</view>
     </view>
-    <view class="tr" wx:for="{{listData}}">
-      <view class='td'> {{item.code}} </view>
-      <view class="td"> {{item.text}} </view>
-      <view class="td"> {{item.text}} </view>
-      <view class="td"> {{item.text}} </view>
+    <view class="tr" wx:for="{{priceHistory.time}}" wx:for-index="index">
+      <view class='td'> {{priceHistory.time[priceHistory.time.length-index-1]}} </view>
+      <view class="td"> {{priceHistory.price[priceHistory.time.length-index-1]}} </view>
+      <view class="td"> {{steemPrice.price[priceHistory.time.length-index-1]}} </view>
+      <view class="td"> {{sbdPrice.price[priceHistory.time.length-index-1]}} </view>
     </view>
   </view>
 </view>

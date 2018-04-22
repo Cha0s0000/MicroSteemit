@@ -28,7 +28,9 @@
   padding: 50rpx 0;
   box-sizing: border-box;
 }
-
+.instruction{
+  font-size:1.2ch;
+}
 .table {
   margin-left:10rpx;
   margin-right:10rpx;
