@@ -6,7 +6,7 @@ Page({
   /**
    * The initial data of the page
    */
-  data: {
+  data: {   
   
   },
 
@@ -179,4 +179,43 @@ Page({
       }
     });
   },  
+
+  updateData:function(e){
+    var that = this;
+    var priceHistory = new Object();
+    var priceMax = 1;
+    var priceMin = 0;
+    priceHistory.price = [];
+    priceHistory.time = [];
+    wx.request({
+      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=SBD&limit=20',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode == '200') {
+          var data = res.data.Data;
+          console.log(data);
+          for (var i in data) {
+            priceHistory.price.push(data[i].close);
+            priceHistory.time.push(that.getTime(data[i].time * 1000));
+          }
+          console.log(priceHistory);
+          priceMax = Math.max.apply(null, priceHistory.price);
+          priceMin = Math.min.apply(null, priceHistory.price);
+        }
+      },
+      complete:function(res){
+        var updateSeries = [{
+            name: 'STEEM/SBD',
+            data: priceHistory.price,
+            format: function (val, name) {
+              return val.toFixed(4);
+            }
+          }];
+        lineChart.updateData({
+          categories: priceHistory.time,
+          series: updateSeries
+        });
+      }
+    })
+  }
 })
