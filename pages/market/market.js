@@ -1,6 +1,6 @@
 // pages/market/market.js
 var wxCharts = require("../../utils/wxcharts.js");
-var lineChart = null;
+var lineChart = null; 
 Page({
 
   /**
@@ -14,72 +14,9 @@ Page({
    * Life cycle function - listen to page load.
    */
   onLoad: function (options) {
-    var that = this;
-    var priceHistory = new Object();
-    var priceMax = 1;
-    var priceMin = 0;
-    priceHistory.price = [];
-    priceHistory.time = [];
-    wx.request({
-      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=SBD&limit=20',
-      method: 'GET',
-      success: function (res) {
-        if(res.statusCode == '200'){
-          var data = res.data.Data;
-          console.log(data);
-          for(var i in data){
-            priceHistory.price.push(data[i].close);    
-            priceHistory.time.push(that.getTime(data[i].time*1000));     
-          }
-          console.log(priceHistory);
-          priceMax= Math.max.apply(null, priceHistory.price);
-          priceMin = Math.min.apply(null, priceHistory.price);
-        }
-      },
-      complete:function(res){
-        var windowWidth = 320;
-        try {
-          var res = wx.getSystemInfoSync();
-          windowWidth = res.windowWidth;
-        } catch (e) {
-          console.error('getSystemInfoSync failed!');
-        }
-        lineChart = new wxCharts({
-          canvasId: 'priceHistory',
-          type: 'line',
-          categories: priceHistory.time,
-          animation: true,
-          // background: '#f5f5f5',
-          series: [{
-            name: 'STEEM/SBD',
-            data: priceHistory.price,
-            format: function (val, name) {
-              return val.toFixed(4);
-            }
-          }],
-          xAxis: {
-            disableGrid: true
-          },
-          yAxis: {
-            title: 'STEEM/SBD',
-            format: function (val) {
-              return val.toFixed(2);
-            },
-            min: priceMin - 0.01,
-            max: priceMax+0.01
-          },
-          width: windowWidth,
-          height: 200,
-          dataLabel: false,
-          dataPointShape: true,
-          legend:true,
-          extra: {
-            lineStyle: 'curve'
-          }
-        });
-      }
-    })
-  
+    this.showChart();
+    this.showTable();
+     
   },
 
   /**
@@ -139,33 +76,33 @@ Page({
     if (ago / 1000 / 60 / 60 / 24 >= 1) {
       var dayNum = parseInt(ago / 1000 / 60 / 60 / 24);
       var getTimeData = dayNum.toString();
-      getTimeData += "days ago";
+      getTimeData += "天前";
       // console.log(getTimeData);
       return getTimeData;
     }
     else if (ago / 1000 / 60 / 60 >= 1) {
       var hourNum = parseInt(ago / 1000 / 60 / 60);
       var getTimeData = hourNum.toString();
-      getTimeData += "hours ago";
+      getTimeData += "时前";
       // console.log(getTimeData);
       return getTimeData;
     }
     else if (ago / 1000 / 60 >= 1) {
       var minNum = parseInt(ago / 1000 / 60);
       var getTimeData = minNum.toString();
-      getTimeData += "mins ago";
+      getTimeData += "分前";
       // console.log(getTimeData);
       return getTimeData;
     }
     else if (ago / 1000 >= 1) {
       var secNum = parseInt(ago / 1000);
       var getTimeData = secNum.toString();
-      getTimeData += "secs ago";
+      getTimeData += "秒前";
       // console.log(getTimeData);
       return getTimeData;
     }
     else {
-      var getTimeData = "1sec ago";
+      var getTimeData = "1秒前";
       return getTimeData;
     }
   },
@@ -178,8 +115,9 @@ Page({
         return category + '\r\n ' + item.name + ':' + item.data
       }
     });
-  },  
+  }, 
 
+  //deal with the clicking on the chart 
   updateData:function(e){
     var that = this;
     var priceHistory = new Object();
@@ -217,5 +155,122 @@ Page({
         });
       }
     })
+  },
+
+  //get request for showing the chart  
+  showChart:function(){
+    var that = this;
+    var priceHistory = new Object();
+    var priceMax = 1;
+    var priceMin = 0;
+    priceHistory.price = [];
+    priceHistory.time = [];
+    wx.request({
+      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=SBD&limit=20',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode == '200') {
+          var data = res.data.Data;
+          console.log(data);
+          for (var i in data) {
+            priceHistory.price.push(data[i].close);
+            priceHistory.time.push(that.getTime(data[i].time * 1000));
+          }
+          console.log(priceHistory);
+          that.setData({ priceHistory: priceHistory});
+          priceMax = Math.max.apply(null, priceHistory.price);
+          priceMin = Math.min.apply(null, priceHistory.price);
+        }
+      },
+      complete: function (res) {
+        var windowWidth = 320;
+        try {
+          var res = wx.getSystemInfoSync();
+          windowWidth = res.windowWidth;
+        } catch (e) {
+          console.error('getSystemInfoSync failed!');
+        }
+        lineChart = new wxCharts({
+          canvasId: 'priceHistory',
+          type: 'line',
+          categories: priceHistory.time,
+          animation: true,
+          // background: '#f5f5f5',
+          series: [{
+            name: 'STEEM/SBD',
+            data: priceHistory.price,
+            format: function (val, name) {
+              return val.toFixed(4);
+            }
+          }],
+          xAxis: {
+            disableGrid: true
+          },
+          yAxis: {
+            title: 'STEEM/SBD',
+            format: function (val) {
+              return val.toFixed(2);
+            },
+            min: priceMin - 0.01,
+            max: priceMax + 0.01
+          },
+          width: windowWidth,
+          height: 200,
+          dataLabel: false,
+          dataPointShape: true,
+          legend: true,
+          extra: {
+            lineStyle: 'curve'
+          }
+        });
+      }
+    })
+  },
+
+  //get request for showing the table  
+  showTable:function(){
+    var that = this;
+    var steemPrice = new Object();
+    steemPrice.price = [];
+    steemPrice.time = [];
+    var sbdPrice = new Object();
+    sbdPrice.price = [];
+    sbdPrice.time = [];
+    wx.request({
+      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=USD&limit=20',
+      method: 'GET',
+      success: function (res) {
+        if (res.statusCode == '200') {
+          var data = res.data.Data;
+          console.log(data);
+          for (var i in data) {
+            steemPrice.price.push(data[i].close);
+            steemPrice.time.push(that.getTime(data[i].time * 1000));
+          }
+          console.log(steemPrice);
+          that.setData({ steemPrice: steemPrice });
+        }
+      },
+      complete:function(res){
+        wx.request({
+          url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=USD&limit=20',
+          method: 'GET',
+          success: function (res) {
+            if (res.statusCode == '200') {
+              var data = res.data.Data;
+              console.log(data);
+              for (var i in data) {
+                sbdPrice.price.push(data[i].close);
+                sbdPrice.time.push(that.getTime(data[i].time * 1000));
+              }
+              console.log(sbdPrice);
+              that.setData({ sbdPrice: sbdPrice });
+            }
+          },
+        })
+        
+      }
+
+    })    
   }
 })
