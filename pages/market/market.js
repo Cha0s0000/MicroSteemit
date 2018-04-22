@@ -6,7 +6,8 @@ Page({
   /**
    * The initial data of the page
    */
-  data: {   
+  data: {
+    hidden: false,
   
   },
 
@@ -51,6 +52,8 @@ Page({
    * Page correlation event handler - listen to the user to pull.
    */
   onPullDownRefresh: function () {
+    this.setData({ hidden:false})
+    this.onLoad();
   
   },
 
@@ -264,7 +267,7 @@ Page({
                 sbdPrice.time.push(that.getTime(data[i].time * 1000));
               }
               console.log(sbdPrice);
-              that.setData({ sbdPrice: sbdPrice });
+              that.setData({ sbdPrice: sbdPrice,hidden:true});
             }
           },
         })

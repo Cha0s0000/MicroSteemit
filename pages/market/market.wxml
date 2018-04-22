@@ -1,12 +1,12 @@
 <!--pages/market/market.wxml-->
-<view class="chart-container">
+<view class="chart-container" hidden="{{!hidden}}">
   <view class="chart-title">
     STEEM/SBD price history
   </view>
   <canvas canvas-id="priceHistory" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
   <button type="primary" bindtap="updateData">更新数据</button>
 </view>
-<view class="table-container">
+<view class="table-container" hidden="{{!hidden}}">
   <view class="instruction">STEEM SBD 单位为 /USD</view>
   <view class="table">
     <view class="tr">
@@ -23,3 +23,6 @@
     </view>
   </view>
 </view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
