@@ -6,3 +6,19 @@
   <canvas canvas-id="priceHistory" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
   <button type="primary" bindtap="updateData">更新数据</button>
 </view>
+<view class="table-container">
+  <view class="table">
+    <view class="tr">
+      <view class="th">Date</view>
+      <view class="th">Price</view>
+      <view class="th">STEEM</view>
+      <view class="th">SBD</view>
+    </view>
+    <view class="tr" wx:for="{{listData}}">
+      <view class='td'> {{item.code}} </view>
+      <view class="td"> {{item.text}} </view>
+      <view class="td"> {{item.text}} </view>
+      <view class="td"> {{item.text}} </view>
+    </view>
+  </view>
+</view>
