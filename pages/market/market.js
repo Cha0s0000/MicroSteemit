@@ -8,6 +8,7 @@ Page({
    */
   data: {
     hidden: false,
+    currentTimeIndex:'day',
   
   },
 
@@ -73,8 +74,8 @@ Page({
   getTime(time) {
     var postTime = new Date(time);
     // console.log(Date.parse(postTime));
-    var nowTime = Date.now() - 28800000;
-    // console.log(nowTime);
+    var nowTime = Date.now();
+    console.log(nowTime);
     var ago = nowTime - postTime;
     if (ago / 1000 / 60 / 60 / 24 >= 1) {
       var dayNum = parseInt(ago / 1000 / 60 / 60 / 24);
@@ -115,7 +116,7 @@ Page({
     lineChart.showToolTip(e, {
       // background: '#7cb5ec',
       format: function (item, category) {
-        return category + '\r\n ' + item.name + ':' + item.data
+        return category + ' ' + item.name + ':' + item.data
       }
     });
   }, 
@@ -129,7 +130,7 @@ Page({
     priceHistory.price = [];
     priceHistory.time = [];
     wx.request({
-      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=SBD&limit=20',
+      url: 'https://min-api.cryptocompare.com/data/histo' + that.data.currentTimeIndex+'?fsym=STEEM&tsym=SBD&limit=20',
       method: 'GET',
       success: function (res) {
         if (res.statusCode == '200') {
@@ -169,7 +170,7 @@ Page({
     priceHistory.price = [];
     priceHistory.time = [];
     wx.request({
-      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=SBD&limit=20',
+      url: 'https://min-api.cryptocompare.com/data/histo' + that.data.currentTimeIndex+'?fsym=STEEM&tsym=SBD&limit=20',
       method: 'GET',
       success: function (res) {
         if (res.statusCode == '200') {
@@ -240,7 +241,7 @@ Page({
     sbdPrice.price = [];
     sbdPrice.time = [];
     wx.request({
-      url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=USD&limit=20',
+      url: 'https://min-api.cryptocompare.com/data/histo' + that.data.currentTimeIndex+'?fsym=STEEM&tsym=USD&limit=20',
       method: 'GET',
       success: function (res) {
         if (res.statusCode == '200') {
@@ -256,7 +257,7 @@ Page({
       },
       complete:function(res){
         wx.request({
-          url: 'https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=USD&limit=20',
+          url: 'https://min-api.cryptocompare.com/data/histo' + that.data.currentTimeIndex+'?fsym=STEEM&tsym=USD&limit=20',
           method: 'GET',
           success: function (res) {
             if (res.statusCode == '200') {
@@ -275,5 +276,13 @@ Page({
       }
 
     })    
+  },
+
+  onPeriodSelectorClick:function(e){
+    var currentIndex = e.currentTarget.dataset.index;
+    console.log("currentIndex");
+    console.log(currentIndex)
+    this.setData({ hidden: false, currentTimeIndex:currentIndex})
+    this.onLoad();
   }
 })

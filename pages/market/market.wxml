@@ -3,6 +3,14 @@
   <view class="chart-title">
     STEEM/SBD price history
   </view>
+  <view id="selector_time">
+    <text style="background-color:{{currentTimeIndex == 'day' ? '#eb333b' : '#f8f8f8'}}; color:{{currentTimeIndex == 0 ? '#ffffff' : '#353535'}}; border:{{currentTimeIndex == 0 ? '1rpx solid rgba(255, 255, 255, 0)' : '1rpx solid #dadada'}};" border-left: none;
+    bindtap="onPeriodSelectorClick" data-index="day">Day</text>
+    <text style="background-color:{{currentTimeIndex == 'hour' ? '#eb333b' : '#f8f8f8'}}; color:{{currentTimeIndex == 1 ? '#ffffff' : '#353535'}}; border:{{currentTimeIndex == 1 ? '1rpx solid rgba(255, 255, 255, 0)' : '1rpx solid #dadada'}}; border-left: none;"
+    bindtap="onPeriodSelectorClick" data-index="hour">Hour</text>
+    <text style="background-color:{{currentTimeIndex == 'minute' ? '#eb333b' : '#f8f8f8'}}; color:{{currentTimeIndex == 2 ? '#ffffff' : '#353535'}}; border:{{currentTimeIndex == 2 ? '1rpx solid rgba(255, 255, 255, 0)' : '1rpx solid #dadada'}}; border-left: none;"
+    bindtap="onPeriodSelectorClick" data-index="minute">Minute</text>
+  </view>
   <canvas canvas-id="priceHistory" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
   <button type="primary" bindtap="updateData">更新数据</button>
 </view>
