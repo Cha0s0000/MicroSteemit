@@ -5,6 +5,7 @@
     <view class="none-work">
       <view class="info-avatar-bg"></view>
       <image class="info-avatar" bindtap='clickAvatar' src="{{avatar}}" /> 
+      <image mode="aspectFill" bindtap = "clickSetting" class="setting" src="../../images/icon/setting.png"></image>
     </view>
   </view>
   <view class="info-content">
