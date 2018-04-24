@@ -330,6 +330,12 @@ Page({
     wx.navigateTo({
       url: '../favouritePost/favouritePost?author=' + author,
     })
+  },
+  // deal with the clicking on othe setting button
+  clickSetting:function(e){
+    wx.navigateTo({
+      url: '../setting/setting'
+    })
   }
 
 })

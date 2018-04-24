@@ -58,3 +58,28 @@
   font-weight: 400;
   background-color: #dadada;
 }
+#selector_time {
+    width: 710rpx;
+    height: 60rpx;
+    margin: 16rpx auto 18rpx auto;
+    text-align: center;
+}
+
+#selector_time text {
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    box-sizing: border-box;
+    font-size: 26rpx;
+    color: #353535;
+    text-align: center;
+    line-height: 60rpx;
+}
+
+#selector_time text:first-child {
+    border-radius: 8rpx 0 0 8rpx;
+}
+
+#selector_time text:last-child {
+    border-radius: 0 8rpx 8rpx 0;
+}

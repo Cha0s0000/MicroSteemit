@@ -14,7 +14,8 @@
     "pages/login/login",
     "pages/profile/profile",
     "pages/favouritePost/favouritePost",
-    "pages/market/market"
+    "pages/market/market",
+    "pages/gestureSetting/gestureSetting"
   ],
   "window":{
     "backgroundTextStyle":"light",

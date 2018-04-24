@@ -1,0 +1,6 @@
+<!--pages/gestureSetting/gestureSetting.wxml-->
+<view class="lock-box">
+    <view  class="lock-title {{titleColor}}">{{title}}</view>
+    <view hidden="{{resetHidden}}" bindtap="lockreset" class="lock-reset" hidden='{{lockSign}}'>重置</view>
+    <canvas disable-scroll="true" class="lock-cav" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" canvas-id="locker" style="width:686rpx;height:686rpx;"></canvas>
+</view>
