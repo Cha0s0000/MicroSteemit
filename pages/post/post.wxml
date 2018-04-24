@@ -35,7 +35,7 @@
           <text class="post-title" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}'>{{item.title}}</text>
           <view class="img-content" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}'>
             <view class = "img">
-              <image mode="aspectFill" class="post-image" src="{{item.image}}"></image>
+              <image mode="aspectFill" class="post-image" src="{{item.image=='https://steemitimages.com/640x480/undefined'?'../../images/icon/undefined.png':item.image}}"></image>
             </view>
             <text class="post-content">{{item.body}}</text>
           </view>
