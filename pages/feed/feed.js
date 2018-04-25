@@ -1,4 +1,5 @@
 // pages/feed/feed.js
+var app = getApp();
 Page({
 
   /**
@@ -505,6 +506,26 @@ Page({
     wx.navigateTo({
       url: '../profile/profile?account=' + account
     })
+  },
+
+  clickAuthor: function (e) {
+    var account = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../profile/profile?account=' + account
+    })
+  },
+
+  clickCategory: function (e) {
+    app.globalData.tag = e.currentTarget.dataset.category;
+    console.log(app.globalData.tag);
+    wx.switchTab({
+      url: '../post/post',
+      success: function (e) {
+        var page = getCurrentPages().pop();
+        if (page == undefined || page == null) return;
+        page.onLoad();
+      }
+    })  
   },
 
 })
