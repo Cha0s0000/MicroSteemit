@@ -1,6 +1,6 @@
 # MicroSteemit
 
-Micro Steemit on the Wechat application.
+## What is  MicroSteemit
 
 **MicroSteemit is developed based on the wechat micro application which is maintained by the tencent company.**
 
@@ -8,76 +8,163 @@ Micro Steemit on the Wechat application.
 
 In a word , MicroSteemit is an application which can be used without downloading while chatting with friends in wechat easily. Just by scanning the MicroSteemit QR code  can we commodiously surf on  the steemit community.
 
-But now , the MicroSteemit is still in developed phase .Of course you also can test the project in the wechat application tool .See the step ### How to develop it 
+**But now , the MicroSteemit is still in developed phase .Of course you also can test the project in the wechat application tool .See the github project in detail.**
+
+------
+
+## Existing features right now
+
+- Show informations of the steemit account in the info page , including steemit account name ,reputation ,balance,sbd_balance, vesting_shares, steem power ,delegated SP ,voting _power , created time ,keys and posting auth.
+- Show posts in trending , hot , new ,created .
+- Add sharing to friends function
+- Show detail of the post  including the post content , voting number , comment number ,pending payout and comments detail
+- Show steemit account voting history
+- Show steemit account followers and following list
+- Show steemit account ever posts
+- Show steemit account feed post list
+- Show steemit account comments history
+- Show steemit account replies history
+- Show steemit account transaction history
+- Show trending tags 
+- Searching the tags
+- Show different posts of different tags 
+- Login with different account
+- Navigate to set current tag while viewing the post list
+- Navigate to view the author profile
+- Add favorite posts collection
+- Show steem/sbd price market
+- Setting the gesture password
+- Setting up back-end server
+
+### **After finish the necessary function of the MicroSteemit , you all will be able to access to this new App by just scan the QR code **
+
+### **Please look forward to it .**
+
+
+
+## **Since so much restriction while applying the Micro Steemit on Wechat , i have to build up own server and apply for ICP record of the hostname.**
+
+## **In addition , i also must setup a white list.**
+
+## **So i will be a bit longer to put the app online .Sorry about that** !
+
+---
+
+## Existing  valid api on back-end server right now
+
+### post modules:
+
+- http://127.0.0.1:3000/post/get_discussions_by_trending?query=QUERY
+- http://127.0.0.1:3000/post/get_discussions_by_created?query=QUERY
+- http://127.0.0.1:3000/post/get_discussions_by_hot?query=QUERY
+- http://127.0.0.1:3000/post/get_active_votes?author=AUTHOR&pernlink=PERMLINK
+- http://127.0.0.1:3000/post/get_discussions_by_author_before_date?author=AUTHOR&startPermlink=startPermlink&beforeDate=beforeDate&limit=limit
+- http://127.0.0.1:3000/post/get_discussions_by_comments?query=QUERY
+- http://127.0.0.1:3000/post/get_content?author=AUTHOR&pernlink=PERMLINK
+- http://127.0.0.1:3000/post/get_content_replies?author=AUTHOR&pernlink=PERMLINK
+- http://127.0.0.1:3000/post/get_discussions_by_feed?query=QUERY   
+
+### tag modules:
+
+- http://127.0.0.1:3000/tag/get_trending_tags?afterTag=afterTag&limit=limit  
+
+### account modules:
+
+- http://127.0.0.1:3000/account/get_followers?following=following&startFollower=startFollower&followType=followType&limit=limit
+- http://127.0.0.1:3000/account/get_following?follower=follower&startFollowing=startFollowing&followType=followType&limit=limit
+- http://127.0.0.1:3000/account/get_follow_count?account=account
+- http://127.0.0.1:3000/account/get_account_votes?voter=voter  
+
+### general modules:
+
+- http://127.0.0.1:3000/general/get_state
+- http://127.0.0.1:3000/general/get_dynamic_global_properties
+
 ---
 
 ## Some screen shot
 
-Showing posts:
+User page
 
-![图片.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1521628720/jolct5zatt6w7exvnegm.png)
-
----
-
-Detail of the post:
-
-![图片.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1521628803/g1nq2x8pupevcawkxr67.png)
+![图片.png](https://cdn.utopian.io/posts/de5b9ebf546e6649ca0442ee334f77baf44a图片.png)
 
 ---
 
-Information of the post:
+market page:
 
-![图片.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1521628831/gu2angni4hzwc0ruihps.png)
-
----
-
-Sharing function :
-
-![图片.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1521628902/omzuiwkqaxgv71evqyrx.png)
+![图片.png](https://cdn.utopian.io/posts/3ff83348712393a55f5c84ab9c2ddbe6cc12图片.png)
 
 ---
 
-Show info of the steemit account :
+posts page:
 
-![图片.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1521628952/ophcc2nk3vidcs2cjozu.png)
-
----
-
-Following and followers list:
-
-![图片.png](https://cdn.utopian.io/posts/ee13bf792881112d6e2c2212a4ac85f5ae9d图片.png)
-
-------
-
-Dynamic info showing :
-
-![GIF.gif](https://cdn.utopian.io/posts/28f2ebda4463ca52891c48094c8174ad1855GIF.gif)
-
-------
-
-Post history showing :
-
-![图片.png](https://cdn.utopian.io/posts/b90e2a6b46072680c917d29964fd7831ab5f图片.png)
-
-------
-
-voting history showing :
-
-![图片.png](https://cdn.utopian.io/posts/3b0cb5834e8e0d479b3defe151ba76e03f2a图片.png)
+![图片.png](https://cdn.utopian.io/posts/1481a9f72d52a74c7b9ac6c1da1303124360图片.png)
 
 ---
 
-### Existing features  
+show trending tags:
 
-- Show informations of the steemit account in the info page , including steemit account name ,reputation ,balance,sbd_balance, vesting_shares, steem power ,delegated SP ,voting _power , created time ,keys and posting auth.
+![图片.png](https://cdn.utopian.io/posts/fa28a450ab6b1f7dc5c3342acbc37b39c0c9图片.png)
 
-- Show posts in trending , hot , new ,created .
+---
 
-- Add sharing to friends function
+search tags:
 
-- Show detail of the post  including the post content , voting number , comment number ,pending payout and comments detail
+![图片.png](https://cdn.utopian.io/posts/d6a583ec779226188a1a4e99ab64b4167291图片.png)
 
-  ​
+---
+
+automatically identify tags:
+
+![图片.png](https://cdn.utopian.io/posts/5b54e755250838ce0415cf55306328bb917d图片.png)
+
+---
+
+show posts of specific tag:
+
+![图片.png](https://cdn.utopian.io/posts/1fb1af365a39fb5b6e56555175e59691fe8c图片.png)
+
+---
+
+show account profile:
+
+![图片.png](https://cdn.utopian.io/posts/cacc2933d66d447848abe4c4c81f194c1ef8图片.png)
+
+---
+
+show account feed:
+
+![图片.png](https://cdn.utopian.io/posts/d83c2a7e4b4a314487e803cc303261f2b376图片.png)
+
+---
+
+show comments history:
+
+![图片.png](https://cdn.utopian.io/posts/53b3922801fb584f1a8ead196df8098e0670图片.png)
+
+---
+
+show recent replies history:
+
+![图片.png](https://cdn.utopian.io/posts/03cc5c8e3d966b18b256312dec733f5d014e图片.png)
+
+---
+
+show voting history:
+
+![图片.png](https://cdn.utopian.io/posts/315c0b3f4ea11ef2e156723d8e29a52f7af2图片.png)
+
+---
+
+show witness voting and transaction history:
+
+![图片.png](https://cdn.utopian.io/posts/1260d9076f0ab3d88dcc9645cec95fa3a63a图片.png)
+
+---
+
+setting gesture password:
+
+![图片.png](https://cdn.utopian.io/posts/f1914b03df643d88aacf3a5ce72501d5a9d2图片.png)
 
 ---
 
@@ -91,4 +178,4 @@ voting history showing :
 
 - Coding
 
-  ![图片.png](https://res.cloudinary.com/hpiynhbhq/image/upload/v1519723553/qqgj5dtne0xzd50jhery.png)
+  ![图片.png](https://cdn.utopian.io/posts/de5b9ebf546e6649ca0442ee334f77baf44a图片.png)
