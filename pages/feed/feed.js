@@ -1,4 +1,5 @@
 // pages/feed/feed.js
+var app = getApp();
 Page({
 
   /**
@@ -67,6 +68,9 @@ Page({
               obj.comment_num = data[post].children;
               var payout = parseFloat(data[post].pending_payout_value) + parseFloat(data[post].total_payout_value) + parseFloat(data[post].curator_payout_value);
               obj.pending_payout_value = "$" + payout.toFixed(2);
+              obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
+              obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
+              obj.promoted = "$" + data[post].promoted.replace("SBD", "");
               obj.reputation = that.data.reputation
               authorPosts.push(obj);
             }
@@ -248,13 +252,15 @@ Page({
     }
   },
   click: function (e) {
-    var author = e.currentTarget.dataset.block.author;
-    var permlink = e.currentTarget.dataset.block.permlink;
-    console.log("click");
-    console.log(author);
-    wx.navigateTo({
-      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
-    })
+    if (this.tapEndTime - this.tapStartTime < 350) {
+      var author = e.currentTarget.dataset.block.author;
+      var permlink = e.currentTarget.dataset.block.permlink;
+      console.log("click");
+      console.log(author);
+      wx.navigateTo({
+        url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+      })
+    }
 
   },
   // whle pull down the app , the page will refresh
@@ -329,6 +335,197 @@ Page({
 
     wx.stopPullDownRefresh();
 
+  },
+  bindTouchStart: function (e) {
+    this.tapStartTime = e.timeStamp;
+  },
+
+  // monitoring the end touching  function of the view item
+  bindTouchEnd: function (e) {
+    this.tapEndTime = e.timeStamp;
+  },
+
+  // monitoring the long tap function of the view item
+  bindLongTap: function (e) {
+    console.log("long tap");
+    wx.showModal({
+      title: 'Favourite Posts',
+      content: 'Would you like to add this to your favourite list?',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('confirm log out')
+          var newList = [];
+          var block2Arr = [];
+          block2Arr.push(e.currentTarget.dataset.block);
+          var existList = wx.getStorageSync('favouritePosts');
+          if (existList) {
+            newList = existList.concat(block2Arr);
+          }
+          else {
+            newList = block2Arr;
+          }
+          wx.setStorageSync('favouritePosts', newList);
+          console.log(wx.getStorageSync('favouritePosts'));
+        } else if (res.cancel) {
+          console.log('cancel model ');
+        }
+      }
+    })
+
+  },
+  showPayout: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var time = e.currentTarget.dataset.time;
+    var detail = e.currentTarget.dataset.detail;
+    /* create thte animation */
+    // Step 1：setup an animation instance
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+
+    // Step 2: this animation instance is assigned to the current animation instance.
+    this.animation = animation;
+
+    // Step 3: perform the first set of animations.
+    animation.opacity(0).rotateX(-100).step();
+
+    // Step 4: export the animation object to the data object store.
+    this.setData({
+      animationData: animation.export()
+    })
+
+    // Step 5: set the timer to the specified time and execute the second set of animations.
+    setTimeout(function () {
+      // Execute the second set of animations.
+      animation.opacity(1).rotateX(0).step();
+      // The first set of animations that are stored for the data object are replaced by the animation objects that perform the second animation.
+      this.setData({
+        animationData: animation
+      })
+
+      //hide 
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            showModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      if ((detail.time.indexOf("天") != -1)) {
+        if (parseInt((detail.time.split('天')[0])) > 7) {
+          payout = parseInt((detail.time.split('天')[0])) - 7;
+          payout = payout + "天前";
+        }
+        else {
+          payout = 7 - parseInt((detail.time.split('天')[0]));
+          payout = payout + "天后";
+        }
+
+      }
+      else {
+        payout = "7天后";
+      }
+      this.setData(
+        {
+          PotentialPayout: detail.pending_payout_value,
+          PromotedPayout: detail.promoted,
+          AuthorPayout: detail.total_payout_value,
+          CurationPayout: detail.curator_payout_value,
+          Payout: payout,
+          showModalStatus: true
+        }
+      );
+    }
+  },
+  showVoters: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var detail = e.currentTarget.dataset.detail;
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      voterListAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        voterListAnimationData: animation
+      })
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            voterListShowModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      var that = this;
+      var votersList = [];
+      wx: wx.request({
+        url: 'https://api.steemjs.com/get_active_votes?author=' + detail.author + '&permlink=' + detail.permlink,
+        method: 'GET',
+        success: function (res) {
+          if (res.statusCode == '200') {
+            var voterDatas = res.data;
+            for (var voterData in voterDatas) {
+              var obj = new Object();
+              obj.voter = voterDatas[voterData].voter;
+              obj.percent = String(voterDatas[voterData].percent / 100) + '%';
+              obj.reputation = that.getReputation(voterDatas[voterData].reputation);
+              obj.time = that.getTime(voterDatas[voterData].time);
+              obj.weight = voterDatas[voterData].weight;
+              votersList.push(obj);
+            }
+            console.log(votersList);
+            that.setData({
+              voterLists: votersList,
+              voterListShowModalStatus: true
+            })
+
+          }
+        },
+        complete: function (res) { },
+      })
+    }
+  },
+  clickAuthor: function (e) {
+    var account = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../profile/profile?account=' + account
+    })
+  },
+
+  clickAuthor: function (e) {
+    var account = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../profile/profile?account=' + account
+    })
+  },
+
+  clickCategory: function (e) {
+    app.globalData.tag = e.currentTarget.dataset.category;
+    console.log(app.globalData.tag);
+    wx.switchTab({
+      url: '../post/post',
+      success: function (e) {
+        var page = getCurrentPages().pop();
+        if (page == undefined || page == null) return;
+        page.onLoad();
+      }
+    })  
   },
 
 })
