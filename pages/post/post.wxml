@@ -17,7 +17,10 @@
               
           </block>
         </scroll-view>
-        <view class="currentTag">{{currentTag}}</view>
+        <view class="currentTag">
+          <text class="tagText">{{currentTag}}</text>
+          <image hidden= "{{currentTag == 'All'?  true : false}}" bindtap='deleteTag' class="deleteTag" src="../../images/icon/close.png"></image>
+        </view>
         <image bindtap='searchTags' class="searchIcon" src="../../images/icon/search.png"></image>
     </view>
     <view class="content {{open ? 'page-move' : ''}}">

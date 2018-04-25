@@ -925,6 +925,11 @@ Page({
     wx.navigateTo({
       url: '../profile/profile?account=' + account
     })
-  }
+  },
+
+  deleteTag: function (e) {
+    app.globalData.tag = '';
+    this.onLoad();
+  },
 })
 
