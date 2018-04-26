@@ -39,7 +39,13 @@ module.exports = function(app){
 	// app.use('/get_state',general);
 	// app.use('/get_dynamic_global_properties',general);
 	
-	
+	var operation = require('../api/operation');
+	app.use('/operation',operation);
+
+
+
+
+
 	// TO-DEAL api 
 	// https://api.steemjs.com/get_state?path=/@' + author + '/recent-replies
 	// https://uploadbeta.com/api/steemit/transfer-history/?id=' + account
