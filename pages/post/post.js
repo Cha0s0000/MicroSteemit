@@ -94,6 +94,20 @@ Page({
     this.getTrendingPosts();
   },
 
+    /**
+   *Life cycle function - monitor page display.
+  */
+  onShow: function () {
+    console.log("==onShow==");
+  },
+
+  /**
+    * Life cycle function - the first rendering of the listening page.
+    */
+  onReady: function () {
+    console.log("==onReady==");
+  },
+
   // monitoring the change of different types of showing posts
   changeCategory:function(event){
     var chid = event.target.dataset.id;
@@ -351,6 +365,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          that.voteOrNot(data[post].author, data[post].permlink,post);
           posts.push(obj);
         }
         console.log(posts);
@@ -360,6 +375,9 @@ Page({
           loading: true
         })
         wx.hideNavigationBarLoading();
+      },
+      complete:function(res){
+        // that.voteOrNot(posts);
       }
     })
   },
@@ -925,6 +943,51 @@ Page({
     wx.navigateTo({
       url: '../profile/profile?account=' + account
     })
-  }
+  },
+
+  deleteTag: function (e) {
+    app.globalData.tag = '';
+    this.onLoad();
+  },
+
+  // identify whether the post has been voted by the account or not 
+  voteOrNot: function (author,permlink,index) {
+    var that = this;
+    var alreadyVotePermlink = [];
+    var currentAccount = wx.getStorageSync('name');
+    if (currentAccount){
+      wx.request({
+        url: 'https://api.steemjs.com/get_active_votes?author=' + author + '&permlink=' +permlink,
+        method: 'GET',
+        success: function (e) {
+          console.log("request for active votes");
+          if (e.statusCode == '200') {
+            var activeVotes = e.data
+            for (var vote in activeVotes) {
+              if (activeVotes[vote].voter == currentAccount) {
+                console.log("I am one of the voters");
+                alreadyVotePermlink.push(permlink);
+                var newPostsData = that.data.postsData;
+                newPostsData[index].voteOrNot = 1;
+                that.setData({ postsData:newPostsData })
+                console.log(newPostsData)
+                break;
+              }
+            }
+          }
+        },
+        complete:function(e){
+          // if (that.data.alreadyVotePermlink){
+          //   that.setData({ alreadyVotePermlink: that.data.alreadyVotePermlink.concat(alreadyVotePermlink)})
+          // }
+          // else{
+          //   that.setData({ alreadyVotePermlink: alreadyVotePermlink })
+          // }
+          // console.log(that.data.alreadyVotePermlink)
+          
+        }
+      })
+    } 
+  },
 })
 

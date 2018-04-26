@@ -257,9 +257,9 @@ swiper,swiper image {
 .currentTag{
   position: absolute;
   left:350rpx;
-  display:block;
+  display:flex;
   text-align: center;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: 20px;
   border-width: medium;
   border-style: solid;
@@ -269,7 +269,20 @@ swiper,swiper image {
   border-bottom-left-radius: 30rpx;
   border-bottom-right-radius: 30rpx;
   justify-content:center;
-  
+  align-items: center;
+}
+
+.tagText{
+  font-size: 1.7ch;
+  font-weight:600;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+
+.deleteTag{
+  margin-right:10rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 
 .drawer_screen {  

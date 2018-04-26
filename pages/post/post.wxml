@@ -17,7 +17,10 @@
               
           </block>
         </scroll-view>
-        <view class="currentTag">{{currentTag}}</view>
+        <view class="currentTag">
+          <text class="tagText">{{currentTag}}</text>
+          <image hidden= "{{currentTag == 'All'?  true : false}}" bindtap='deleteTag' class="deleteTag" src="../../images/icon/close.png"></image>
+        </view>
         <image bindtap='searchTags' class="searchIcon" src="../../images/icon/search.png"></image>
     </view>
     <view class="content {{open ? 'page-move' : ''}}">
@@ -42,7 +45,7 @@
           <view class= "foot-data">
             <view class="post-like">
               <!-- <icon type="success_circle" size="18"/> -->
-              <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+              <image mode="aspectFill" class="icon" src="../../images/icon/{{item.voteOrNot == 1?'good-filling':'good'}}.png"></image>
               <!-- <icon type="success" size="18"/> -->
               <text class="post-like-font" bindtap="showPayout" data-statu="open" data-detail="{{item}}"> {{item.pending_payout_value}}</text>
             </view>
