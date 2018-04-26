@@ -45,7 +45,7 @@
           <view class= "foot-data">
             <view class="post-like">
               <!-- <icon type="success_circle" size="18"/> -->
-              <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+              <image mode="aspectFill" class="icon" src="../../images/icon/{{item.voteOrNot == 1?'good-filling':'good'}}.png"></image>
               <!-- <icon type="success" size="18"/> -->
               <text class="post-like-font" bindtap="showPayout" data-statu="open" data-detail="{{item}}"> {{item.pending_payout_value}}</text>
             </view>
