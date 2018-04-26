@@ -32,6 +32,7 @@ page{
 .inputView { 
  background-color: #fff; 
  line-height: 44px; 
+ margin-top:20rpx;
 } 
 /*input box */
 .nameImage, .keyImage { 
