@@ -1,10 +1,14 @@
 // pages/login/login.js
+var fun_aes = require('../../utils/aes.js')
+var key = fun_aes.CryptoJS.enc.Utf8.parse("3454345434543454");  
+var iv = fun_aes.CryptoJS.enc.Utf8.parse('6666666666666666');  
 Page({
 
   /**
    * initial page
    */
   data: {
+    hidden:true
   
   },
 
@@ -67,15 +71,13 @@ Page({
   },
 
   /**
-   * input name funcion
+   * input name function
    */
   nameInput: function (e) {
     console.log(e.detail.value);
-    if(e.detail.value){
+    this.setData({ name: e.detail.value});
+    if(e.detail.value && this.data.password){
       this.setData({ disabled: false });
-      this.setData({
-        name: e.detail.value
-      })
     }
     else{
       this.setData({ disabled: true });
@@ -84,31 +86,71 @@ Page({
   }, 
 
   /**
+   * input password function
+   */
+  passwordInput:function(e){
+    console.log(e.detail.value);
+    this.setData({ password: e.detail.value });
+    if (e.detail.value && this.data.name) {
+      this.setData({ disabled: false });
+    }
+    else {
+      this.setData({ disabled: true });
+    }
+  },
+
+  /**
    * login function
    */
   login: function () {
-    if (!this.data.name) {
+    if (!this.data.name || !this.data.password) {
       wx.showToast({
         title: 'Invalid',
         icon: 'none',
         duration: 2000
       })
     } else {
-      // 这里修改成跳转的页面 
-      wx.showToast({
-        title: 'Success',
-        icon: 'success',
-        duration: 2000
-      })
-      wx.setStorageSync('name', this.data.name);
-      wx.switchTab({
-        url: '../info/info',
-        success: function (e) {
-          var page = getCurrentPages().pop();
-          if (page == undefined || page == null) return;
-          page.onLoad();
+      this.setData({ hidden:false});
+      var str_aes_encode = this.Encrypt(this.data.password);
+      console.log("After Encrypt: " + str_aes_encode);
+       var that = this;
+      wx.request({
+        url: 'http://192.168.137.138:3000/operation/wif_is_valid?account=' + that.data.name + '&key=' + str_aes_encode,
+        method:'GET',
+        success:function(res){
+          console.log(res.data);
+          that.setData({ hidden: true });
+          if(res.statusCode == '200' && res.data.message == 'success'){
+            wx.showToast({
+              title: 'Login Success',
+              icon: 'success',
+              duration: 2000
+            })
+            wx.setStorageSync('name', that.data.name);
+            wx.setStorageSync('pass', str_aes_encode);
+            wx.switchTab({
+              url: '../info/info',
+              success: function (e) {
+                var page = getCurrentPages().pop();
+                if (page == undefined || page == null) return;
+                page.onLoad();
+              }
+            })
+          }
+          else{
+            wx.showToast({
+              title: 'Login Fail',
+              icon: 'none',
+              duration: 2000
+            })
+            that.onLoad();
+          }
         }
       })
+      
+      
+      
+      
     }
   },
 
@@ -124,5 +166,12 @@ Page({
         page.onLoad();
       }
     })    
-  }
+  },
+
+  // AES Encrypt function
+  Encrypt: function (word) {
+    var srcs = fun_aes.CryptoJS.enc.Utf8.parse(word);
+    var encrypted = fun_aes.CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: fun_aes.CryptoJS.mode.CBC, padding: fun_aes.CryptoJS.pad.Pkcs7 });
+    return encrypted.ciphertext.toString().toUpperCase();
+  },
 })

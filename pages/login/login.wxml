@@ -14,16 +14,19 @@
     <view class="line"></view>
 
     <!--password-->
-    <!-- <view class="inputView">
+     <view class="inputView">
       <image class="keyImage" src="../../images/icon/key.png"></image>
-      <label class="loginLab">密码</label>
-      <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" />
-    </view> -->
+      <label class="loginLab">Password</label>
+      <input class="inputText" password="true" placeholder="Private key" bindinput="passwordInput" />
+    </view> 
 
     <!--button-->
     <view class="BtnView">
-      <button class="loginBtn" type="primary"  disabled="{{disabled}}" bindtap="login">Login</button>
       <button class="backBtn" type="primary"  bindtap="back">Back</button>
+      <button class="loginBtn" type="primary"  disabled="{{disabled}}" bindtap="login">Login</button>
     </view>
   </view>
 </view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
