@@ -53,7 +53,7 @@ router.get('/get_discussions_by_author_before_date', function(req, res) {
 });
 
 router.get('/get_discussions_by_comments', function(req, res) {
-	steem.api.getDiscussionsByComments(req.query, function(err, result) {
+	steem.api.getDiscussionsByComments(JSON.parse(req.query.query), function(err, result) {
 	  res.send(result).end();
 	  console.log("get_discussions_by_comments");
 	});
@@ -74,7 +74,8 @@ router.get('/get_content_replies', function(req, res) {
 });
 
 router.get('/get_discussions_by_feed', function(req, res) {
-	steem.api.getDiscussionsByFeed(req.query, function(err, result) {
+	steem.api.getDiscussionsByFeed(JSON.parse(req.query.query), function(err, result) {
+	  console.log(result);
 	  res.send(result).end();
 	  console.log("get_discussions_by_feed");
 	});
