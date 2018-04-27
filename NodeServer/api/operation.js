@@ -44,6 +44,26 @@ router.get('/wif_is_valid', function(req, res) {
 	});
 });
 
+router.get('/vote',function(req,res){
+	var voter= req.query.voter;
+	var author= req.query.author;
+	var permlink= req.query.permlink;
+	var weight= +(req.query.weight);
+	var wif = aesDecrypt(req.query.key,key,iv);
+	steem.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
+	  if(!err){
+	  	res.json({message:'success'});
+	  	console.log('vote success');
+	  }else{
+	  	res.json({message:'fail'});
+	  	console.log('vote fail');
+	  }
+	});
+
+
+
+});
+
 
 const aesDecrypt = function(data, secretKey, iv) {
     const cipherEncoding = 'hex'
