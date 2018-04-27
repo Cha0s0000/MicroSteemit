@@ -954,6 +954,7 @@ Page({
 
   deleteTag: function (e) {
     app.globalData.tag = '';
+    this.setData({ postsSelect: '流行'});
     this.onLoad();
   },
 
@@ -1012,5 +1013,15 @@ Page({
       })
     } 
   },
+
+  //clicking the voting button to select the vote weight
+  showVoteWeightSlider:function(e){
+    var index = e.currentTarget.dataset.index;
+    var state = e.currentTarget.dataset.state;
+    var addVoteToPostData = this.data.postsData;
+    addVoteToPostData[index].vote =(state==1?0:1);
+    console.log(state);
+    this.setData({ postsData: addVoteToPostData})
+  }
 })
 
