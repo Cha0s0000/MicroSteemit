@@ -1016,12 +1016,85 @@ Page({
 
   //clicking the voting button to select the vote weight
   showVoteWeightSlider:function(e){
+    var name = wx.getStorageSync('name');
+    if (name) {
+      var voteOrNot = e.currentTarget.dataset.voteornot;
+      if (voteOrNot != 2){
+        var index = e.currentTarget.dataset.index;
+        var state = e.currentTarget.dataset.state;
+        var addVoteToPostData = this.data.postsData;
+        addVoteToPostData[index].vote =(state==1?0:1);
+        addVoteToPostData[index].voteWeight = 10000;
+        console.log(state);
+        this.setData({ postsData: addVoteToPostData})
+      }
+    }
+    else {
+      wx.showModal({
+        title: 'Login',
+        content: 'Please login first',
+        success: function (res) {
+          if (res.confirm) {
+            console.log('confirm')
+          } else if (res.cancel) {
+            console.log('cancel')
+          }
+        }
+      })
+    }
+  },
+
+ //slide the slider to set the vote wight
+  setVoteWeight:function(e){
     var index = e.currentTarget.dataset.index;
-    var state = e.currentTarget.dataset.state;
-    var addVoteToPostData = this.data.postsData;
-    addVoteToPostData[index].vote =(state==1?0:1);
-    console.log(state);
-    this.setData({ postsData: addVoteToPostData})
+    var voteWeight = e.detail.value *100;
+    var addVoteWeightToPostData = this.data.postsData;
+    addVoteWeightToPostData[index].voteWeight = voteWeight;
+    console.log(voteWeight);
+    this.setData({ postsData: addVoteWeightToPostData }) 
+  },
+
+  //vote the post
+  voteThePost:function(e){
+    var index = e.currentTarget.dataset.index;
+    var addVoteStateToPostData = this.data.postsData;
+    addVoteStateToPostData[index].voteOrNot = 2;
+    addVoteStateToPostData[index].vote = 0;
+    this.setData({ postsData: addVoteStateToPostData })
+
+    var item = e.currentTarget.dataset.item;
+    console.log("vote detail : author:" + item.author + "&permlink:" + item.permlink + "&weight:" + item.voteWeight);
+    var author = item.author;
+    var permlink = item.permlink;
+    var voteWeight = item.voteWeight;
+    var name = wx.getStorageSync('name');
+    var key = wx.getStorageSync('pass');
+    var that = this;
+    wx.request({
+      url: 'http://192.168.137.138:3000/operation/vote?voter=' + name + '&author=' + author + '&permlink=' + permlink + '&weight=' + voteWeight+'&key='+key,
+      method:'GET',
+      success:function(res){
+        console.log(res);
+        if(res.statusCode == '200' && res.data.message == 'success'){
+          addVoteStateToPostData[index].voteOrNot = (voteWeight == 0 ? 0 : 1);
+          that.setData({ postsData: addVoteStateToPostData })          
+        }
+        else{
+          wx.showModal({
+            title: 'Error',
+            content: 'Something error with connection!',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('Something error with connection!')
+              } else if (res.cancel) {
+                console.log('Something error with connection!')
+              }
+            }
+          })
+
+        }
+      }
+    })
   }
 })
 
