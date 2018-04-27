@@ -365,7 +365,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
-          that.voteOrNot(data[post].author, data[post].permlink,post);
+          that.voteOrNot(data[post].author, data[post].permlink,post,'trending');
           posts.push(obj);
         }
         console.log(posts);
@@ -425,6 +425,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          that.voteOrNot(data[post].author, data[post].permlink, post,'trending');
           posts.push(obj);
         }
         console.log(posts);
@@ -475,6 +476,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          that.voteOrNot(data[post].author, data[post].permlink, post,'created');
           posts.push(obj);
         }
         console.log(posts);
@@ -531,6 +533,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          that.voteOrNot(data[post].author, data[post].permlink, post,'created');
           posts.push(obj);
         }
         console.log(posts);
@@ -581,6 +584,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          that.voteOrNot(data[post].author, data[post].permlink, post,'hot');
           posts.push(obj);
         }
         console.log(posts);
@@ -638,6 +642,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          that.voteOrNot(data[post].author, data[post].permlink, post,'hot');
           posts.push(obj);
         }
         console.log(posts);
@@ -688,6 +693,7 @@ Page({
           obj.total_payout_value = "$" + data[post].total_payout_value.replace("SBD", "");
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
+          that.voteOrNot(data[post].author, data[post].permlink, post,'promote');
           posts.push(obj);
         }
         console.log(posts);
@@ -745,6 +751,7 @@ Page({
           obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
           obj.promoted = "$" + data[post].promoted.replace("SBD", "");
           obj.reputation = that.getReputation(data[post].author_reputation);
+          that.voteOrNot(data[post].author, data[post].permlink,post,"promote");
           posts.push(obj);
         }
         console.log(posts);
@@ -951,7 +958,7 @@ Page({
   },
 
   // identify whether the post has been voted by the account or not 
-  voteOrNot: function (author,permlink,index) {
+  voteOrNot: function (author,permlink,index,category) {
     var that = this;
     var alreadyVotePermlink = [];
     var currentAccount = wx.getStorageSync('name');
@@ -968,8 +975,24 @@ Page({
                 console.log("I am one of the voters");
                 alreadyVotePermlink.push(permlink);
                 var newPostsData = that.data.postsData;
-                newPostsData[index].voteOrNot = 1;
-                that.setData({ postsData:newPostsData })
+                console.log(newPostsData.length);
+                newPostsData[newPostsData.length-(10-index)].voteOrNot = 1;
+                switch(category){
+                  case 'trending':
+                    that.setData({ postsData: newPostsData, trendingPosts: newPostsData });
+                    break;
+                  case 'created':
+                    that.setData({ postsData: newPostsData, createdPosts: newPostsData });
+                    break;
+                  case 'hot':
+                    that.setData({ postsData: newPostsData, hotPosts: newPostsData });
+                    break;
+                  case 'promote':
+                    that.setData({ postsData: newPostsData, promotedPosts: newPostsData });
+                    break;
+
+                }
+                
                 console.log(newPostsData)
                 break;
               }
