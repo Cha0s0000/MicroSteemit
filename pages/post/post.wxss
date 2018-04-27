@@ -419,4 +419,34 @@ swiper,swiper image {
 }  
 .bottom {  
     padding-bottom:8px;  
-}  
+}
+
+.vote-slider{
+  background-color:#ededed;
+  display: flex;
+  flex-direction: row;
+  position:absolute;
+  left:30rpx;
+  width: 90%;
+  border-width: medium;
+  border-style: solid;
+  border-color: gray;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  justify-content:center; 
+  align-items: center;
+}
+.vote-slider-view{
+  width: 80%
+}
+.vote-confirm{
+  width: 95rpx;
+  height: 95rpx;
+}
+.vote-cancel{
+  width: 45rpx;
+  height: 45rpx;
+  margin-right: 20rpx;
+}
