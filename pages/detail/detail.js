@@ -12,7 +12,8 @@ Page({
     permlink:"",
     childComments:[],
     showState:"Show",
-    commentShowState:false
+    commentShowState:false,
+    commentBoxContent:""
   },
   onLoad: function (options) {
     
@@ -488,5 +489,39 @@ Page({
         commentShowModalStatus: true
       })
     }
+  },
+
+  // dynamically get the content of the comment box 
+  inputComment:function(e){
+    var content = e.detail.value;
+    if(content){
+      console.log(content);
+      WxParse.wxParse('commentPreview', 'md', content, this, 5);
+    }
+  },
+
+  // cancel the comment box 
+  cancelComment:function(e){
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      commentAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        commentAnimationData: animation
+      })
+      this.setData(
+        {
+          commentShowModalStatus: false
+        }
+      );
+    }.bind(this), 200)
   }
 })

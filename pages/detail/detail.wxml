@@ -194,11 +194,17 @@
   <view class="drawer_screen" bindtap="showVoters" data-statu="close" wx:if="{{voterListShowModalStatus}}"></view>  
   <view animation="{{commentAnimationData}}" class="comment-drawer_box" wx:if="{{commentShowModalStatus}}">
     <view class="textarea">
-      <textarea class="content" auto-focus bindinput="inputComment" value="{{content}}" maxlength="-1"></textarea>
+      <textarea class="content" placeholder="Input comment to reply" auto-focus bindinput="inputComment" value="{{commentBoxContent}}" maxlength="-1"></textarea>
     </view>
     <view class="commentButton">
-      <button class="submitButton" bindtap="submitComment">确定</button>
+      <button class="submitButton" bindtap="submitComment">提交</button>
       <button class="cancelButton" bindtap="cancelComment">取消</button>
+    </view>
+    <view class="preview">
+      <text class="preview-title">Preview:</text>
+      <scroll-view  scroll-y  class="preview-content">
+        <template is="wxParse" data="{{wxParseData:commentPreview.nodes}}"/>
+      </scroll-view> 
     </view>
   </view>
   <view class="drawer_screen" bindtap="showCommentBox" data-statu="close" wx:if="{{commentShowModalStatus}}"></view> 

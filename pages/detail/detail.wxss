@@ -580,7 +580,7 @@ radio{
   width: 90%;  
   overflow: hidden;  
   position: fixed;  
-  top: 20%;  
+  top: 5vh;  
   z-index: 1001;  
   background:#FAFAFA;  
   border-radius: 3px;  
@@ -588,6 +588,7 @@ radio{
   margin: 0px 35rpx 0 35rpx;   
 }  
 .textarea{
+  height: 35vh;
   margin:5rpx;
   border-width: medium;
   border-style: solid;
@@ -620,4 +621,27 @@ radio{
   border-top: 1px solid #E8E8EA;  
   color: #3CC51F;   
 }
-  
+
+.preview{
+  margin-top:20rpx;
+  border-top-color: red;
+}
+
+.preview-title{
+  font: 20px "microsoft yahei";  
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+
+.preview-content{
+  width: 100%;
+  height:35vh;
+  margin:5rpx;
+  border-width:thin;
+  border-style: solid;
+  border-color: gray;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+}  
