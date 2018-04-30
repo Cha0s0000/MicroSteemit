@@ -105,6 +105,7 @@ Page({
         var data = res.data;
         // console.log(data)
         obj.author = data.author;
+        obj.permlink = data.permlink;
         obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
         obj.category = data.category;
         obj.title = data.title;
@@ -486,7 +487,10 @@ Page({
     // show
     if (currentStatu == "open") {
       this.setData({
-        commentShowModalStatus: true
+        commentShowModalStatus: true,
+        submitCommentAuthor:detail.author,
+        submitCommentPermlink: detail.permlink,
+
       })
     }
   },
@@ -497,6 +501,7 @@ Page({
     if(content){
       console.log(content);
       WxParse.wxParse('commentPreview', 'md', content, this, 5);
+      this.setData({ commentContent: content})
     }
   },
 
@@ -523,5 +528,53 @@ Page({
         }
       );
     }.bind(this), 200)
+  },
+
+  // submit the comment
+  submitComment:function(e){
+    var commentContent = this.data.commentContent;
+    var name = wx.getStorageSync('name');
+    if (name){
+      var key = wx.getStorageSync('pass');
+      var author = this.data.submitCommentAuthor;
+      var permlink = this.data.submitCommentPermlink;
+      var that = this;
+      wx.request({
+        url: 'http://192.168.137.138:3000/operation/comment',
+        method: 'POST',
+        data:{
+          account:name,
+          key:key,
+          author:author,
+          permlink:permlink,
+          content: commentContent
+        },
+        success: function (res) {
+          console.log(res);
+          if (res.statusCode == '200' && res.data.message == 'success') {
+            that.cancelComment();
+            wx.showToast({
+              title: 'Reply Success',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+          else {
+            wx.showModal({
+              title: 'Error',
+              content: 'Something error with connection!',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('Something error with connection!')
+                } else if (res.cancel) {
+                  console.log('Something error with connection!')
+                }
+              }
+            })
+
+          }
+        }
+      })
+    }
   }
 })
