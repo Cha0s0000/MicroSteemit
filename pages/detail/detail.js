@@ -12,7 +12,8 @@ Page({
     permlink:"",
     childComments:[],
     showState:"Show",
-    commentShowState:false
+    commentShowState:false,
+    commentBoxContent:""
   },
   onLoad: function (options) {
     
@@ -43,54 +44,6 @@ Page({
   },
   onUnload: function () {
     // Page close
-  },
-  getContent: function (author,permlink) {
-    var p = this;
-    console.log('p.data.id: ' + p.data.id);
-    wx.request({
-      url: 'https://cnodejs.org/api/v1/topic/' + p.data.id,
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: function (res) {
-        //console.log(res.data.data); 
-        var result = res.data.data;
-        var content = result.content;
-        //console.log(content);      
-        p.setData({ detail: result, hidden: true });
-        WxParse.wxParse('content', 'html', content, p, 5);
-
-        var repliesArray = result.replies;
-        var l = 100;
-        if (repliesArray.length < l) {
-          l = repliesArray.length;
-        }
-        var replyArr = [];
-        for (var i = 0; i < l; i++) {
-          if (repliesArray[i].content) {
-            var c = repliesArray[i].content;
-            if (c.length > 0) {
-              replyArr.push(repliesArray[i].content);
-            }
-          }
-        }
-        /**
-        * WxParse.wxParseTemArray(temArrayName,bindNameReg,total,that)
-        * 1.temArrayName: The name of the array for your call.
-        * 3.bindNameReg is A community of cycles.
-        * 3.total:the repl number
-        */
-        console.log('replies:' + replyArr.length);
-        if (replyArr.length > 0) {
-          for (let i = 0; i < replyArr.length; i++) {
-            WxParse.wxParse('reply' + i, 'html', replyArr[i], p);
-            if (i === replyArr.length - 1) {
-              WxParse.wxParseTemArray("replyTemArray", 'reply', replyArr.length, p)
-            }
-          }
-        }
-      }
-    });
   },
   getReputation(rep) {
     if (rep == 0) {
@@ -152,6 +105,7 @@ Page({
         var data = res.data;
         // console.log(data)
         obj.author = data.author;
+        obj.permlink = data.permlink;
         obj.avatar = "https://steemitimages.com/u/" + obj.author + "/avatar/small";
         obj.category = data.category;
         obj.title = data.title;
@@ -218,7 +172,7 @@ Page({
           }
         }
         
-        that.setData({ comments: commentData, showState: "Show", commentShowState:true}); 
+        that.setData({ comments: commentData, showState: "Refresh", commentShowState:false}); 
         wx.hideNavigationBarLoading();
       }
     })
@@ -498,6 +452,131 @@ Page({
           }
         },
         complete: function(res) {},
+      })
+    }
+  },
+
+  // deal with the clicking to pop up the box for inputing comment
+  showCommentBox:function(e){
+    var currentStatu = e.currentTarget.dataset.statu;
+    var detail = e.currentTarget.dataset.detail;
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      commentAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        commentAnimationData: animation
+      })
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            commentShowModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      this.setData({
+        commentShowModalStatus: true,
+        submitCommentAuthor:detail.author,
+        submitCommentPermlink: detail.permlink,
+        commentSubmitButton:true
+      })
+    }
+  },
+
+  // dynamically get the content of the comment box 
+  inputComment:function(e){
+    var content = e.detail.value;
+    if(content){
+      console.log(content);
+      WxParse.wxParse('commentPreview', 'md', content, this, 5);
+      this.setData({ commentContent: content, commentSubmitButton:false})
+    }
+    else{
+      this.setData({ commentContent: content, commentSubmitButton: true })
+    }
+  },
+
+  // cancel the comment box 
+  cancelComment:function(e){
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      commentAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        commentAnimationData: animation
+      })
+      this.setData(
+        {
+          commentShowModalStatus: false
+        }
+      );
+    }.bind(this), 200)
+  },
+
+  // submit the comment
+  submitComment:function(e){
+    var commentContent = this.data.commentContent;
+    var name = wx.getStorageSync('name');
+    if (name){
+      var key = wx.getStorageSync('pass');
+      var author = this.data.submitCommentAuthor;
+      var permlink = this.data.submitCommentPermlink;
+      var that = this;
+      wx.request({
+        url: 'http://192.168.137.138:3000/operation/comment',
+        method: 'POST',
+        data:{
+          account:name,
+          key:key,
+          author:author,
+          permlink:permlink,
+          content: commentContent
+        },
+        success: function (res) {
+          console.log(res);
+          if (res.statusCode == '200' && res.data.message == 'success') {
+            that.cancelComment();
+            wx.showToast({
+              title: 'Reply Success',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+          else {
+            wx.showModal({
+              title: 'Error',
+              content: 'Something error with connection!',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('Something error with connection!')
+                } else if (res.cancel) {
+                  console.log('Something error with connection!')
+                }
+              }
+            })
+
+          }
+        }
       })
     }
   }
