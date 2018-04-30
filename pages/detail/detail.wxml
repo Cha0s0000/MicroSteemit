@@ -197,7 +197,7 @@
       <textarea class="content" placeholder="Input comment to reply" auto-focus bindinput="inputComment" value="{{commentBoxContent}}" maxlength="-1"></textarea>
     </view>
     <view class="commentButton">
-      <button class="submitButton" bindtap="submitComment">提交</button>
+      <button class="submitButton" bindtap="submitComment" disabled='{{commentSubmitButton}}'>提交</button>
       <button class="cancelButton" bindtap="cancelComment">取消</button>
     </view>
     <view class="preview">

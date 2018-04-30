@@ -172,7 +172,7 @@ Page({
           }
         }
         
-        that.setData({ comments: commentData, showState: "Show", commentShowState:true}); 
+        that.setData({ comments: commentData, showState: "Refresh", commentShowState:false}); 
         wx.hideNavigationBarLoading();
       }
     })
@@ -490,7 +490,7 @@ Page({
         commentShowModalStatus: true,
         submitCommentAuthor:detail.author,
         submitCommentPermlink: detail.permlink,
-
+        commentSubmitButton:true
       })
     }
   },
@@ -501,7 +501,10 @@ Page({
     if(content){
       console.log(content);
       WxParse.wxParse('commentPreview', 'md', content, this, 5);
-      this.setData({ commentContent: content})
+      this.setData({ commentContent: content, commentSubmitButton:false})
+    }
+    else{
+      this.setData({ commentContent: content, commentSubmitButton: true })
     }
   },
 
