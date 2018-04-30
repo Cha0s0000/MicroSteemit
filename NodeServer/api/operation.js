@@ -10,6 +10,12 @@ var router = express.Router();
 var steem = require('steem');
 const crypto = require('crypto')
 
+var bodyParser = require('body-parser');
+
+// parse the post data
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
+
 // length of key is 16 of 128 bit. JUST for test the Decrypt
 const key = '3454345434543454'
 // Hexadecimal number as the secret key offset. JUST for test the Decrypt
@@ -62,6 +68,27 @@ router.get('/vote',function(req,res){
 
 
 
+});
+
+router.post('/comment',function(req,res){
+	console.log("submit a comment");
+	console.log(req.body);
+	var account= req.body.account;
+	var wif = aesDecrypt(req.body.key,key,iv);
+	var author= req.body.author;
+	var permlink= req.body.permlink;
+	var content= req.body.content;
+	var jsonMetadata ={};
+	var comment_permlink = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+	steem.broadcast.comment(wif, author, permlink, account, comment_permlink , '', content, jsonMetadata, function(err, result) {
+        if(!err){
+		  	res.json({message:'success'});
+		  	console.log('comment success');
+		  }else{
+		  	res.json({message:'fail'});
+		  	console.log('comment fail');
+		  }
+    });
 });
 
 
