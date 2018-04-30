@@ -1,4 +1,5 @@
 // pages/follow/follow.js
+var app = getApp();
 Page({
 
   /**
@@ -189,13 +190,15 @@ Page({
 
   },
   click: function (e) {
-    var author = e.currentTarget.dataset.block.author;
-    var permlink = e.currentTarget.dataset.block.permlink;
-    console.log("click");
-    console.log(author);
-    wx.navigateTo({
-      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
-    })
+    if (this.tapEndTime - this.tapStartTime < 350) {
+      var author = e.currentTarget.dataset.block.author;
+      var permlink = e.currentTarget.dataset.block.permlink;
+      console.log("click");
+      console.log(author);
+      wx.navigateTo({
+        url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+      })
+    }
 
   },
   getReputation(rep) {
@@ -261,4 +264,63 @@ Page({
     }
   },
   
+  // monitoring the start touching  function of the view item
+  bindTouchStart: function (e) {
+    this.tapStartTime = e.timeStamp;
+  },
+
+  // monitoring the end touching  function of the view item
+  bindTouchEnd: function (e) {
+    this.tapEndTime = e.timeStamp;
+  },
+
+  // monitoring the long tap function of the view item
+  bindLongTap: function (e) {
+    console.log("long tap");
+    wx.showModal({
+      title: 'Favourite Posts',
+      content: 'Would you like to add this to your favourite list?',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('confirm log out')
+          var newList = [];
+          var block2Arr = [];
+          block2Arr.push(e.currentTarget.dataset.block);
+          var existList = wx.getStorageSync('favouritePosts');
+          if (existList) {
+            newList = existList.concat(block2Arr);
+          }
+          else {
+            newList = block2Arr;
+          }
+          wx.setStorageSync('favouritePosts', newList);
+          console.log(wx.getStorageSync('favouritePosts'));
+        } else if (res.cancel) {
+          console.log('cancel model ');
+        }
+      }
+    })
+
+  },
+  // deal with clicking on the tag
+  clickCategory: function (e) {
+    app.globalData.tag = e.currentTarget.dataset.category;
+    console.log(app.globalData.tag);
+    wx.switchTab({
+      url: '../post/post',
+      success: function (e) {
+        var page = getCurrentPages().pop();
+        if (page == undefined || page == null) return;
+        page.onLoad();
+      }
+    })
+  },
+
+  // deal with clicking on author
+  clickAuthor: function (e) {
+    var account = e.currentTarget.dataset.author;
+    wx.navigateTo({
+      url: '../profile/profile?account=' + account
+    })
+  },
 })
