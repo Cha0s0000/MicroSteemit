@@ -14,10 +14,11 @@
     <view class="line"></view>
 
     <!--password-->
-     <view class="inputView">
+     <view class="pass-inputView">
       <image class="keyImage" src="../../images/icon/key.png"></image>
       <label class="loginLab">Password</label>
-      <input class="inputText" password="true" placeholder="Private key" bindinput="passwordInput" />
+      <image class="scan-icon" bindtap='scanLogin' src="../../images/icon/scan.png"></image>
+      <input class="pass-inputText" password="true" placeholder="Private key" bindinput="passwordInput" value='{{privateKey}}' />
     </view> 
 
     <!--button-->

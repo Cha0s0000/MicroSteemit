@@ -36,7 +36,7 @@ page{
 } 
 /*input box */
 .nameImage, .keyImage { 
- margin-left: 22px; 
+ margin-left: 10px; 
  width: 14px; 
  height: 14px
 } 
@@ -83,3 +83,25 @@ page{
  width: 40%; 
  margin-top: 35px; 
 }
+
+.pass-inputView { 
+ background-color: #fff; 
+ line-height: 44px; 
+ margin-top:20rpx;
+} 
+
+.pass-inputText { 
+ flex: block; 
+ float: right; 
+ text-align: right; 
+ margin-right: 22px; 
+ margin-top: 11px; 
+ color: #cccccc; 
+ font-size: 14px
+} 
+.scan-icon { 
+ align-content: center;
+ margin-bottom:-2px;
+ width: 20px; 
+ height: 20px
+} 
