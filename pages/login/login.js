@@ -89,7 +89,6 @@ Page({
    * input password function
    */
   passwordInput:function(e){
-    console.log(e.detail.value);
     this.setData({ password: e.detail.value });
     if (e.detail.value && this.data.name) {
       this.setData({ disabled: false });
@@ -174,4 +173,17 @@ Page({
     var encrypted = fun_aes.CryptoJS.AES.encrypt(srcs, key, { iv: iv, mode: fun_aes.CryptoJS.mode.CBC, padding: fun_aes.CryptoJS.pad.Pkcs7 });
     return encrypted.ciphertext.toString().toUpperCase();
   },
+
+  // click to scan the QR code to get private key
+  scanLogin:function(e){
+    wx.scanCode({
+      success: (res) => {
+        console.log(res);
+        this.setData({ privateKey: res.result, disabled: false, password:res.result})
+      },
+      fail: (res) => {
+        console.log(res);
+      }
+    })  
+  }
 })

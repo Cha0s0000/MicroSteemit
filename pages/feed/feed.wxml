@@ -38,9 +38,16 @@
           <text class="post-content">{{item.body}}</text>
         </view>
         <view class= "foot-data">
+          <view class="vote-slider" hidden='{{item.vote == 1?false:true}}'>
+            <image mode="aspectFill" class="vote-confirm" bindtap='voteThePost' data-index='{{index}}' data-item='{{item}}' src="../../images/icon/selected.png"></image>
+            <view class="vote-slider-view">
+              <slider bindchange="setVoteWeight" data-index='{{index}}' block-size='20' value='100' min="0" max="100" show-value/>
+            </view>
+            <image mode="aspectFill" bindtap='showVoteWeightSlider' data-state='{{item.vote}}' data-index='{{index}}' class="vote-cancel" src="../../images/icon/xx.png"></image>
+          </view>
           <view class="post-like">
             <!-- <icon type="success_circle" size="18"/> -->
-            <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+            <image mode="aspectFill" bindtap='showVoteWeightSlider' data-voteornot='{{item.voteOrNot}}' data-state='{{item.vote}}' data-index='{{index}}' class="icon" src="../../images/icon/{{item.voteOrNot == 1?'good-filling':(item.voteOrNot == 2 ?'loading':'good')}}.png"></image>
             <!-- <icon type="success" size="18"/> -->
             <text class="post-like-font" bindtap="showPayout" data-statu="open" data-detail="{{item}}"> {{item.pending_payout_value}}</text>
           </view>
