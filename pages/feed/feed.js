@@ -72,6 +72,7 @@ Page({
               obj.curator_payout_value = "$" + data[post].curator_payout_value.replace("SBD", "");
               obj.promoted = "$" + data[post].promoted.replace("SBD", "");
               obj.reputation = that.data.reputation
+              that.voteOrNot(data[post].author, data[post].permlink, post);
               authorPosts.push(obj);
             }
             console.log(authorPosts);
@@ -115,14 +116,6 @@ Page({
   onUnload: function () {
 
   },
-
-  /**
-   *Page correlation event handler - listen to the user to pull.
-   */
-  onPullDownRefresh: function () {
-
-  },
-
   /**
    *The handle function of the bottom event on the page.
    */
@@ -168,7 +161,8 @@ Page({
           obj.comment_num = data[post].children;
           var payout = parseFloat(data[post].pending_payout_value) + parseFloat(data[post].total_payout_value) + parseFloat(data[post].curator_payout_value);
           obj.pending_payout_value = "$" + payout.toFixed(2);
-          obj.reputation = that.data.reputation
+          obj.reputation = that.data.reputation;
+          that.voteOrNot(data[post].author, data[post].permlink, post);
           authorPosts.push(obj);
         }
         console.log(authorPosts);
@@ -317,7 +311,8 @@ Page({
               obj.comment_num = data[post].children;
               var payout = parseFloat(data[post].pending_payout_value) + parseFloat(data[post].total_payout_value) + parseFloat(data[post].curator_payout_value);
               obj.pending_payout_value = "$" + payout.toFixed(2);
-              obj.reputation = that.data.reputation
+              obj.reputation = that.data.reputation;
+              that.voteOrNot(data[post].author, data[post].permlink, post);
               authorPosts.push(obj);
             }
             console.log(authorPosts);
@@ -608,6 +603,47 @@ Page({
         }
       }
     })
-  }
+  },
+
+  // identify whether the post has been voted by the account or not 
+  voteOrNot: function (author, permlink, index) {
+    var that = this;
+    var alreadyVotePermlink = [];
+    var currentAccount = wx.getStorageSync('name');
+    if (currentAccount) {
+      wx.request({
+        url: 'https://api.steemjs.com/get_active_votes?author=' + author + '&permlink=' + permlink,
+        method: 'GET',
+        success: function (e) {
+          console.log("request for active votes");
+          if (e.statusCode == '200') {
+            var activeVotes = e.data
+            for (var vote in activeVotes) {
+              if (activeVotes[vote].voter == currentAccount) {
+                console.log("I am one of the voters");
+                alreadyVotePermlink.push(permlink);
+                var newPostsData = that.data.postsData;
+                console.log(newPostsData.length);
+                newPostsData[newPostsData.length - (10 - index)].voteOrNot = 1;
+                that.setData({ postsData: newPostsData});
+                console.log(newPostsData)
+                break;
+              }
+            }
+          }
+        },
+        complete: function (e) {
+          // if (that.data.alreadyVotePermlink){
+          //   that.setData({ alreadyVotePermlink: that.data.alreadyVotePermlink.concat(alreadyVotePermlink)})
+          // }
+          // else{
+          //   that.setData({ alreadyVotePermlink: alreadyVotePermlink })
+          // }
+          // console.log(that.data.alreadyVotePermlink)
+
+        }
+      })
+    }
+  },
 
 })
