@@ -469,5 +469,128 @@ Page({
     }
   },
 
+  // deal with the clicking to pop up the box for inputing comment
+  showCommentBox:function(e){
+    var currentStatu = e.currentTarget.dataset.statu;
+    var detail = e.currentTarget.dataset.detail;
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      commentAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        commentAnimationData: animation
+      })
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            commentShowModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    var payout = 0;
+    // show
+    if (currentStatu == "open") {
+      this.setData({
+        commentShowModalStatus: true,
+        submitCommentAuthor:detail.author,
+        submitCommentPermlink: detail.permlink,
+        commentSubmitButton:true
+      })
+    }
+  },
 
+  // dynamically get the content of the comment box 
+  inputComment:function(e){
+    var content = e.detail.value;
+    if(content){
+      console.log(content);
+      WxParse.wxParse('commentPreview', 'md', content, this, 5);
+      this.setData({ commentContent: content, commentSubmitButton:false})
+    }
+    else{
+      this.setData({ commentContent: content, commentSubmitButton: true })
+    }
+  },
+
+  // cancel the comment box 
+  cancelComment:function(e){
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      commentAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        commentAnimationData: animation
+      })
+      this.setData(
+        {
+          commentShowModalStatus: false
+        }
+      );
+    }.bind(this), 200)
+  },
+
+  // submit the comment
+  submitComment:function(e){
+    var commentContent = this.data.commentContent;
+    var name = wx.getStorageSync('name');
+    if (name){
+      var key = wx.getStorageSync('pass');
+      var author = this.data.submitCommentAuthor;
+      var permlink = this.data.submitCommentPermlink;
+      var that = this;
+      wx.request({
+        url: 'http://192.168.137.138:3000/operation/comment',
+        method: 'POST',
+        data:{
+          account:name,
+          key:key,
+          author:author,
+          permlink:permlink,
+          content: commentContent
+        },
+        success: function (res) {
+          console.log(res);
+          if (res.statusCode == '200' && res.data.message == 'success') {
+            that.cancelComment();
+            wx.showToast({
+              title: 'Reply Success',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+          else {
+            wx.showModal({
+              title: 'Error',
+              content: 'Something error with connection!',
+              success: function (res) {
+                if (res.confirm) {
+                  console.log('Something error with connection!')
+                } else if (res.cancel) {
+                  console.log('Something error with connection!')
+                }
+              }
+            })
+
+          }
+        }
+      })
+    }
+  }
 })
