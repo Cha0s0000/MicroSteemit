@@ -1,0 +1,215 @@
+<!childComment.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
+<view class="detail-main" hidden ="{{!hidden}}">
+  <text class='view-full-content' bindtap='viewFullContent'>Click to view full content</text>
+  <view class="detail-post">
+    <view class="detail-post-header">
+      <view class="detail-post-title">{{ detail.title }}</view>
+    </view>
+    <view class="detail-post-meta">
+      <view class="detail-post-avatar">
+        <image class="detail-post-avatar-img" mode="scaleToFill" src="{{ detail.avatar }}"></image>
+      </view>
+      <view class="detail-post-info">
+        <view class="detail-post-author-name">
+          {{ detail.author }}<text class="detail-post-reputation">({{ detail.reputation }})</text>
+        </view>
+        <view class="detail-post-time">在 {{detail.category}} •{{ detail.time }}</view>
+      </view>
+    </view>
+    <view class="detail-post-content">
+      <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+      <view class="tags">
+        <view  wx:for="{{tags}}" wx:for-item="tag" wx:key="tag">
+          <view class="tag"> 
+            <text decode="true" class="tag-text">&nbsp;{{tag}}&nbsp;</text>
+          </view>
+        </view>
+      </view>
+      <view class= "foot-data">
+        <view class="post-like">
+          <!-- <icon type="success_circle" size="18"/> -->
+          <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+          <!-- <icon type="success" size="18"/> -->
+          <text class="post-like-font" bindtap="showPayout" data-statu="open" data-detail="{{detail}}"> {{detail.pending_payout_value}}</text>
+        </view>
+        <view class="like-num">
+          <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
+          <text class="like-num-font" bindtap="showVoters" data-statu="open" data-detail="{{detail}}">{{detail.like_num}}</text>
+        </view>
+        <view class="comment-num">
+            <image mode="aspectFill" bindtap='showCommentBox' data-statu="open" data-detail="{{detail}}" class="icon" src="../../images/icon/comments.png"></image>
+            <text class="comment-num-font">{{detail.comment_num}}</text>
+        </view>
+        <view class="share">
+          <button class="share-button" open-type='share'> 
+            <image  mode="aspectFill" class="share-icon" src="../../images/icon/share.png"></image>
+          </button>  
+        </view>
+      </view>
+    </view>
+    <view class="detail-post-comment">
+      <view class="comment_title">
+        <view class="detail-post-comment-title">评论</view>
+        <button class= "comment-button" type="default" size="mini" bindtap='showComment' data-type="up" disabled="{{commentShowState}}">{{showState}}</button> 
+      </view>
+      <view class="detail-post-comment-list" wx:for="{{ comments }}" wx:for-index="idx" wx:for-item="comment">
+        <view class="detail-post-comment-avatar">
+          <image class="detail-post-comment-avatar-img" mode="scaleToFill" src="{{ comment.avatar }}"></image>
+        </view>
+        <view class="detail-post-comment-info">
+          <view class="detail-post-comment-author-name">{{ comment.author }}<text class="detail-post-comment-reputation">({{ comment.reputation }})</text>
+          </view>
+          
+        </view>
+        <view class="detail-post-comment-time"> 发表于{{comment.time }}</view>
+        <block wx:for="{{ replyTemArray }}" wx:for-index="jdx" wx:for-item="j">
+          <block wx:if="{{j.length>0}}">          
+            <block wx:if="{{idx == jdx}}" class="detail-comment-content">
+              <view class="detail-post-comment-item">
+                <template is="wxParse" data="{{wxParseData:j}}"/>
+                <view class= "comment-foot-data">
+                  <view class="comment-post-like">
+                    <!-- <icon type="success_circle" size="18"/> -->
+                    <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+                    <!-- <icon type="success" size="18"/> -->
+                    <text class="comment-post-like-font"> {{comment.pending_payout_value}}</text>
+                  </view>
+                  <view class="comment-like-num">
+                    <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
+                    <text class="comment-like-num-font">{{comment.like_num}}</text>
+                  </view>
+                  <view class="comment-comment-num" data-idx="{{idx}}" data-originidx="{{idx}}" data-item="{{comment}}" bindtap='loadChildComment'>
+                      <image mode="aspectFill" bindtap='showCommentBox' data-statu="open" data-detail="{{comment}}" class="icon" src="../../images/icon/comments.png"></image>
+                      <text class="comment-comment-num-font">{{comment.comment_num}}</text>
+                  </view>
+                </view>
+                <view class="childComments ">
+                  <!-- <view class="child-comments-title">Comments</view> -->
+                  <!-- <block wx:if="{{comment.child}}"> -->
+                    <block wx:for="{{comment.children}}" wx:for-index="child" wx:for-item="childComment">
+                      <!-- <block wx:if="{{childComment.length>0}}">  -->
+                      <view class="childComment depth-{{childComment.depth}}">
+                        <view class="dot-child-com">
+                          <view wx:for="{{childComment.depth-1}}">
+                            <view class ="dot"></view>
+                          </view>
+                          <view class="detail-child-comment-avatar">
+                            <image class="detail-child-comment-avatar-img" mode="scaleToFill" src="{{ childComment.avatar }}"></image>
+                          </view>
+                          <view class="child-com-author-info">
+                            <view class="detail-child-comment-info">
+                              <view class="detail-child-comment-author-name">{{ childComment.author }}<text class="detail-child-comment-reputation">({{ childComment.reputation }})</text>
+                              </view>
+                            </view>
+                            <view class="detail-child-comment-time"> 发表于{{childComment.time }}</view>
+                          </view>
+                        </view>
+                        <!-- <view class="child-cmoment-body">{{childComment.body}}</view> -->
+                        <view class="detail-child-comment-item">
+                          <!-- <template is="wxParse" data="{{ChildReplyArray:child}}"/> -->
+                          <text> {{childComment.body}}</text>
+                          <view class= "comment-foot-data">
+                            <view class="comment-post-like">
+                              <!-- <icon type="success_circle" size="18"/> -->
+                              <image mode="aspectFill" class="icon" src="../../images/icon/good.png"></image>
+                              <!-- <icon type="success" size="18"/> -->
+                              <text class="comment-post-like-font"> {{childComment.pending_payout_value}}</text>
+                            </view>
+                            <view class="comment-like-num">
+                              <image mode="aspectFill" class="icon" src="../../images/icon/selected.png"></image>
+                              <text class="comment-like-num-font">{{childComment.like_num}}</text>
+                            </view>
+                            <view class="comment-comment-num" data-idx="{{child}}" data-originidx="{{idx}}" data-item="{{childComment}}" bindtap='loadChildComment'>
+                                <image mode="aspectFill" bindtap='showCommentBox' data-statu="open" data-detail="{{childComment}}" class="icon" src="../../images/icon/comments.png"></image>
+                                <text class="comment-comment-num-font">{{childComment.comment_num}}</text>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      
+                      <!-- </block>   -->
+                    </block>
+                  <!-- </block> -->
+                </view>
+              </view>  
+              
+            </block>
+          </block>
+        </block>    
+            
+      </view>
+    </view>
+  </view>
+  <!--mask-->  
+  <view class="drawer_screen" bindtap="showPayout" data-statu="close" wx:if="{{showModalStatus}}"></view>  
+  <!--content-->  
+  <!--Use the animation attribute to specify the animation that needs to be executed.-->  
+  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">  
+    
+    <!--drawer content-->  
+    <view class="drawer_title">Total payout</view>  
+    <view class="drawer_content">  
+      
+      <view class="top grid">  
+        <text class="payout-type">Potential Payout</text>
+        <text class="payout-text">{{PotentialPayout}}</text>
+      </view>  
+      <view class="top grid">  
+        <text class="payout-type">Promoted</text>
+        <text class="payout-text">{{PromotedPayout}}</text>
+      </view>  
+      <view class="top grid">  
+        <text class="payout-type">Author Payout</text>
+        <text class="payout-text">{{AuthorPayout}}</text> 
+      </view>  
+      <view class="top grid">  
+        <text class="payout-type">Curation Payout</text>
+        <text class="payout-text">{{CurationPayout}}</text>
+      </view>  
+      <view class="top bottom grid">  
+        <text class="payout-type">Payout</text>
+        <text class="payout-text">{{Payout}}</text>
+      </view>  
+    </view>  
+    <view class="btn_ok" bindtap="showPayout" data-statu="close">OK</view>  
+  </view> 
+  <view animation="{{voterListAnimationData}}" class="voterList-drawer_box" wx:if="{{voterListShowModalStatus}}">  
+    <scroll-view scroll-y="true" style="height: 400px">
+      <view class="voterList-drawer_title">Voters List</view>  
+      <view class="voters-list">
+          <block wx:for="{{voterLists}}" wx:for-item="voterList">
+            <view class="voters-item">
+              <view class="item">
+                <view class="voter-dot"></view>
+                <text class="voterList-voter">{{voterList.voter}}({{voterList.reputation}})</text>
+                <text class="voterList-percent">{{voterList.percent}}</text>
+                <text class="voterList-time">{{voterList.time}}</text>
+              </view>  
+            </view>
+          </block>
+        </view> 
+      <view class="btn_ok" bindtap="showVoters" data-statu="close">OK</view>  
+    </scroll-view>
+  </view> 
+  <view class="drawer_screen" bindtap="showVoters" data-statu="close" wx:if="{{voterListShowModalStatus}}"></view>  
+  <view animation="{{commentAnimationData}}" class="comment-drawer_box" wx:if="{{commentShowModalStatus}}">
+    <view class="textarea">
+      <textarea class="content" placeholder="Input comment to reply" auto-focus bindinput="inputComment" value="{{commentBoxContent}}" maxlength="-1"></textarea>
+    </view>
+    <view class="commentButton">
+      <button class="submitButton" bindtap="submitComment" disabled='{{commentSubmitButton}}'>提交</button>
+      <button class="cancelButton" bindtap="cancelComment">取消</button>
+    </view>
+    <view class="preview">
+      <text class="preview-title">Preview:</text>
+      <scroll-view  scroll-y  class="preview-content">
+        <template is="wxParse" data="{{wxParseData:commentPreview.nodes}}"/>
+      </scroll-view> 
+    </view>
+  </view>
+  <view class="drawer_screen" bindtap="showCommentBox" data-statu="close" wx:if="{{commentShowModalStatus}}"></view> 
+</view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>

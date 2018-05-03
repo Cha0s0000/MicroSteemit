@@ -201,12 +201,14 @@ Page({
     }
   },
   click: function (e) {
-    var author = e.currentTarget.dataset.block.root_author;
-    var permlink = e.currentTarget.dataset.block.root_permlink;
+    var author = e.currentTarget.dataset.block.author;
+    var permlink = e.currentTarget.dataset.block.permlink;
+    var root_author = e.currentTarget.dataset.block.root_author;
+    var root_permlink = e.currentTarget.dataset.block.root_permlink;
     console.log("click");
     console.log(author);
     wx.navigateTo({
-      url: '../detail/detail?author=' + author + '&permlink=' + permlink,
+      url: '../childComment/childComment?author=' + author + '&permlink=' + permlink + '&parent_author=' + root_author + '&parent_permlink=' + root_permlink,
     })
 
   },
