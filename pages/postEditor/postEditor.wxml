@@ -1,0 +1,37 @@
+<!--pages/postEditor/postEditor.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
+<view class="postEditor">
+  <view class='postTitle'>
+    <input bindinput="inputTitle" class="title" type="text" value="{{postTitle}}" placeholder="Post Title" placeholder-class="place-input" />
+  </view>
+  <view class="postContent">
+    <textarea class="content" placeholder="Post Content" auto-focus bindinput="inputContent" value="{{postContent}}" maxlength="-1"></textarea>
+  </view>
+  <view class='inputTags'>
+    <text class='tagsTitle'>Tags:</text>
+    <input hidden='{{tags.length>4?true:false}}' bindinput="inputTag" class="inputTag" type="text" value="{{newTag}}" placeholder="Tag" placeholder-class="place-input" />
+    <image hidden='{{tags.length>4?true:false}}' mode="aspectFill" bindtap="addTag" class="icon" src="../../images/icon/add.png"></image>
+  </view>
+  <view class='postTags'>
+    <view wx:for="{{tags}}" wx:for-item="tag" wx:key="tag" wx:for-index="tagIndex">
+      <view class="tag">
+        <text decode="true" class="tag-text">&nbsp;{{tag}}&nbsp;</text>
+        <image data-tagindex="{{tagIndex}}" bindtap='deleteTag' class="deleteTag" src="../../images/icon/close.png"></image>
+      </view>
+    </view>
+    
+  </view>
+  <view class="commentButton">
+    <button class="submitButton" bindtap="submitPost">Post</button>
+    <button class="cancelButton" bindtap="cancelPost">Cancel</button>
+  </view>
+  <view class="preview">
+    <text class="preview-title">Preview:</text>
+    <scroll-view scroll-y class="preview-content">
+      <template is="wxParse" data="{{wxParseData:postContentPreview.nodes}}" />
+    </scroll-view>
+  </view>
+</view>
+<loading hidden="{{hidden}}">
+  Loading...
+</loading>
