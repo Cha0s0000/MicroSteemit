@@ -44,10 +44,11 @@ module.exports = function(app){
 
 
 
-
+	var transmit = require('../api/transmit');
+	app.use('/transmit',transmit);
 
 	// TO-DEAL api 
-	// https://api.steemjs.com/get_state?path=/@' + author + '/recent-replies
+	// https://api.steemjs.com/get_state?path=/@' + author + '/recent-replies 
 	// https://uploadbeta.com/api/steemit/transfer-history/?id=' + account
 	// https://min-api.cryptocompare.com/data/histo' + that.data.currentTimeIndex+'?fsym=STEEM&tsym=SBD&limit=20',
 	// https://steemit.com/@' + author + '.json
