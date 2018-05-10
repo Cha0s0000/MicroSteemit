@@ -1,0 +1,130 @@
+/* pages/postEditor/postEditor.wxss */
+@import "/wxParse/wxParse.wxss";
+.postEditor{
+  padding: 20rpx;
+}
+.postTitle{
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  border-width: medium;
+  border-style: solid;
+  border-color:#E8E8EA;
+  height: 5vh;
+  margin:5rpx;
+  margin-bottom: 10rpx;
+}
+.postContent{
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  border-width: medium;
+  border-style: solid;
+  border-color: #E8E8EA;
+  height: 35vh;
+  margin:5rpx;
+}
+.inputTags{
+  display: flex;
+  flex-direction: row;
+}
+.tagsTitle{
+  align-content: center;
+}
+.inputTag{
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  border-width: medium;
+  border-style: solid;
+  border-color:#E8E8EA;
+  height: 5vh;
+  width: 20vh;
+}
+.postTags{
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+  border-width: medium;
+  border-style: solid;
+  border-color:#E8E8EA;
+  margin:5rpx;
+  margin-top: 10rpx;
+  display: flex;
+  flex-wrap:wrap; 
+  flex-direction: row;
+  word-break: break-all;
+}
+.deleteTag{
+  margin-right:10rpx;
+  width: 30rpx;
+  height: 30rpx;
+}
+.tag{
+  margin-bottom: 5rpx;
+  word-break: break-all;
+  border-width: medium;
+  border-style: solid;
+  border-color: gray;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+}
+.icon{
+  width: 60rpx;
+  height: 60rpx;
+  align-content: center;
+  margin-bottom:-8rpx;
+}
+.commentButton{
+  display:flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.submitButton { 
+  width: 30%; 
+  padding: 10px;  
+  font: 20px "microsoft yahei";  
+  text-align: center;  
+  border-top: 1px solid #E8E8EA;  
+  color: #3CC51F;  
+}
+
+.cancelButton { 
+  width: 30%; 
+  padding: 10px;  
+  font: 20px "microsoft yahei";  
+  text-align: center;  
+  border-top: 1px solid #E8E8EA;  
+  color: #3CC51F;   
+}
+
+.preview{
+  margin-top:20rpx;
+  border-top-color: red;
+}
+
+.preview-title{
+  font: 20px "microsoft yahei";  
+  font-weight: 500;
+  margin-bottom: 10rpx;
+}
+
+.preview-content{
+  width: 100%;
+  height:35vh;
+  margin:5rpx;
+  border-width:thin;
+  border-style: solid;
+  border-color: gray;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;
+  border-bottom-left-radius: 10rpx;
+  border-bottom-right-radius: 10rpx;
+}  
