@@ -32,8 +32,10 @@
   right:100rpx;
 }
 .header__item{
-    padding: 10rpx;
+    padding: 5rpx;
     display: inline-block;
+    font-size: 2.1ch;
+    font-weight: 800;
 }
 .active{
   color:#d81e06;
@@ -256,11 +258,11 @@ swiper,swiper image {
 }
 .currentTag{
   position: absolute;
-  left:350rpx;
+  left:380rpx;
   display:flex;
   text-align: center;
   margin-left: 10px;
-  margin-right: 20px;
+  margin-right: 10px;
   border-width: medium;
   border-style: solid;
   border-color: gray;
@@ -273,16 +275,16 @@ swiper,swiper image {
 }
 
 .tagText{
-  font-size: 1.7ch;
+  font-size: 1.5ch;
   font-weight:600;
-  margin-left: 10rpx;
-  margin-right: 10rpx;
+  margin-left: 5rpx;
+  margin-right: 5rpx;
 }
 
 .deleteTag{
-  margin-right:10rpx;
-  width: 30rpx;
-  height: 30rpx;
+  margin-right:5rpx;
+  width: 25rpx;
+  height: 25rpx;
 }
 
 .drawer_screen {  
