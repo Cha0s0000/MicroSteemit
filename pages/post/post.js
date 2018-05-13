@@ -22,6 +22,22 @@ Page({
    * Life cycle function - listen to page load.
    */
   onLoad:function(options){
+    if (options.sharePage){
+      switch (options.sharePage){
+        case 'detail':
+          wx.navigateTo({
+            url: '../detail/detail?author=' + options.author + '&permlink=' + options.permlink,
+          })
+          break;
+        
+        case 'profile':
+          wx.navigateTo({
+            url: '../profile/profile?account=' + options.account,
+          })
+          break;
+      }
+
+    }
     wx.getClipboardData({
       success: function (res) {
         console.log(res.data)
@@ -251,9 +267,9 @@ Page({
   onShareAppMessage: function() {
     // Users click the top right corner to share.
     return {
-      title: 'title', // sharing title
-      desc: 'desc', // sharing description
-      path: 'path' // sharing page
+      title: 'MicroSteemit',
+      desc: "Steemit",
+      path: '/pages/post/post'
     }
   },
 
@@ -261,7 +277,7 @@ Page({
   getTime(time){
     var postTime = new Date(time);
     // console.log(Date.parse(postTime));
-    var nowTime = Date.now() - 28800000;
+    var nowTime = Date.now() ;
     // console.log(nowTime);
     var ago = nowTime - postTime;
     if(ago/1000/60/60/24 >= 1){
@@ -335,7 +351,7 @@ Page({
     var posts = [];
     var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_trending?query={"limit":"10","tag":"' + tag+'"}',
+      url: 'https://openjoy.club/post/get_discussions_by_trending?query={"limit":"10","tag":"' + tag+'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -390,7 +406,7 @@ Page({
     var posts = [];
     var tag = this.data.curTag;
     var i=0;
-    var url = 'https://api.steemjs.com/get_discussions_by_trending?query={"limit":"10","tag":"'+tag +'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var url = 'https://openjoy.club/post/get_discussions_by_trending?query={"limit":"10","tag":"'+tag +'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -448,7 +464,7 @@ Page({
     var posts = [];
     var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_created?query={"limit":"10","tag":"'+tag +'"}',
+      url: 'https://openjoy.club/post/get_discussions_by_created?query={"limit":"10","tag":"'+tag +'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -498,7 +514,7 @@ Page({
     var posts = [];
     var i = 0;
     var tag = this.data.curTag;
-    var url = 'https://api.steemjs.com/get_discussions_by_created?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var url = 'https://openjoy.club/post/get_discussions_by_created?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -556,7 +572,7 @@ Page({
     var posts = [];
     var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_hot?query={"limit":"10","tag":"'+tag+'"}',
+      url: 'https://openjoy.club/post/get_discussions_by_hot?query={"limit":"10","tag":"'+tag+'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -607,7 +623,7 @@ Page({
     var posts = [];
     var tag = this.data.curTag;
     var i = 0;
-    var url = 'https://api.steemjs.com/get_discussions_by_hot?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var url = 'https://openjoy.club/post/get_discussions_by_hot?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -665,7 +681,7 @@ Page({
     var posts = [];
     var tag = this.data.curTag;
     wx.request({
-      url: 'https://api.steemjs.com/get_discussions_by_promoted?query={"limit":"10","tag":"'+tag+'"}',
+      url: 'https://openjoy.club/post/get_discussions_by_promoted?query={"limit":"10","tag":"'+tag+'"}',
       method: 'GET',
       success: function (res) {
         console.log(res.data)
@@ -716,7 +732,7 @@ Page({
     var posts = [];
     var tag = this.data.curTag;
     var i = 0;
-    var url = 'https://api.steemjs.com/get_discussions_by_promoted?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
+    var url = 'https://openjoy.club/post/get_discussions_by_promoted?query={"limit":"10","tag":"'+tag+'","start_author":"' + lastAuthor + '","start_permlink":"' + lastPermlink + '"}';
     console.log(url);
     wx.request({
       url: url,
@@ -770,7 +786,7 @@ Page({
     var tagsList = [];
     if (!this.data.open){
       wx.request({
-        url: 'https://api.steemjs.com/get_trending_tags?limit=15',
+        url: 'https://openjoy.club/tag/get_trending_tags?limit=15',
         method: 'GET',
         success: function(res) {
           if(res.statusCode == '200'){
@@ -919,7 +935,7 @@ Page({
       var that = this;
       var votersList = [];
       wx: wx.request({
-        url: 'https://api.steemjs.com/get_active_votes?author=' + detail.author + '&permlink=' + detail.permlink,
+        url: 'https://openjoy.club/post/get_active_votes?author=' + detail.author + '&permlink=' + detail.permlink,
         method: 'GET',
         success: function (res) {
           if (res.statusCode == '200') {
@@ -965,7 +981,7 @@ Page({
     var currentAccount = wx.getStorageSync('name');
     if (currentAccount){
       wx.request({
-        url: 'https://api.steemjs.com/get_active_votes?author=' + author + '&permlink=' +permlink,
+        url: 'https://openjoy.club/post/get_active_votes?author=' + author + '&permlink=' +permlink,
         method: 'GET',
         success: function (e) {
           console.log("request for active votes");
@@ -1071,7 +1087,7 @@ Page({
     var key = wx.getStorageSync('pass');
     var that = this;
     wx.request({
-      url: 'http://192.168.137.138:3000/operation/vote?voter=' + name + '&author=' + author + '&permlink=' + permlink + '&weight=' + voteWeight+'&key='+key,
+      url: 'https://openjoy.club/operation/vote?voter=' + name + '&author=' + author + '&permlink=' + permlink + '&weight=' + voteWeight+'&key='+key,
       method:'GET',
       success:function(res){
         console.log(res);
@@ -1080,6 +1096,8 @@ Page({
           that.setData({ postsData: addVoteStateToPostData })          
         }
         else{
+          addVoteStateToPostData[index].voteOrNot = 0;
+          that.setData({ postsData: addVoteStateToPostData })         
           wx.showModal({
             title: 'Error',
             content: 'Something error with connection!',
@@ -1095,6 +1113,21 @@ Page({
         }
       }
     })
+  },
+  imageError:function(e){
+    
+    var index = e.currentTarget.dataset.index;
+    var category = e.currentTarget.dataset.category;
+    var newPostsData = this.data.postsData;
+    console.log("image error.ID:" + index + "category:" + category + 'newPostsData.length' + newPostsData.length);
+    if (category == 'avatar'){
+      
+      newPostsData[index].avatar = '../../images/icon/default-avatar.png';
+    }
+    else{
+      newPostsData[index].image = '../../images/icon/default-image.png';
+    }
+    this.setData({ postsData: newPostsData});
   }
 })
 

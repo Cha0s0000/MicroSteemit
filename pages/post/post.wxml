@@ -1,51 +1,47 @@
-<view class = "posts">
+<view class="posts">
   <loading hidden="{{loading}}">
-  Loading...
-  </loading> 
+    Loading...
+  </loading>
   <view scroll-y="true" style="height:100%;" bindscrolltolower="loadMore" bindscrolltoupper="refesh" bindscroll="scroll" enable-back-to-top="true" scroll-top="{{scrollTop}}">
-      <view class="header">
-        <image bindtap='showTags' class="tagsIcon" src="../../images/icon/tags.png"></image>
-        <scroll-view class="header__container" scroll-x="true" >
-          <block wx:for="{{categoryTabs}}" wx:key="lanmu_id" wx:if="1">
-              <view 
-                  class="header__item {{item == postsSelect ? 'active':'' }}" 
-                  bindtap="changeCategory" 
-                  data-id="{{ item }}"
-              >
-                  {{ item }}
-              </view>
-              
-          </block>
-        </scroll-view>
-        <view class="currentTag">
-          <text class="tagText">{{currentTag}}</text>
-          <image hidden= "{{currentTag == 'All'?  true : false}}" bindtap='deleteTag' class="deleteTag" src="../../images/icon/close.png"></image>
-        </view>
-        <image bindtap='searchTags' class="searchIcon" src="../../images/icon/search.png"></image>
+    <view class="header">
+      <image bindtap='showTags' class="tagsIcon" src="../../images/icon/tags.png"></image>
+      <scroll-view class="header__container" scroll-x="true">
+        <block wx:for="{{categoryTabs}}" wx:key="lanmu_id" wx:if="1">
+          <view class="header__item {{item == postsSelect ? 'active':'' }}" bindtap="changeCategory" data-id="{{ item }}">
+            {{ item }}
+          </view>
+
+        </block>
+      </scroll-view>
+      <view class="currentTag">
+        <text class="tagText">{{currentTag}}</text>
+        <image hidden="{{currentTag == 'All'?  true : false}}" bindtap='deleteTag' class="deleteTag" src="../../images/icon/close.png"></image>
+      </view>
+      <image bindtap='searchTags' class="searchIcon" src="../../images/icon/search.png"></image>
     </view>
     <view class="content {{open ? 'page-move' : ''}}">
       <view class="page-mask {{open ? '' : 'page-mask-hide'}}" catchtouchmove="touchMove" bindtap="off_canvas"></view>
       <block wx:for="{{postsData}}" wx:for-item="item" wx:for-index="index">
         <view class="post-container">
-          <view class="post-author-data">     
-            <image class="post-avatar" src="{{item.avatar}}"></image>
+          <view class="post-author-data">
+            <image class="post-avatar" binderror='imageError' data-category='avatar' data-index='{{index}}' src="{{item.avatar}}"></image>
             <text class="post-author" bindtap='clickAuthor' data-author='{{item.author}}'>{{item.author}}</text>
-            <text class= "reputation">({{item.reputation}})</text>
-            <text class= "category" bindtap='clickCategory' data-category='{{item.category}}'>在 {{item.category}}</text>
-            <view class ="dot"></view>
+            <text class="reputation">({{item.reputation}})</text>
+            <text class="category" bindtap='clickCategory' data-category='{{item.category}}'>在 {{item.category}}</text>
+            <view class="dot"></view>
             <text class="time">{{item.time}}</text>
           </view>
           <text class="post-title" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}'>{{item.title}}</text>
           <view class="img-content" bindtouchstart="bindTouchStart" bindtouchend="bindTouchEnd" bindlongtap="bindLongTap" bindtap='click' data-block='{{item}}'>
-            <view class = "img">
-              <image mode="aspectFill" class="post-image" src="{{item.image=='https://steemitimages.com/640x480/undefined'?'../../images/icon/undefined.png':item.image}}"></image>
+            <view class="img">
+              <image mode="aspectFill" class="post-image" src="{{item.image}}" binderror='imageError' data-category='post' data-index='{{index}}'></image>
             </view>
             <text class="post-content">{{item.body}}</text>
           </view>
-          
-          <view class= "foot-data">
+
+          <view class="foot-data">
             <view class="vote-slider" hidden='{{item.vote == 1?false:true}}'>
-              <image mode="aspectFill" class="vote-confirm" bindtap='voteThePost' data-index ='{{index}}' data-item='{{item}}' src="../../images/icon/selected.png"></image>
+              <image mode="aspectFill" class="vote-confirm" bindtap='voteThePost' data-index='{{index}}' data-item='{{item}}' src="../../images/icon/selected.png"></image>
               <view class="vote-slider-view">
                 <slider bindchange="setVoteWeight" data-index='{{index}}' block-size='20' value='100' min="0" max="100" show-value/>
               </view>
@@ -53,7 +49,7 @@
             </view>
             <view class="post-like">
               <!-- <icon type="success_circle" size="18"/> -->
-              <image mode="aspectFill" bindtap='showVoteWeightSlider' data-voteornot='{{item.voteOrNot}}' data-state='{{item.vote}}' data-index='{{index}}'  class="icon" src="../../images/icon/{{item.voteOrNot == 1?'good-filling':(item.voteOrNot == 2 ?'loading':'good')}}.png"></image>
+              <image mode="aspectFill" bindtap='showVoteWeightSlider' data-voteornot='{{item.voteOrNot}}' data-state='{{item.vote}}' data-index='{{index}}' class="icon" src="../../images/icon/{{item.voteOrNot == 1?'good-filling':(item.voteOrNot == 2 ?'loading':'good')}}.png"></image>
               <!-- <icon type="success" size="18"/> -->
               <text class="post-like-font" bindtap="showPayout" data-statu="open" data-detail="{{item}}"> {{item.pending_payout_value}}</text>
             </view>
@@ -62,8 +58,8 @@
               <text class="like-num-font" bindtap="showVoters" data-statu="open" data-detail="{{item}}">{{item.like_num}}</text>
             </view>
             <view class="comment-num">
-                <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
-                <text class="comment-num-font">{{item.comment_num}}</text>
+              <image mode="aspectFill" class="icon" src="../../images/icon/comments.png"></image>
+              <text class="comment-num-font">{{item.comment_num}}</text>
             </view>
           </view>
         </view>
@@ -74,62 +70,62 @@
 <view class="page-top {{open ? 'page-top-show' : ''}}">
   <view class="tags-title">Trending tags:</view>
   <view class="tags">
-    <view  wx:for="{{tagsList}}" wx:for-item="tag" wx:key="tag">
-      <view class="tag" bindtap="clickTags" data-tag="{{tag.tag}}"> 
+    <view wx:for="{{tagsList}}" wx:for-item="tag" wx:key="tag">
+      <view class="tag" bindtap="clickTags" data-tag="{{tag.tag}}">
         <text decode="true" class="tag-text">&nbsp;{{tag.tag}}&nbsp;</text>
       </view>
     </view>
   </view>
 </view>
-<!--mask-->  
-  <view class="drawer_screen" bindtap="showPayout" data-statu="close" wx:if="{{showModalStatus}}"></view>  
-  <!--content-->  
-  <!--Use the animation attribute to specify the animation that needs to be executed.-->  
-  <view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">  
-    
-    <!--drawer content-->  
-    <view class="drawer_title">Total payout</view>  
-    <view class="drawer_content">  
-      
-      <view class="top grid">  
-        <text class="payout-type">Potential Payout</text>
-        <text class="payout-text">{{PotentialPayout}}</text>
-      </view>  
-      <view class="top grid">  
-        <text class="payout-type">Promoted</text>
-        <text class="payout-text">{{PromotedPayout}}</text>
-      </view>  
-      <view class="top grid">  
-        <text class="payout-type">Author Payout</text>
-        <text class="payout-text">{{AuthorPayout}}</text> 
-      </view>  
-      <view class="top grid">  
-        <text class="payout-type">Curation Payout</text>
-        <text class="payout-text">{{CurationPayout}}</text>
-      </view>  
-      <view class="top bottom grid">  
-        <text class="payout-type">Payout</text>
-        <text class="payout-text">{{Payout}}</text>
-      </view>  
-    </view>  
-    <view class="btn_ok" bindtap="showPayout" data-statu="close">OK</view>  
-  </view> 
-  <view animation="{{voterListAnimationData}}" class="voterList-drawer_box" wx:if="{{voterListShowModalStatus}}">  
-    <scroll-view scroll-y="true" style="height: 400px">
-      <view class="voterList-drawer_title">Voters List</view>  
-      <view class="voters-list">
-          <block wx:for="{{voterLists}}" wx:for-item="voterList">
-            <view class="voters-item">
-              <view class="item">
-                <view class="voter-dot"></view>
-                <text class="voterList-voter">{{voterList.voter}}({{voterList.reputation}})</text>
-                <text class="voterList-percent">{{voterList.percent}}</text>
-                <text class="voterList-time">{{voterList.time}}</text>
-              </view>  
-            </view>
-          </block>
-        </view> 
-      <view class="btn_ok" bindtap="showVoters" data-statu="close">OK</view>  
-    </scroll-view>
-  </view> 
-  <view class="drawer_screen" bindtap="showVoters" data-statu="close" wx:if="{{voterListShowModalStatus}}"></view>  
+<!--mask-->
+<view class="drawer_screen" bindtap="showPayout" data-statu="close" wx:if="{{showModalStatus}}"></view>
+<!--content-->
+<!--Use the animation attribute to specify the animation that needs to be executed.-->
+<view animation="{{animationData}}" class="drawer_box" wx:if="{{showModalStatus}}">
+
+  <!--drawer content-->
+  <view class="drawer_title">Total payout</view>
+  <view class="drawer_content">
+
+    <view class="top grid">
+      <text class="payout-type">Potential Payout</text>
+      <text class="payout-text">{{PotentialPayout}}</text>
+    </view>
+    <view class="top grid">
+      <text class="payout-type">Promoted</text>
+      <text class="payout-text">{{PromotedPayout}}</text>
+    </view>
+    <view class="top grid">
+      <text class="payout-type">Author Payout</text>
+      <text class="payout-text">{{AuthorPayout}}</text>
+    </view>
+    <view class="top grid">
+      <text class="payout-type">Curation Payout</text>
+      <text class="payout-text">{{CurationPayout}}</text>
+    </view>
+    <view class="top bottom grid">
+      <text class="payout-type">Payout</text>
+      <text class="payout-text">{{Payout}}</text>
+    </view>
+  </view>
+  <view class="btn_ok" bindtap="showPayout" data-statu="close">OK</view>
+</view>
+<view animation="{{voterListAnimationData}}" class="voterList-drawer_box" wx:if="{{voterListShowModalStatus}}">
+  <scroll-view scroll-y="true" style="height: 400px">
+    <view class="voterList-drawer_title">Voters List</view>
+    <view class="voters-list">
+      <block wx:for="{{voterLists}}" wx:for-item="voterList">
+        <view class="voters-item">
+          <view class="item">
+            <view class="voter-dot"></view>
+            <text class="voterList-voter">{{voterList.voter}}({{voterList.reputation}})</text>
+            <text class="voterList-percent">{{voterList.percent}}</text>
+            <text class="voterList-time">{{voterList.time}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="btn_ok" bindtap="showVoters" data-statu="close">OK</view>
+  </scroll-view>
+</view>
+<view class="drawer_screen" bindtap="showVoters" data-statu="close" wx:if="{{voterListShowModalStatus}}"></view>

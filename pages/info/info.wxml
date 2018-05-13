@@ -4,7 +4,9 @@
     <image class="info-header-bg" src="../../static/images/info_head.png" />
     <view class="none-work">
       <view class="info-avatar-bg"></view>
+      <image mode="aspectFill" bindtap = "clickPost" class="postEditor" src="../../images/icon/edit.png"></image>
       <image class="info-avatar" bindtap='clickAvatar' src="{{avatar}}" /> 
+      
       <image mode="aspectFill" bindtap = "clickSetting" class="setting" src="../../images/icon/setting.png"></image>
     </view>
   </view>
@@ -12,7 +14,7 @@
     <view class="person">
       <image mode="aspectFill" bindtap = "feed" class="feed" src="../../images/icon/feed.png"></image>
       <image mode="aspectFill" bindtap = "favorites" class="favorites" src="../../images/icon/favorites.png"></image>
-      <view class="name">{{steemitname}} ({{reputation}})</view>
+      <view class="name">{{steemitname}}({{reputation}})</view>
       <image mode="aspectFill" bindtap = "replyHistory" class="reply" src="../../images/icon/reply.png"></image>
       <image mode="aspectFill" bindtap = "commentsHistory" class="comments" src="../../images/icon/comments.png"></image>
       <image mode="aspectFill" bindtap = "voteHistory" class="voting" src="../../images/icon/good-filling.png"></image>

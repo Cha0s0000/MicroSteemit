@@ -40,73 +40,99 @@ Page({
    * Life cycle function - listen to page load.
    */
   onLoad: function (options) {
-    var account = wx.getStorageSync('name')
-    if(account == ''){
+    var account = wx.getStorageSync('name');
+    var passwd = wx.getStorageSync('pass')
+    this.setData({account:account});
+    if (passwd == '' ){
+      console.log("No passwd");
       wx.redirectTo({
         url: '../login/login',
       })
     }
     else{
+      console.log("check validity")
       var that = this;
       wx.request({
-        // testing the hostname
-        url: 'https://steemit.com/@' + account+'.json',
+        url: 'https://openjoy.club/operation/wif_is_valid?account=' + account + '&key=' + passwd,
         method: 'GET',
         success: function (res) {
-          console.log(res);
-          if (res.data.status == '200') {
-            that.vests_to_sp(parseFloat(res.data.user.vesting_shares), parseFloat(res.data.user.delegated_vesting_shares));
-            that.get_follower_following();
-            that.setData({
-              avatar: res.data.user.json_metadata.profile.profile_image,
-              balance: res.data.user.balance,
-              created: res.data.user.created,
-              post_count: res.data.user.post_count,
-              sbd_balance: res.data.user.sbd_balance,
-              vesting_shares: parseInt(res.data.user.vesting_shares),
-              voting_power: String(res.data.user.voting_power).substr(0, 2),
-              reputation: that.getReputation(res.data.user.reputation),
-              average_market_bandwidth: res.data.user.average_market_bandwidth,
-              author: res.data.user.name,
-              steemitname: res.data.user.json_metadata.profile.name,
-              about: res.data.user.json_metadata.profile.about,
-              location: res.data.user.json_metadata.profile.location,
-              postkey: res.data.user.posting.key_auths[0][0],
-              activekey: res.data.user.active.key_auths[0][0],
-              ownerkey: res.data.user.owner.key_auths[0][0],
-              memokey: res.data.user.memo_key,
-              account_auths: res.data.user.posting.account_auths,
-              witness_votes: res.data.user.witness_votes,
-              hidden: true
+          console.log(res.data);
+          that.setData({ hidden: true });
+          if (res.statusCode == '200' && res.data.message == 'success') {
+            wx.request({
+              // testing the hostname
+              url: 'https://openjoy.club/transmit/redir?uri=https://steemit.com/@' + account + '.json',
+              method: 'GET',
+              success: function (res) {
+                console.log(res);
+                if (res.data.status == '200') {
+                  that.vests_to_sp(parseFloat(res.data.user.vesting_shares), parseFloat(res.data.user.delegated_vesting_shares));
+                  that.get_follower_following();
+                  that.setData({
+                    avatar: res.data.user.json_metadata.profile.profile_image,
+                    balance: res.data.user.balance,
+                    created: res.data.user.created,
+                    post_count: res.data.user.post_count,
+                    sbd_balance: res.data.user.sbd_balance,
+                    vesting_shares: parseInt(res.data.user.vesting_shares),
+                    voting_power: String(res.data.user.voting_power).substr(0, 2),
+                    reputation: that.getReputation(res.data.user.reputation),
+                    average_market_bandwidth: res.data.user.average_market_bandwidth,
+                    author: res.data.user.name,
+                    steemitname: res.data.user.json_metadata.profile.name,
+                    about: res.data.user.json_metadata.profile.about,
+                    location: res.data.user.json_metadata.profile.location,
+                    postkey: res.data.user.posting.key_auths[0][0],
+                    activekey: res.data.user.active.key_auths[0][0],
+                    ownerkey: res.data.user.owner.key_auths[0][0],
+                    memokey: res.data.user.memo_key,
+                    account_auths: res.data.user.posting.account_auths,
+                    witness_votes: res.data.user.witness_votes,
+                    hidden: true
 
 
 
+                  })
+                }
+                that.calc_bandwidth();
+              },
+              complete: function (res) {
+                var transactionHistory = [];
+                wx.request({
+                  url: 'https://openjoy.club/transmit/redir?uri=https://uploadbeta.com/api/steemit/transfer-history/?id=' + account,
+                  method: 'GET',
+                  success: function (res) {
+                    if (res.statusCode == '200') {
+                      var transactionDatas = res.data;
+                      for (var transactionData in transactionDatas) {
+                        var obj = new Object();
+                        obj.time = transactionDatas[transactionData].time_desc;
+                        obj.transaction = transactionDatas[transactionData].transaction;
+                        obj.memo = transactionDatas[transactionData].memo;
+                        transactionHistory.push(obj);
+                      }
+                    }
+                    console.log(transactionHistory);
+                    that.setData({ transactions: transactionHistory })
+                  }
+                })
+              }
+            })
+
+          }
+          else {
+            wx.showToast({
+              title: 'Login Fail',
+              icon: 'none',
+              duration: 2000
+            })
+            wx.redirectTo({
+              url: '../login/login',
             })
           }
-          that.calc_bandwidth();
-        },
-        complete: function (res) {
-          var transactionHistory = [];
-          wx.request({
-            url: 'https://uploadbeta.com/api/steemit/transfer-history/?id=' + account,
-            method: 'GET',
-            success: function (res) {
-              if (res.statusCode == '200') {
-                var transactionDatas = res.data;
-                for (var transactionData in transactionDatas) {
-                  var obj = new Object();
-                  obj.time = transactionDatas[transactionData].time_desc;
-                  obj.transaction = transactionDatas[transactionData].transaction;
-                  obj.memo = transactionDatas[transactionData].memo;
-                  transactionHistory.push(obj);
-                }
-              }
-              console.log(transactionHistory);
-              that.setData({ transactions: transactionHistory })
-            }
-          })
         }
       })
+      
 
     }
      
@@ -160,6 +186,11 @@ Page({
    * Users click the top right corner to share.
    */
   onShareAppMessage: function () {
+    return {
+      title: this.data.account + ' Profile',
+      desc: "Steemit",
+      path: '/pages/post/post?sharePage=profile&account=' + this.data.account
+    }
   
   },
 
@@ -183,7 +214,7 @@ Page({
     var d_sp=0;
     console.log(vests);
     wx.request({
-      url: 'https://api.steemjs.com/get_state?path=/@cha0s0000',
+      url: 'https://openjoy.club/general/get_state?path=/@' + that.data.account,
       method: 'GET',
       success: function (res) {
         console.log(res);
@@ -231,7 +262,7 @@ Page({
   get_follower_following() {
     var that = this;
     wx.request({
-      url: 'https://api.steemjs.com/get_follow_count?account=cha0s0000',
+      url: 'https://openjoy.club/account/get_follow_count?account=' + that.data.account,
       method: 'GET',
       success: function (res) {
         console.log(res);
@@ -248,7 +279,7 @@ Page({
     var max_virtual_bandwidth = 0;
     var available_bandwidth= 0;
     wx.request({
-      url: 'https://api.steemjs.com/get_dynamic_global_properties',
+      url: 'https://openjoy.club/general/get_dynamic_global_properties',
       method: 'GET',
       success: function (res) {
         console.log(res);
@@ -317,6 +348,7 @@ Page({
         if (res.confirm) {
           console.log('confirm log out')
           wx.removeStorageSync('name')
+          wx.removeStorageSync('pass')
           that.onLoad();
         } else if (res.cancel) {
           console.log('cancel the log out ')
@@ -334,7 +366,14 @@ Page({
   // deal with the clicking on othe setting button
   clickSetting:function(e){
     wx.navigateTo({
-      url: '../setting/setting'
+      url: '../gestureSetting/gestureSetting'
+    })
+  },
+
+   // deal with the clicking on othe postEditor button
+  clickPost: function (e) {
+    wx.navigateTo({
+      url: '../postEditor/postEditor'
     })
   }
 

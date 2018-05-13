@@ -25,6 +25,17 @@
   height: 78px;
 }
 
+.postEditor{
+  position: absolute;
+  left:30rpx;
+  width: 50rpx;
+  height: 50rpx;
+  margin-top:5rpx;
+  align-items: right; 
+  justify-content: right;
+  padding-right: 5rpx;
+  margin-right: 5rpx;
+}
 .none-work {
   height: 30px;
   position: relative;
@@ -173,6 +184,7 @@
 
 .skill-name {
   margin-bottom: 30px;
+  
 }
 
 .skill-bar {
@@ -360,6 +372,9 @@
   flex-direction: row;
   align-items: center; 
   justify-content: center; 
+  font-size-adjust:inherit;
+  font-size:1.1ch;
+  font-weight: 800;
 }
 .comments{
   position: absolute;
