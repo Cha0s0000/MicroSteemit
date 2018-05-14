@@ -761,3 +761,25 @@ radio {
   height: 45rpx;
   margin-right: 20rpx;
 }
+
+.qrcode{
+  background: #000;
+  opacity: 0.5;
+}
+.qrcode-image{
+  width: 500rpx;
+  height: 500rpx;
+}
+.qrcode-drawer_box {
+  width: 500rpx;
+  height: 500rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 15vh;
+  left:8vh;
+  z-index: 1001;
+  background: #fafafa;
+  border-radius: 3px;
+  align-items: center;
+  margin: 0px 35rpx 0 35rpx;
+}

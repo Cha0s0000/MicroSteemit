@@ -794,6 +794,60 @@ Page({
     })
   },
 
+  /*
+    click on the share button to show the QR code of the post link
+  */
+  showQRcode: function (e) {
+    var currentStatu = e.currentTarget.dataset.statu;
+    var animation = wx.createAnimation({
+      duration: 200,  //Animation duration
+      timingFunction: "linear", //linear  
+      delay: 0  //0 means not delay 
+    });
+    this.animation = animation;
+    animation.opacity(0).rotateX(-100).step();
+    this.setData({
+      QRcodeAnimationData: animation.export()
+    })
+    setTimeout(function () {
+      animation.opacity(1).rotateX(0).step();
+      this.setData({
+        QRcodeAnimationData: animation
+      })
+      if (currentStatu == "close") {
+        this.setData(
+          {
+            QRcodeShowModalStatus: false
+          }
+        );
+      }
+    }.bind(this), 200)
+    // show
+    if (currentStatu == "open") {
+      this.setData({
+        QRcodeShowModalStatus: true,
+      })
+      const qrcode = require('../../utils/qrcode/index');
+      let link = 'https://steemit.com/@' + this.data.author + '/' + this.data.permlink;
+      qrcode.drawQRCodeToCanvas(link, {
+        ctx: 'qrcode',
+        size: 200,
+        color: '#CC6600',
+        padding: 16,
+        background: '#FFCC99'
+      });
+      let qrcode0 = qrcode.outputQRCodeBase64(link, {
+        size: 400,
+        color: '#CC6600',
+        padding: 16,
+        background: '#FFCC99'
+      });
 
+      this.setData({
+        qrcode0
+      })
+
+    }
+  },
 
 })
