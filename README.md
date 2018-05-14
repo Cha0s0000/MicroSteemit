@@ -41,18 +41,6 @@ Beta version :
 - Setting the gesture password
 - Setting up back-end server
 
-### **After finish the necessary function of the MicroSteemit , you all will be able to access to this new App by just scan the QR code **
-
-### **Please look forward to it .**
-
-
-
-## **Since so much restriction while applying the Micro Steemit on Wechat , i have to build up own server and apply for ICP record of the hostname.**
-
-## **In addition , i also must setup a white list.**
-
-## **So i will be a bit longer to put the app online .Sorry about that** !
-
 ---
 
 ## Existing  valid api on back-end server right now
