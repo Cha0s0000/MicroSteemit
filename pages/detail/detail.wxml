@@ -50,7 +50,7 @@
           <text class="comment-num-font">{{detail.comment_num}}</text>
         </view>
          <view class="share">
-          <image  data-statu="open"  mode="aspectFill" class="share-icon" src="../../images/icon/share.png"></image>
+          <image bindtap='showQRcode' data-statu="open"  mode="aspectFill" class="share-icon" src="../../images/icon/share.png"></image>
         </view> 
       </view>
     </view>
@@ -236,3 +236,7 @@
 <loading hidden="{{hidden}}">
   Loading...
 </loading>
+ <view class="drawer_screen" bindtap="showQRcode" data-statu="close" wx:if="{{QRcodeShowModalStatus}}"></view>
+<view animation="{{QRcodeAnimationData}}" class="qrcode-drawer_box" wx:if="{{QRcodeShowModalStatus}}">
+  <image class='qrcode-image' mode="widthFix" src="{{qrcode0}}"></image>
+</view>
