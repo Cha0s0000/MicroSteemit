@@ -15,7 +15,10 @@
     "pages/profile/profile",
     "pages/favouritePost/favouritePost",
     "pages/market/market",
-    "pages/gestureSetting/gestureSetting"
+    "pages/gestureSetting/gestureSetting",
+    "pages/childComment/childComment",
+    "pages/postEditor/postEditor",
+    "pages/accountTrack/accountTrack"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -45,6 +48,12 @@
         "iconPath": "images/icon/market.png",
         "pagePath": "pages/market/market",
         "text": "Market"
+      },
+      {
+        "selectedIconPath": "images/icon/steemitWorldSelect.png",
+        "iconPath": "images/icon/steemitWorld.png",
+        "pagePath": "pages/accountTrack/accountTrack",
+        "text": "AccountTrack"
       }]
   }
  

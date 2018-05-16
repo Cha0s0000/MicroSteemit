@@ -1,0 +1,49 @@
+<!--pages/steemitWorld/steemitWorld.wxml-->
+<view class="wrap" hidden='{{loadingProgress}}'>
+  <view class="circle-box">
+    <canvas class="circle" style="z-index: -99; width:200px; height:200px;" canvas-id="canvasCircle">
+    </canvas>
+    <canvas class="circle" style="width:200px; height:200px;" canvas-id="canvasArcCir">
+    </canvas>
+    <view class="draw_progress" >{{circleProgress}}%</view>
+    <view class="draw_progress-title">loading...</view>
+  </view>
+</view>
+<view class="operation-container" style="padding:0rpx" hidden='{{!loadingProgress}}'>
+  <!--垂直滚动-->
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
+    <block wx:for="{{ operations }}" wx:for-index="operation-index" wx:for-item="operation">
+      <view class="operation_item">
+        <view class="operation-redirect">
+          <view class="redirect">
+            <text>></text>
+          </view>
+          <view class='op-vategort-box'>
+            <view class="dot {{operation.category}}_dot"></view>
+            <view class="operation-category">{{operation.category}}</view>
+          </view>
+          <view class='operation-detail-table'>
+            <view class="table">
+              <view class="row" wx:for="{{operation.detail}}" wx:for-index="index" wx:for-item="item">
+                <view class="op-index">{{index}}</view>
+                <view class="op-item">{{item}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="op-timestamp">
+            <view class="op-timestamp-box">
+              
+              <text class="op-timestamp-title">timestamp：</text>
+              <text class="op-timestamp-data">{{operation.timestamp}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </scroll-view>
+  <view class="body-view">
+    <loading hidden="{{hidden}}" bindchange="loadingChange">
+      加载中...
+    </loading>
+  </view>
+</view>
