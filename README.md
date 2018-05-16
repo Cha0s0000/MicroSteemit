@@ -1,4 +1,6 @@
-# MicroSteemit
+# MicroSteemit  
+![logo.png](https://steemitimages.com/DQmRQYxggESLwh62iWLieccpxkXror7VAwFZKfEYE2QfK4W/logo.png)  
+
 
 ## What is  MicroSteemit
 
@@ -6,9 +8,12 @@
 
 > wechat micro application is an application that doesn't need to be downloaded and installed. It implements the dream of "reach within reach", and users scan or search can open the micro application through the wechat application. It also reflects the idea of "running away", and users don't have to worry about installing too many apps. Micro Applications will be ubiquitous, readily available, without installing uninstall. Suitable for life service offline shops and non-new low-frequency conversion. The micro application can realize seven functions such as message notification, offline scan code and public number association. Among them, the user can realize the mutual jump between the wechat public account and the micro application through wechat association.
 
-In a word , MicroSteemit is an application which can be used without downloading while chatting with friends in wechat easily. Just by scanning the MicroSteemit QR code  can we commodiously surf on  the steemit community.
+In a word , MicroSteemit is an application which can be used without downloading while chatting with friends in wechat easily. Just by scanning the MicroSteemit QR code  can we commodiously surf on  the steemit community.     
 
-**But now , the MicroSteemit is still in developed phase .Of course you also can test the project in the wechat application tool .See the github project in detail.**
+Beta version :  
+
+![](https://steemitimages.com/DQmYJ6UGa7KsA8P39XywjasopHuWMnkLDPEkKJVAYLy43jE/image.png)   
+
 
 ------
 
@@ -35,18 +40,6 @@ In a word , MicroSteemit is an application which can be used without downloading
 - Show steem/sbd price market
 - Setting the gesture password
 - Setting up back-end server
-
-### **After finish the necessary function of the MicroSteemit , you all will be able to access to this new App by just scan the QR code **
-
-### **Please look forward to it .**
-
-
-
-## **Since so much restriction while applying the Micro Steemit on Wechat , i have to build up own server and apply for ICP record of the hostname.**
-
-## **In addition , i also must setup a white list.**
-
-## **So i will be a bit longer to put the app online .Sorry about that** !
 
 ---
 
