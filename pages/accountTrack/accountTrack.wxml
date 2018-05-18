@@ -5,10 +5,40 @@
     </canvas>
     <canvas class="circle" style="width:200px; height:200px;" canvas-id="canvasArcCir">
     </canvas>
-    <view class="draw_progress" >{{circleProgress}}%</view>
+    <view class="draw_progress">{{circleProgress}}%</view>
     <view class="draw_progress-title">loading...</view>
   </view>
 </view>
+<view class="choice-bar" hidden='{{!loadingProgress}}'>
+  <view bindtap="choiceItem" data-item="1" class="chioce-item chioce-item-first" hover-class="click-once-opaque">
+    <!-- <image class="icon-chioce" src="/images/icon/icon-chioce.png"></image> -->
+    <view class='chioce-item-content'>{{activeDateName}}</view>
+    <image class="icon-chioce" src="{{dateChioceIcon}}"></image>
+  </view>
+  <view bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">
+     <view class='chioce-item-content'>{{activeTypeName}}</view>
+    <image class="icon-chioce" src="{{typeChioceIcon}}"></image>
+  </view>
+  <view hidden='true' bindtap="choiceItem" data-item="3" class="chioce-item chioce-item-last" hover-class="click-once-opaque">筛选
+    
+  </view>
+  <view class="date-list{{!chioceDate?' chioce-list-hide':' chioce-list-show'}}">
+    <view wx:for="{{dateList}}" catchtap="selectDate" data-index="{{index}}" class="date-item" hover-class="click-once">{{item}}</view>
+  </view>
+  <view class="type-list{{!chioceType?' chioce-list-hide':' chioce-list-show'}}">
+    <view wx:for="{{typeList}}" catchtap="selectType" data-index="{{index}}" class="type-item" hover-class="click-once">{{item}}</view>
+  </view>
+  <view hidden='true' class="filter-list{{!chioceFilter?' chioce-list-hide':' chioce-list-show'}}">
+    <view wx:for="{{filterList}}" catchtap="selectFilter" data-index="{{index}}" class="filter-item" hover-class="click-once">{{item}}
+      <image hidden="{{!item.selected}}" class="icon-selected" src="/images/icon/icon-selected.png"></image>
+    </view>
+    <view class="filter-footer">
+      <button catchtap="resetFilter" plain="true" class="button-reset" type="default" size="mini" hover-class="click-once">重置</button>
+      <button catchtap="filterButtonClick" class="button-submit" type="primary" size="mini">确定</button>
+    </view>
+  </view>
+</view>
+
 <view class="operation-container" style="padding:0rpx" hidden='{{!loadingProgress}}'>
   <!--垂直滚动-->
   <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
@@ -32,7 +62,7 @@
           </view>
           <view class="op-timestamp">
             <view class="op-timestamp-box">
-              
+
               <text class="op-timestamp-title">timestamp：</text>
               <text class="op-timestamp-data">{{operation.timestamp}}</text>
             </view>
@@ -46,4 +76,6 @@
       加载中...
     </loading>
   </view>
+</view>
+<view bindtap="hideAllChioce" class="mask" hidden="{{!chioceDate&&!chioceType&&!chioceFilter}}">
 </view>
