@@ -1,0 +1,105 @@
+/* pages/calendar/calendar.wxss */
+.calendar-box{
+  top:5rpx;
+}
+.month{
+  background-color:beige;
+}
+.days-table {
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.calendar{
+  width: 100%;
+  position: fixed;
+  z-index:10000;
+  background:antiquewhite;
+  
+}
+.grid {
+  width: 107.14rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size:.7rem;
+  color:#2a2a2a;
+}
+.today {
+  color: #88a1fd;
+}
+.grid view {
+  height:85rpx;
+  line-height: 85rpx;
+  width:85rpx;
+}
+.choice view{
+  border-radius: 50%;
+  background: #88a1fd;
+  background-position:center;
+  color: white;
+}
+
+.notCurrent {
+  color: silver;
+}
+.day-hover {
+  background: red;
+}
+.swpier-box {
+  height: 550rpx;
+  width: 100%;
+}
+.arrow {
+  width: 100rpx;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.m-start {
+  justify-content: flex-start;
+}
+
+.m-end {
+  justify-content: flex-end;
+}
+
+.m-around {
+  justify-content: space-around;
+}
+.m-between {
+  justify-content: space-between;
+}
+.m-center {
+  justify-content: center;
+}
+
+.s-start {
+  align-items: flex-start;
+}
+.s-end {
+  align-items: flex-end;
+}
+
+.s-around {
+  align-items: space-around;
+}
+.s-between {
+  align-items: space-between;
+}
+.s-center {
+  align-items: center;
+}
+.diary-box{
+  position: fixed;
+  top:700rpx;
+  width: 100%;
+  height: 100%;
+  background-color:aliceblue;
+}
