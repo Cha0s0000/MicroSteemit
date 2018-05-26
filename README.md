@@ -14,7 +14,6 @@ Beta version :
 
 ![](https://steemitimages.com/DQmYJ6UGa7KsA8P39XywjasopHuWMnkLDPEkKJVAYLy43jE/image.png)   
 
-
 ------
 
 ## Existing features right now
@@ -79,85 +78,91 @@ Beta version :
 
 User page
 
-![图片.png](https://cdn.utopian.io/posts/de5b9ebf546e6649ca0442ee334f77baf44a图片.png)
+![](https://cdn.steemitimages.com/DQmNMPqDkeuvrog1xHVQQoydTF1DJuxzWaREGPhB7p2rdsd/image.png)
+
+![](https://cdn.steemitimages.com/DQmUMgFVJs6pVADGzGj4TpE8az2oPENFigezgwzVE2ecaRx/image.png)
 
 ---
 
 market page:
 
-![图片.png](https://cdn.utopian.io/posts/3ff83348712393a55f5c84ab9c2ddbe6cc12图片.png)
+![](https://cdn.steemitimages.com/DQmZtRUE3Zqhnm126RZbKqB2BsKCUk6zSPhbyyp3JAJhsGt/image.png)
+
+![](https://cdn.steemitimages.com/DQmPeUWzuTukiUuEKAk23L5R9ehrEePXP2FnatPSy1yszH5/image.png)
 
 ---
 
 posts page:
 
-![图片.png](https://cdn.utopian.io/posts/1481a9f72d52a74c7b9ac6c1da1303124360图片.png)
+![](https://cdn.steemitimages.com/DQmNMyvjWnzgiYoYqj2NfmsXN8eutcEc14sNyAiKnXiagj8/image.png)
 
 ---
 
 show trending tags:
 
-![图片.png](https://cdn.utopian.io/posts/fa28a450ab6b1f7dc5c3342acbc37b39c0c9图片.png)
+![](https://cdn.steemitimages.com/DQmW8gKq4Crq6phmUPkKex7JM26pZEBDZr8FWAiGVt61Cbx/image.png)
 
 ---
 
 search tags:
 
-![图片.png](https://cdn.utopian.io/posts/d6a583ec779226188a1a4e99ab64b4167291图片.png)
+![](https://cdn.steemitimages.com/DQmZWThntLukLfUPzz9x4CYxwdCG8x5ufEARrdxno4jBnD5/image.png)
 
 ---
 
 automatically identify tags:
 
-![图片.png](https://cdn.utopian.io/posts/5b54e755250838ce0415cf55306328bb917d图片.png)
+![](https://cdn.steemitimages.com/DQmcwCiHEzG37t767brH6NN4DLgypaDjdiDyxWTk83kJxs1/image.png)
 
 ---
 
 show posts of specific tag:
 
-![图片.png](https://cdn.utopian.io/posts/1fb1af365a39fb5b6e56555175e59691fe8c图片.png)
+![](https://cdn.steemitimages.com/DQmabTD9ui6hQ3LAzDBDckmXxFtCWPhhH6ZFmRMPWuuHJK5/image.png)
 
 ---
 
 show account profile:
 
-![图片.png](https://cdn.utopian.io/posts/cacc2933d66d447848abe4c4c81f194c1ef8图片.png)
+![](https://cdn.steemitimages.com/DQmWrdhak4b88GKQ2wspXSVGzKrtc6R3dxzruN7FCdrL3G1/image.png)
 
 ---
 
 show account feed:
 
-![图片.png](https://cdn.utopian.io/posts/d83c2a7e4b4a314487e803cc303261f2b376图片.png)
+![](https://cdn.steemitimages.com/DQmWQ1EPjx7rySm9ccV6heHE51uuDnkpnXEgW9dBiP8VQuN/image.png)
 
 ---
 
 show comments history:
 
-![图片.png](https://cdn.utopian.io/posts/53b3922801fb584f1a8ead196df8098e0670图片.png)
+![](https://cdn.steemitimages.com/DQmdQBvWHPe2jb8dWkWvGdfSXvmDW9JeFBBFZQJutoa1iPJ/image.png)
 
 ---
 
 show recent replies history:
 
-![图片.png](https://cdn.utopian.io/posts/03cc5c8e3d966b18b256312dec733f5d014e图片.png)
+![](https://cdn.steemitimages.com/DQmSBR4eq14qUj7Jm5HFAQQZB2gg28mdR6mNGbooWw8Erak/image.png)
 
 ---
 
 show voting history:
 
-![图片.png](https://cdn.utopian.io/posts/315c0b3f4ea11ef2e156723d8e29a52f7af2图片.png)
-
----
-
-show witness voting and transaction history:
-
-![图片.png](https://cdn.utopian.io/posts/1260d9076f0ab3d88dcc9645cec95fa3a63a图片.png)
+![](https://cdn.steemitimages.com/DQmTX1yJjzccdXKY7Y1wuz5ByQanrGds7Jhn5KzbCzjp1tD/image.png)
 
 ---
 
 setting gesture password:
 
-![图片.png](https://cdn.utopian.io/posts/f1914b03df643d88aacf3a5ce72501d5a9d2图片.png)
+![](https://cdn.steemitimages.com/DQmPjmd1Sk7LNuZtjJNGxDzQZ9KjTwVS1J1XXxjjRKUCW5Q/image.png)   
+
+----
+
+Account track:  
+
+![](https://cdn.steemitimages.com/DQmdsD3X85Fe8geKBGhJ7WEURp9artFWngvBeEFTHsiRB64/image.png)   
+![](https://cdn.steemitimages.com/DQmW2vSHaHhqqBLjHYnkEyUFti6fhZybEttwCAvkoEDhDBc/image.png)  
+![](https://cdn.steemitimages.com/DQmXCWPv6w5Nk2kVEiwRQ1fhsa7V3ine2uN9ffLFgXZ1fVL/image.png)
 
 ---
 
