@@ -1,0 +1,72 @@
+<!--pages/calendar/calendar.wxml-->
+<view class='calendar-box'>
+  <view class='month flex m-around'>
+      <view class='arrow' bindtap='prevMonth'> 《 </view>
+      <view>
+          <picker mode="date" value="{{date}}" start="2015-09" end="2020-09" fields='month' bindchange="bindDateChange">
+          <view>
+              {{date}}
+          </view>
+          </picker>
+      </view>
+      <view class='arrow' bindtap='nextMonth'> 》</view>
+  </view>
+  <view class='calendar flex column s-center'>
+    <view class='week-row flex m-around'>
+      <view class='grid' wx:for="{{week}}" wx:key='item'>{{item}}</view>
+    </view>
+    <swiper class='swpier-box' circular="true" current="{{swiperIndex}}" bindchange='swiperChange'>
+      <swiper-item class='flex m-around days-table '>
+        <view wx:for="{{calendar.first}}" wx:for-item='x' wx:key='x.date'
+          class='grid {{x.month === month?"":"notCurrent"}} {{x.date === today?"today":""}} {{x.date == beSelectDate ? "choice":""}}' data-month='{{x.month}}' data-day='{{x.day}}' data-date='{{x.date}}' bindtap='bindDayTap'>
+          <view>{{x.date === today?'今天':x.day}}</view>
+        </view>
+      </swiper-item>
+      <swiper-item class='flex m-around days-table '>
+        <view wx:for="{{calendar.second}}" wx:for-item='x' wx:key='x.date'
+          class='grid {{x.month === month?"":"notCurrent"}} {{x.date === today?"today":""}} {{x.date == beSelectDate ? "choice":""}}' data-month='{{x.month}}' data-day='{{x.day}}' data-date='{{x.date}}' data-test='{{(year + "-" +month + "-" + day)}}'  bindtap='bindDayTap'>
+          <view>{{x.date === today?'今天':x.day}}</view>
+        </view>
+      </swiper-item>
+      <swiper-item class='flex m-around days-table'>
+        <view wx:for="{{calendar.third}}" wx:for-item='x' wx:key='x.date'
+          class='grid {{x.month === month?"":"notCurrent"}} {{x.date === today?"today":""}} {{x.date == beSelectDate ? "choice":""}}' data-month='{{x.month}}' data-day='{{x.day}}' data-date='{{x.date}}' bindtap='bindDayTap'>
+          <view>{{x.date === today?'今天':x.day}}</view>
+        </view>
+      </swiper-item>
+      <swiper-item class='flex m-around days-table '>
+        <view wx:for="{{calendar.fourth}}" wx:for-item='x' wx:key='x.date'
+          class='grid {{x.month === month?"":"notCurrent"}} {{x.date === today?"today":""}} {{x.date == beSelectDate ? "choice":""}}' data-month='{{x.month}}' data-day='{{x.day}}' data-date='{{x.date}}' bindtap='bindDayTap'>
+          <view>{{x.date === today?'今天':x.day}}</view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+</view>
+<view class="diary-box">
+  <view class="header">
+    <image class="plus" src="../../images/icon/plus.png"/>
+    <input class="new-todo" value="{{ input }}" placeholder="Anything here..." auto-focus bindinput="inputChangeHandle" bindconfirm="addTodoHandle"/>
+  </view>
+  <block wx:if="{{ todos.length }}">
+    <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll" class="todos">
+      <!-- List items should get the class `completed` when marked as completed -->
+      <view class="item{{ item.completed ? ' completed' : '' }}" wx:for="{{ todos }}" wx:key="{{ index }}" bindtap="toggleTodoHandle" data-index="{{ index }}">
+        <!-- completed: success, todo: circle -->
+        <icon class="checkbox" type="{{ item.completed ? 'success' : 'circle' }}"/>
+        <text class="name">{{ item.name }}</text>
+        <icon class="remove" type="clear" size="16" catchtap="removeTodoHandle" data-index="{{ index }}"/>
+      </view>
+    </scroll-view>
+    <view class="footer">
+      <text class="btn" bindtap="toggleAllHandle">Toggle all</text>
+      <text wx:if="{{ leftCount }}">{{ leftCount }} {{ leftCount === 1 ? 'item' : 'items' }} left</text>
+      <text class="btn" wx:if="{{ todos.length > leftCount }}" bindtap="clearCompletedHandle">Clear completed</text>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="empty">
+      <text class="content">There's no diary.</text>
+    </view>
+  </block>
+</view>

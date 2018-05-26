@@ -1,0 +1,195 @@
+/* pages/calendar/calendar.wxss */
+.calendar-box{
+  top:5rpx;
+}
+.month{
+  background-color:beige;
+}
+.days-table {
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.calendar{
+  width: 100%;
+  position: fixed;
+  z-index:10000;
+  background:antiquewhite;
+  
+}
+.grid {
+  width: 107.14rpx;
+  height: 100rpx;
+  text-align: center;
+  line-height: 100rpx;
+  font-size:.7rem;
+  color:#2a2a2a;
+}
+.today {
+  color: #88a1fd;
+}
+.grid view {
+  height:85rpx;
+  line-height: 85rpx;
+  width:85rpx;
+}
+.choice view{
+  border-radius: 50%;
+  background: #88a1fd;
+  background-position:center;
+  color: white;
+}
+
+.notCurrent {
+  color: silver;
+}
+.day-hover {
+  background: red;
+}
+.swpier-box {
+  height: 500rpx; 
+  width: 100%;
+}
+.arrow {
+  width: 100rpx;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.m-start {
+  justify-content: flex-start;
+}
+
+.m-end {
+  justify-content: flex-end;
+}
+
+.m-around {
+  justify-content: space-around;
+}
+.m-between {
+  justify-content: space-between;
+}
+.m-center {
+  justify-content: center;
+}
+
+.s-start {
+  align-items: flex-start;
+}
+.s-end {
+  align-items: flex-end;
+}
+
+.s-around {
+  align-items: space-around;
+}
+.s-between {
+  align-items: space-between;
+}
+.s-center {
+  align-items: center;
+}
+ .diary-box{
+  padding: 30rpx;
+  border-top: 5rpx solid grey;
+  position: fixed;
+  top:650rpx;
+  left: 0rpx;
+  right: 0rpx;
+  height: 100%;
+  background-color:aliceblue;
+} 
+.header {
+  display: flex;
+  align-items: center;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 10rpx;
+  box-shadow: 0 0 5rpx #e0e0e0;
+  margin-bottom: 30rpx;
+  padding: 20rpx;
+}
+
+.header .plus {
+  width: 41rpx;
+  height: 41rpx;
+  margin-right: 20rpx;
+}
+
+.header .new-todo {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.todos {
+  border: 1rpx solid #e0e0e0;
+  border-radius: 10rpx;
+  box-shadow: 0 0 5rpx #e0e0e0;
+}
+
+.todos .item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx;
+  border-bottom: 1rpx solid #e0e0e0;
+}
+
+.todos .item:last-child {
+  border-bottom: 0;
+}
+
+.todos .item .checkbox {
+  margin-right: 20rpx;
+}
+
+.todos .item .name {
+  flex: 1;
+  font-size: 30rpx;
+  color: #444;
+}
+
+.todos .item.completed .name {
+  text-decoration: line-through;
+  color: #888;
+}
+/* 
+.todos .item .remove {
+  cursor: pointer;
+}
+*/
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 30rpx 0;
+  padding: 0 10rpx;
+  font-size: 26rpx;
+  color: #777;
+}
+/* 
+.footer .btn {
+  cursor: pointer;
+}
+*/
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty .title {
+  font-size: 60rpx;
+  margin: 50rpx 50rpx 50rpx;
+  color: #444;
+}
+
+.empty .content {
+  color: #666;
+  text-align: center;
+}
